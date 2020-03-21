@@ -1,6 +1,6 @@
 import tkinter as tk
-from layout import *
+import layout
 
 root = tk.Tk()
-app = Application(master=root)
+app = layout.Application(master=root)
 app.mainloop()
