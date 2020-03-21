@@ -1,6 +1,7 @@
 import tkinter as tk
-import layout
+import collage.layout
 
-root = tk.Tk()
-app = layout.Application(master=root)
-app.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = collage.layout.Application(master=root)
+    app.mainloop()
