@@ -9,8 +9,8 @@ with open('requirements.txt') as f:
 setuptools.setup(
     name="collage",
     version="0.0.1",
-    author="Alexandra Zhuravskaya, Satbek Turganbayev",
-    author_email="a.v.zhuravskaya@gmail.com, set.turg@mail.ru",
+    author="Alexandra Zhuravskaya, Satbek Turganbayev, Timur Kamalbekov",
+    author_email="a.v.zhuravskaya@gmail.com, set.turg@mail.ru, onymoth@gmail.com",
     description="Simple Collage Creating application",
     long_description=long_description,
     long_description_content_type="text/markdown",
