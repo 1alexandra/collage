@@ -1,14 +1,15 @@
-import collage.layout
+import collage.mainwindow
+import collage.textconfig
 import tkinter as tk
 
 
 def test_run_Application():
-    app = collage.layout.Application(master=tk.Tk())
+    app = collage.mainwindow.Application(master=tk.Tk())
     app.update()
     app.destroy()
 
 
 def test_run_TextConfigureApp():
-    app = collage.layout.TextConfigureApp(master=tk.Tk())
+    app = collage.textconfig.TextConfigureApp(master=tk.Tk())
     app.update()
     app.destroy()
