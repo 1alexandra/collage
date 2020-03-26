@@ -23,26 +23,20 @@ class Application(tk.Frame):
         self.create_canvas_frame(right_frame)
 
     def create_buttons(self, frame):
-        # TODO: bind command functions
         # TODO: add icons
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], 0, 0, 'news')
         bw = 10
-        self.undo_button = tk.Button(buttons_frame, text='Undo', width=bw)
-        self.redo_button = tk.Button(buttons_frame, text='Redo', width=bw)
-        self.load_button = tk.Button(buttons_frame, text='Load model', width=bw)
-        self.save_button = tk.Button(buttons_frame, text='Save model', width=bw)
-        self.save2_button = tk.Button(buttons_frame, text='Save as...', width=bw)
-        self.print_button = tk.Button(buttons_frame, text='Print', width=bw)
-        buttons = [
-            self.undo_button,
-            self.redo_button,
-            self.load_button,
-            self.save_button,
-            self.save2_button,
-            self.print_button
+        text_commands = [
+            ('Undo', self.undo_command),
+            ('Redo', self.redo_command),
+            ('Load', self.load_command),
+            ('Save', self.save_command),
+            ('Save as...', self.save_as_command),
+            ('Print', self.print_command)
         ]
-        for i, button in enumerate(buttons):
+        for i, (text, command) in enumerate(text_commands):
+            button = tk.Button(buttons_frame, text=text, command=command, width=bw)
             button.grid(row=i // 2, column=i % 2, sticky='new')
 
     def create_entries(self, frame):
@@ -104,6 +98,24 @@ class Application(tk.Frame):
         self.collage = tk.Canvas(frame, bg='white')
         self.collage.grid(row=1, column=1)
         self.change_canvas_parameters(None)
+
+    def undo_command(self):
+        pass
+
+    def redo_command(self):
+        pass
+
+    def load_command(self):
+        pass
+
+    def save_command(self):
+        pass
+
+    def save_as_command(self):
+        pass
+
+    def print_command(self):
+        pass
 
     def change_canvas_parameters(self, event):
         self.collage['width'] = int(self.width_entry.get())
