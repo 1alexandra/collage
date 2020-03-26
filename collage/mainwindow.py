@@ -7,6 +7,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.collage = None
         self.collage_width = tk.StringVar(master, '300')
         self.collage_height = tk.StringVar(master, '300')
         self.collage_margin = tk.StringVar(master, '3')
@@ -44,7 +45,7 @@ class Application(tk.Frame):
             button.grid(row=i // 2, column=i % 2, sticky='new')
 
     def create_entries(self, frame, row, col):
-        # TODO: add validation functions to entries
+        # TODO: add validation functions
         entries_frame = tk.Frame(frame, bd=10)
         grid_frame(entries_frame, [0, 1, 2, 3], [0, 1], row, col, 'news')
         variables = {
@@ -61,31 +62,30 @@ class Application(tk.Frame):
 
     def create_change_buttons(self, frame, row, col):
         button_frame = tk.Frame(frame, bd=10)
-        grid_frame(button_frame, [], [0, 1], row, col, 'news')
+        grid_frame(button_frame, [], [0], row, col, 'news')
         commands = {
             'Change parameters': self.change_canvas_parameters,
             'Add text...': self.open_text_window
         }
         for i, (text, command) in enumerate(commands.items()):
             button = tk.Button(button_frame, text=text, command=command, padx=5, pady=5)
-            button.grid(row=0, column=i, sticky='new')
+            button.grid(row=i, column=0, sticky='new')
 
     def create_canvas_frame(self, frame, row, col):
         # TODO: add two scrolling bars to canvas_frame
-        # TODO: bind commands
         canvas_frame = tk.Frame(frame, bd=10)
         grid_frame(canvas_frame, [0, 2], [0, 2], row, col, 'news')
-
-        self.add_left = tk.Button(canvas_frame, text='+')
-        self.add_right = tk.Button(canvas_frame, text='+')
-        self.add_up = tk.Button(canvas_frame, text='+')
-        self.add_down = tk.Button(canvas_frame, text='+')
-
-        self.add_left.grid(row=1, column=0, sticky='nes')
-        self.add_right.grid(row=1, column=2, sticky='nws')
-        self.add_up.grid(row=0, column=1, sticky='ews')
-        self.add_down.grid(row=2, column=1, sticky='new')
-
+        compass = {
+            'n': (-1, 0),
+            'e': (0, 1),
+            'w': (0, -1),
+            's': (1, 0)
+        }
+        for key, (row, col) in compass.items():
+            sticky = 'news'.replace(key, '')
+            button = tk.Button(canvas_frame, text='+', command=self.get_add_photo_command(key))
+            button.grid(row=row+1, column=col+1, sticky=sticky)
+        # TODO: create Collage class object
         self.collage = tk.Canvas(canvas_frame, bg='white')
         self.collage.grid(row=1, column=1)
         self.change_canvas_parameters()
@@ -109,9 +109,9 @@ class Application(tk.Frame):
         pass
 
     def change_canvas_parameters(self):
+        # TODO: get margin and corner
         self.collage['width'] = int(self.collage_width.get())
         self.collage['height'] = int(self.collage_height.get())
-        # TODO: get margin and corner
 
     def open_text_window(self):
         # Output: tk.canvas object
@@ -119,3 +119,11 @@ class Application(tk.Frame):
         window = TextConfigureApp(master=root)
         window.mainloop()
         return window.get_return()
+
+    def add_photo(self, where):
+        pass
+
+    def get_add_photo_command(self, where):
+        def add_photo_command():
+            self.add_photo(where)
+        return add_photo_command
