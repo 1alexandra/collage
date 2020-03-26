@@ -13,7 +13,7 @@ class TextConfigureApp(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        grid_frame(self.master, [0], [0], None, None, None)
+        grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [0], 0, 0, 'news')
         frame = tk.Frame(self, padx=10, pady=10)
         grid_frame(frame, [0, 1], [0, 1], 0, 0, 'news')

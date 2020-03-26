@@ -1,6 +1,8 @@
-def grid_frame(frame, frame_rows=[0], frame_cols=[0], origin_row=0, origin_column=0, origin_sticky='snwe'):
-    if origin_row is not None and origin_column is not None and origin_sticky is not None:
-        frame.grid(row=origin_row, column=origin_column, sticky=origin_sticky)
+def grid_frame(frame, frame_rows=[0], frame_cols=[0], parent_row=0, parent_column=0, frame_sticky='snwe', is_root=False):
+    if is_root:
+        frame.grid()
+    else:
+        frame.grid(row=parent_row, column=parent_column, sticky=frame_sticky)
     for row in frame_rows:
         frame.rowconfigure(row, weight=1)
     for col in frame_cols:

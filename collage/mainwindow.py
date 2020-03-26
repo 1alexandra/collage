@@ -10,7 +10,7 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        grid_frame(self.master, [0], [0], None, None, None)
+        grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [1])
         left_frame = tk.LabelFrame(self, text='Menu', padx=10, pady=10)
         grid_frame(left_frame, [0, 1, 2], [0], 0, 0, 'nw')
