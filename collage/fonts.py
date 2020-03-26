@@ -1,13 +1,12 @@
+from os import sep
 from matplotlib import font_manager
-import numpy as np
 
 
 def get_system_fonts():
-    fonts = []
+    fonts = set()
     for x in font_manager.findSystemFonts():
-        x = x[::-1]
-        dot = x.find('.')
-        slash = x.find('\\')
-        x = x[slash-1:dot:-1]
-        fonts += [x]
-    return np.unique(fonts)
+        dot = x.rfind('.')
+        slash = x.rfind(sep)
+        x = x[slash+1:dot]
+        fonts.add(x)
+    return sorted(fonts)

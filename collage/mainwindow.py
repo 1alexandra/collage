@@ -12,10 +12,8 @@ class Application(tk.Frame):
     def create_widgets(self):
         grid_frame(self.master, [0], [0], None, None, None)
         grid_frame(self, [0], [1])
-        # TODO: stick to up-left bottom
         left_frame = tk.LabelFrame(self, text='Menu', padx=10, pady=10)
         grid_frame(left_frame, [0, 1, 2], [0], 0, 0, 'nw')
-        # TODO: stick to all sides
         right_frame = tk.Frame(self, padx=10, pady=10)
         grid_frame(right_frame, [1], [1], 0, 1, 'news')
 
