@@ -17,17 +17,17 @@ class Application(tk.Frame):
     def create_widgets(self):
         grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [1])
-        left_frame = tk.LabelFrame(self, text='Menu', padx=10, pady=10)
+        left_frame = tk.LabelFrame(self, text='Menu')
         grid_frame(left_frame, [0, 1, 2], [0], 0, 0, 'nw')
-        right_frame = tk.Frame(self, padx=10, pady=10)
+        right_frame = tk.Frame(self)
         grid_frame(right_frame, [0], [0], 0, 1, 'news')
 
-        self.create_buttons(left_frame, 0, 0)
+        self.create_menu_buttons(left_frame, 0, 0)
         self.create_entries(left_frame, 1, 0)
-        self.create_add_text_button(left_frame, 2, 0)
+        self.create_change_buttons(left_frame, 2, 0)
         self.create_canvas_frame(right_frame, 0, 0)
 
-    def create_buttons(self, frame, row, col):
+    def create_menu_buttons(self, frame, row, col):
         # TODO: add icons
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], row, col, 'news')
@@ -58,14 +58,17 @@ class Application(tk.Frame):
             entry = tk.Entry(entries_frame, textvariable=variable, width=10)
             label.grid(row=i, column=0, sticky='e')
             entry.grid(row=i, column=1, sticky='w')
-        button = tk.Button(entries_frame, text="Change parameters", command=self.change_canvas_parameters)
-        button.grid(row=len(variables), column=0, columnspan=2, sticky='new')
 
-    def create_add_text_button(self, frame, row, col):
-        text_button_frame = tk.Frame(frame, bd=10)
-        grid_frame(text_button_frame, [0], [0], row, col, 'news')
-        self.text_button = tk.Button(text_button_frame, text="Add text...", command=self.open_text_window, padx=5, pady=5)
-        self.text_button.grid()
+    def create_change_buttons(self, frame, row, col):
+        button_frame = tk.Frame(frame, bd=10)
+        grid_frame(button_frame, [], [0, 1], row, col, 'news')
+        commands = {
+            'Change parameters': self.change_canvas_parameters,
+            'Add text...': self.open_text_window
+        }
+        for i, (text, command) in enumerate(commands.items()):
+            button = tk.Button(button_frame, text=text, command=command, padx=5, pady=5)
+            button.grid(row=0, column=i, sticky='new')
 
     def create_canvas_frame(self, frame, row, col):
         # TODO: add two scrolling bars to canvas_frame
