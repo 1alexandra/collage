@@ -7,6 +7,11 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.collage_width = tk.StringVar(master, '300')
+        self.collage_height = tk.StringVar(master, '300')
+        self.collage_margin = tk.StringVar(master, '3')
+        self.collage_corner = tk.StringVar(master, '0')
+
         self.create_widgets()
 
     def create_widgets(self):
@@ -26,62 +31,42 @@ class Application(tk.Frame):
         # TODO: add icons
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], 0, 0, 'news')
-        bw = 10
-        text_commands = [
-            ('Undo', self.undo_command),
-            ('Redo', self.redo_command),
-            ('Load', self.load_command),
-            ('Save', self.save_command),
-            ('Save as...', self.save_as_command),
-            ('Print', self.print_command)
-        ]
-        for i, (text, command) in enumerate(text_commands):
-            button = tk.Button(buttons_frame, text=text, command=command, width=bw)
+        commands = {
+            'Undo': self.undo_command,
+            'Redo': self.redo_command,
+            'Load': self.load_command,
+            'Save': self.save_command,
+            'Save as...': self.save_as_command,
+            'Print': self.print_command
+        }
+        for i, (text, command) in enumerate(commands.items()):
+            button = tk.Button(buttons_frame, text=text, command=command, width=10)
             button.grid(row=i // 2, column=i % 2, sticky='new')
 
     def create_entries(self, frame):
-        # TODO: add validation functions
+        # TODO: add validation functions to entries
         entries_frame = tk.Frame(frame, bd=10)
         grid_frame(entries_frame, [0, 1, 2, 3], [0, 1], 1, 0, 'news')
-        px = 5
-
-        bw = 10
-        self.width_label = tk.Label(entries_frame, text="Width in pixels", padx=px)
-        self.width_entry = tk.Entry(entries_frame, width=bw)
-        self.width_entry.insert(0, '300')
-
-        self.height_label = tk.Label(entries_frame, text="Height in pixels", padx=px)
-        self.height_entry = tk.Entry(entries_frame, width=bw)
-        self.height_entry.insert(0, '300')
-
-        self.margin_label = tk.Label(entries_frame, text="Margin in pixels", padx=px)
-        self.margin_entry = tk.Entry(entries_frame, width=bw)
-        self.margin_entry.insert(0, '3')
-
-        self.corner_label = tk.Label(entries_frame, text="Corner curvature (0-1)", padx=px)
-        self.corner_entry = tk.Entry(entries_frame, width=bw)
-        self.corner_entry.insert(0, '0')
-
-        labels_entries = [
-            (self.width_label, self.width_entry),
-            (self.height_label, self.height_entry),
-            (self.margin_label, self.margin_entry),
-            (self.corner_label, self.corner_entry)
-        ]
-        for i, (label, entry) in enumerate(labels_entries):
+        variables = {
+            'Width in pixels': self.collage_width,
+            'Height in pixels': self.collage_height,
+            'Margin in pixels': self.collage_margin,
+            'Corner curvature (0-1)': self.collage_corner
+        }
+        for i, (text, variable) in enumerate(variables.items()):
+            label = tk.Label(entries_frame, text=text, padx=5)
+            entry = tk.Entry(entries_frame, width=10, textvariable=variable)
             label.grid(row=i, column=0, sticky='e')
             entry.grid(row=i, column=1, sticky='w')
 
-        self.get_entry_button = tk.Button(entries_frame, text="Change parameters")
-        self.get_entry_button.grid(row=4, column=0, columnspan=2, sticky='new')
-        self.get_entry_button.bind('<Button-1>', self.change_canvas_parameters)
+        button = tk.Button(entries_frame, text="Change parameters", command=self.change_canvas_parameters)
+        button.grid(row=len(variables), column=0, columnspan=2, sticky='new')
 
     def create_add_text_button(self, frame):
         text_button_frame = tk.Frame(frame, bd=10)
         grid_frame(text_button_frame, [0], [0], 2, 0, 'news')
-        self.text_button = tk.Button(text_button_frame, text="Add text...", padx=5, pady=5)
+        self.text_button = tk.Button(text_button_frame, text="Add text...", command=self.open_text_window, padx=5, pady=5)
         self.text_button.grid()
-        self.text_button.bind('<Button-1>', self.open_text_window)
 
     def create_canvas_frame(self, frame):
         # TODO: bind commands
@@ -97,7 +82,7 @@ class Application(tk.Frame):
 
         self.collage = tk.Canvas(frame, bg='white')
         self.collage.grid(row=1, column=1)
-        self.change_canvas_parameters(None)
+        self.change_canvas_parameters()
 
     def undo_command(self):
         pass
@@ -117,12 +102,12 @@ class Application(tk.Frame):
     def print_command(self):
         pass
 
-    def change_canvas_parameters(self, event):
-        self.collage['width'] = int(self.width_entry.get())
-        self.collage['height'] = int(self.height_entry.get())
+    def change_canvas_parameters(self):
+        self.collage['width'] = int(self.collage_width.get())
+        self.collage['height'] = int(self.collage_height.get())
         # TODO: get margin and corner
 
-    def open_text_window(self, event):
+    def open_text_window(self):
         # Output: tk.canvas object
         root = tk.Tk()
         window = TextConfigureApp(master=root)
