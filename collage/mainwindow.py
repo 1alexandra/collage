@@ -1,6 +1,8 @@
 import tkinter as tk
 from collage.textconfig import TextConfigureApp
 from collage.grid import grid_frame
+from collage.Collage import Collage
+from tkinter import filedialog
 
 
 class Application(tk.Frame):
@@ -8,10 +10,10 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.collage = None
-        self.collage_width = tk.StringVar(master, '300')
-        self.collage_height = tk.StringVar(master, '300')
-        self.collage_margin = tk.StringVar(master, '3')
-        self.collage_corner = tk.StringVar(master, '0')
+        self.collage_width = tk.IntVar(master, 300)
+        self.collage_height = tk.IntVar(master, 300)
+        self.collage_margin = tk.IntVar(master, 3)
+        self.collage_corner = tk.DoubleVar(master, 0)
 
         self.create_widgets()
 
@@ -84,11 +86,19 @@ class Application(tk.Frame):
         for key, (row, col) in compass.items():
             sticky = 'news'.replace(key, '')
             button = tk.Button(canvas_frame, text='+', command=self.get_add_photo_command(key))
-            button.grid(row=row+1, column=col+1, sticky=sticky)
+            button.grid(row=row + 1, column=col + 1, sticky=sticky)
         # TODO: create Collage class object
-        self.collage = tk.Canvas(canvas_frame, bg='white')
+        self.collage = Collage(
+            margin=self.collage_margin.get(),
+            master_args=[canvas_frame],
+            master_kwargs={
+                "bg": "white",
+                "height": self.collage_height.get(),
+                "width": self.collage_width.get(),
+            }
+        )
+        # collage will be placed on the center of the widget
         self.collage.grid(row=1, column=1)
-        self.change_canvas_parameters()
 
     def undo_command(self):
         pass
@@ -110,8 +120,8 @@ class Application(tk.Frame):
 
     def change_canvas_parameters(self):
         # TODO: get margin and corner
-        self.collage['width'] = int(self.collage_width.get())
-        self.collage['height'] = int(self.collage_height.get())
+        self.collage['width'] = self.collage_width.get()
+        self.collage['height'] = self.collage_height.get()
 
     def open_text_window(self):
         # Output: tk.canvas object
@@ -121,7 +131,16 @@ class Application(tk.Frame):
         return window.get_return()
 
     def add_photo(self, where):
-        pass
+        filename = filedialog.askopenfilename(
+            title="Select file",
+            filetypes=(
+                ("image files", ("*.jpg", "*.png", "*.gif", "*.jpeg", "*.tiff", "*.bmp")),
+            )
+        )
+
+        # file was not selected
+        if filename != "":
+            self.collage.add_image(filename, where)
 
     def get_add_photo_command(self, where):
         def add_photo_command():
