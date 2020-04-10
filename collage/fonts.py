@@ -7,6 +7,6 @@ def get_system_fonts():
     for x in font_manager.findSystemFonts():
         dot = x.rfind('.')
         slash = x.rfind(sep)
-        x = x[slash+1:dot]
+        x = x[slash + 1:dot]
         fonts.add(x)
     return sorted(fonts)
