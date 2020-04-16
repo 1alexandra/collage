@@ -2,21 +2,12 @@ import tkinter as tk
 import tkinter.messagebox as messagebox
 import PIL
 from collage.CollageImage import PILCollageImage
-from collage.CornerCreator import CornerCreator
 
 
 class Collage(tk.Canvas):
-    def __init__(
-        self,
-        margin,
-        corner_width,
-        corner_curve,
-        master_args,
-        master_kwargs
-    ):
+    def __init__(self, margin, master_args, master_kwargs):
         super().__init__(*master_args, **master_kwargs)
         self.margin = margin
-        self.corner_creator = CornerCreator(corner_width, corner_curve)
 
         # TODO class to manage images
         self.images = dict()
@@ -42,7 +33,6 @@ class Collage(tk.Canvas):
                 ],
                 self.winfo_width() - self.margin,
                 self.winfo_height() - self.margin,
-                self.corner_creator,
                 self
             )
         except PIL.UnidentifiedImageError:
@@ -60,7 +50,3 @@ class Collage(tk.Canvas):
     def resize_event_handler(self, event):
         if self.image is not None:
             self.image.resize((event.width, event.height))
-
-    def update_corners(self):
-        if self.image is not None:
-            self.image.update_corners()

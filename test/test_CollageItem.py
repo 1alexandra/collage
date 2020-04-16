@@ -5,12 +5,12 @@ import pytest
 
 @pytest.fixture()
 def collage_item():
-    collage = Collage(1, [], {})
+    collage = Collage(1, 1, 1, [], {})
     return CollageItem(collage.create_rectangle(0, 0, 0, 0), collage)
 
 
 def test_Id():
-    collage = Collage(1, [], {})
+    collage = Collage(1, 1, 1, [], {})
     id = collage.create_rectangle(0, 0, 0, 0)
     item = CollageItem(id, collage)
     assert item.Id == id
