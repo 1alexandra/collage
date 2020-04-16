@@ -1,6 +1,5 @@
 from collage.Collage import Collage
 from collage.CollageImage import PILCollageImage
-from PIL import ImageTk, Image
 import pytest
 import os
 
