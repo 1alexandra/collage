@@ -1,8 +1,8 @@
 import tkinter as tk
-from collage.textconfig import TextConfigureApp
-from collage.grid import grid_frame
-from collage.Collage import Collage
 from tkinter import filedialog
+from src.textconfig import TextConfigureApp
+from src.grid import grid_frame
+from src.Collage import Collage
 
 
 class Application(tk.Frame):

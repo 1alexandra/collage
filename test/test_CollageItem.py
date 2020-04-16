@@ -1,5 +1,5 @@
-from collage.CollageItem import CollageItem
-from collage.Collage import Collage
+from src.CollageItem import CollageItem
+from src.Collage import Collage
 import pytest
 
 

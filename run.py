@@ -1,7 +1,7 @@
 import tkinter as tk
-import collage.mainwindow
+from src.mainwindow import Application
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = collage.mainwindow.Application(master=root)
+    app = Application(master=root)
     app.mainloop()

@@ -1,6 +1,7 @@
-from collage.Collage import Collage
-from collage.CollageImage import PILCollageImage
-from collage.CornerCreator import CornerCreator
+from src.Collage import Collage
+from src.CollageImage import PILCollageImage
+from src.CornerCreator import CornerCreator
+
 import pytest
 import os
 

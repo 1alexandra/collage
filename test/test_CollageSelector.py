@@ -1,6 +1,6 @@
-from collage.Collage import Collage
-from collage.CollageItem import CollageItem
-from collage.CollageSelector import CollageSelector
+from src.Collage import Collage
+from src.CollageItem import CollageItem
+from src.CollageSelector import CollageSelector
 import pytest
 
 

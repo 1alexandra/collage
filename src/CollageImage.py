@@ -1,5 +1,5 @@
 from PIL import ImageTk, Image
-from collage.CollageItem import CollageItem
+from src.CollageItem import CollageItem
 
 
 class PILCollageImage(CollageItem):
