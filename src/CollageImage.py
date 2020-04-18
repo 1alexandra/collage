@@ -63,4 +63,3 @@ class PILCollageImage(CollageItem):
         img.putalpha(alpha)
         self.PIL_image = img
         self.collage.itemconfig(self.Id, image=self.PhotoImage)
-        self.reset_selection()

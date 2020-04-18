@@ -125,8 +125,8 @@ class Application(tk.Frame):
         self.collage['width'] = self.collage_width.get()
         self.collage['height'] = self.collage_height.get()
         self.collage.margin = self.collage_margin.get()
-        self.collage.corner_creator.width = self.corner_width.get()
-        self.collage.corner_creator.curve = self.corner_curve.get()
+        self.collage.corner_creator.Width = self.corner_width.get()
+        self.collage.corner_creator.Curve = self.corner_curve.get()
         self.collage.update_corners()
 
     def open_text_window(self):
