@@ -1,8 +1,8 @@
 import tkinter as tk
-from collage.textconfig import TextConfigureApp
-from collage.grid import grid_frame
-from collage.Collage import Collage
 from tkinter import filedialog
+from src.textconfig import TextConfigureApp
+from src.grid import grid_frame
+from src.Collage import Collage
 
 
 class Application(tk.Frame):
@@ -13,7 +13,8 @@ class Application(tk.Frame):
         self.collage_width = tk.IntVar(master, 300)
         self.collage_height = tk.IntVar(master, 300)
         self.collage_margin = tk.IntVar(master, 3)
-        self.collage_corner = tk.DoubleVar(master, 0)
+        self.corner_width = tk.IntVar(master, 30)
+        self.corner_curve = tk.DoubleVar(master, 0.2)
 
         self.create_widgets()
 
@@ -54,7 +55,8 @@ class Application(tk.Frame):
             'Width in pixels': self.collage_width,
             'Height in pixels': self.collage_height,
             'Margin in pixels': self.collage_margin,
-            'Corner curvature (0-1)': self.collage_corner
+            'Corner size in pixels': self.corner_width,
+            'Corner curvature (0-1)': self.corner_curve
         }
         for i, (text, variable) in enumerate(variables.items()):
             label = tk.Label(entries_frame, text=text, padx=5)
@@ -87,9 +89,10 @@ class Application(tk.Frame):
             sticky = 'news'.replace(key, '')
             button = tk.Button(canvas_frame, text='+', command=self.get_add_photo_command(key))
             button.grid(row=row + 1, column=col + 1, sticky=sticky)
-        # TODO: create Collage class object
         self.collage = Collage(
             margin=self.collage_margin.get(),
+            corner_width=self.corner_width.get(),
+            corner_curve=self.corner_curve.get(),
             master_args=[canvas_frame],
             master_kwargs={
                 "bg": "white",
@@ -119,9 +122,12 @@ class Application(tk.Frame):
         pass
 
     def change_canvas_parameters(self):
-        # TODO: get margin and corner
         self.collage['width'] = self.collage_width.get()
         self.collage['height'] = self.collage_height.get()
+        self.collage.margin = self.collage_margin.get()
+        self.collage.corner_creator.Width = self.corner_width.get()
+        self.collage.corner_creator.Curve = self.corner_curve.get()
+        self.collage.update_corners()
 
     def open_text_window(self):
         # Output: tk.canvas object

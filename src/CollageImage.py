@@ -1,5 +1,5 @@
 from PIL import ImageTk, Image
-from collage.CollageItem import CollageItem
+from src.CollageItem import CollageItem
 
 
 class PILCollageImage(CollageItem):
@@ -9,8 +9,11 @@ class PILCollageImage(CollageItem):
         coords,
         width,
         height,
+        corner_creator,
         collage,
     ):
+        self.collage = collage
+        self.corners = corner_creator
         self.PIL_image = Image.open(filename)
         self.original = Image.open(filename)
         id = collage.create_image(
@@ -25,8 +28,7 @@ class PILCollageImage(CollageItem):
         size – The requested size in pixels, as a 2-tuple: (width, height).
         """
         self.PIL_image = self.original.resize(size)
-        self.collage.itemconfig(self.Id, image=self.PhotoImage)
-        self.reset_selection()
+        self.update_corners()
 
     PIL_image = property()
     PhotoImage = property()
@@ -37,6 +39,10 @@ class PILCollageImage(CollageItem):
     def PIL_image(self, value):
         self.pil_image = value
         self.photo_image = ImageTk.PhotoImage(self.pil_image)
+
+    @PIL_image.getter
+    def PIL_image(self):
+        return self.pil_image
 
     @PhotoImage.getter
     def PhotoImage(self):
@@ -49,3 +55,11 @@ class PILCollageImage(CollageItem):
     @Height.getter
     def Height(self):
         return self.photo_image.height()
+
+    def update_corners(self):
+        size = self.PIL_image.size
+        img = self.original.resize(size)
+        alpha = self.corners.get_alpha(size)
+        img.putalpha(alpha)
+        self.PIL_image = img
+        self.collage.itemconfig(self.Id, image=self.PhotoImage)

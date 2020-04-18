@@ -1,12 +1,12 @@
-from collage.Collage import Collage
-from collage.CollageItem import CollageItem
-from collage.CollageSelector import CollageSelector
+from src.Collage import Collage
+from src.CollageItem import CollageItem
+from src.CollageSelector import CollageSelector
 import pytest
 
 
 @pytest.fixture()
 def selector():
-    collage = Collage(0, [], {})
+    collage = Collage(0, 1, 1, [], {})
     item = CollageItem(collage.create_rectangle(1, 1, 3, 3), collage)
     selector = CollageSelector(item)
     return selector

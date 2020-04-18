@@ -1,4 +1,4 @@
-from collage.CollageSelector import CollageSelector
+from src.CollageSelector import CollageSelector
 
 
 class CollageItem():
