@@ -2,3 +2,6 @@ env
 __pycache__
 .pytest_cache
 collage.egg-info
+build
+dist
+!docs/build
