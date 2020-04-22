@@ -3,6 +3,18 @@ from PIL import Image, ImageFilter
 
 
 class CornerCreator:
+    """Create corners with a given curvature from 0 to 1.
+
+    ``Curve``:
+    - 0: no corners,
+    - from 0 to 0.5: hyperbolic convex corners,
+    - 0.5: linear corners,
+    - from 0.5 to 1: hyperbolic concave corners,
+    - 1: square corner.
+
+    ``Width``:
+        defines corner size (Width x Width).
+    """
     def __init__(self, corner_width, corner_curvature):
         self.Width = corner_width
         self.Curve = corner_curvature
@@ -62,7 +74,7 @@ class CornerCreator:
         return self.hyperbole(x)
 
     def get_corner(self):
-        """Return boolean array Width*widht with corner."""
+        """Return boolean array with (Width x Widht) corner."""
         r = self.Width
         corner = np.ones((r, r))
         for i in range(r):
@@ -71,7 +83,7 @@ class CornerCreator:
         return np.logical_or(corner, corner.T)
 
     def apply_corner(self, arr, corner):
-        """Apply corner mask to all four arr corners."""
+        """Apply corner mask to all four arr corners with correct rotation."""
         r = self.Width
 
         arr[:r, :r] = np.logical_and(arr[:r, :r], corner)
@@ -96,7 +108,9 @@ class CornerCreator:
         mask[:, -1] = 0
 
     def get_alpha(self, size):
-        """Return PIL Image alpha channel with 0 in corners and boundary."""
+        """Return PIL Image alpha channel with 0 in corners and boundary.
+        
+        If size < 2.1 * Width, the corners don't appear."""
         h, w = size
         if w <= 0 or h <= 0:
             return np.array([])
