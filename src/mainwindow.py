@@ -12,9 +12,10 @@ class Application(tk.Frame):
     
     The **menu** contains control buttons and fields for entering collage
     parameters:
-    - ``Undo``, ``Redo``, ``Load``, ``Save``, ``Save as...``, ``Print``
+
+    - ``Undo``, ``Redo``, ``Load``, ``Save``, ``Save as...``, ``Print`` \
     buttons at the top,
-    - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature``
+    - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature`` \
     entries in the middle,
     - ``Change parameters``, ``Add text`` buttons below it.
     
@@ -160,6 +161,7 @@ class Application(tk.Frame):
         """Run file system dialog and place photo on collage.
         
         ``where`` values:
+        
         - 's' is South (upper side),
         - 'n' is North (down side),
         - 'w' is West (left side),

@@ -16,9 +16,10 @@ class TextConfigureApp(tk.Frame):
     - text redactor,
     - font chooser,
     - canvas with an intermediate result,
-    - font parameters input fields: italic, bold, underlined checkboxes
+    - font parameters input fields: italic, bold, underlined checkboxes \
     and font size entry,
     - buttons block: ``Change color...``, ``Try font``, ``OK`` buttons.
+
     """
     def __init__(self, master=None):
         super().__init__(master)
