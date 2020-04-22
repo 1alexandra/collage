@@ -5,9 +5,9 @@ from PIL import Image, ImageFilter
 class CornerCreator:
     """Create corners with a given curvature from ``0`` to ``1``.
 
-    Corners size is defined by ``corner_width``. 
+    Corners size is defined by ``corner_width``.
     Type of corners are defined by ``corner_curvature``:
-    
+
     - ``0``: no corners,
     - from ``0`` to ``0.5``: hyperbolic convex corners,
     - ``0.5``: linear corners,
@@ -111,7 +111,7 @@ class CornerCreator:
 
     def get_alpha(self, size):
         """Return ``PIL Image`` alpha channel with 0 in corners and boundary.
-        
+
         If ``size < 2.1 Width``, the corners don't appear."""
         h, w = size
         if w <= 0 or h <= 0:

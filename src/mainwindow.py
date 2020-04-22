@@ -9,7 +9,7 @@ class Application(tk.Frame):
     """Simple Collage Creator application main window.
 
     The window consists of two frames: **menu** and **workspace**.
-    
+
     The **menu** contains control buttons and fields for entering collage
     parameters:
 
@@ -18,7 +18,7 @@ class Application(tk.Frame):
     - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature`` \
     entries in the middle,
     - ``Change parameters``, ``Add text`` buttons below it.
-    
+
     The **workspace** contains ``Collage`` object in the middle and four buttons
     for adding photos (one on each side).
     """
@@ -159,14 +159,14 @@ class Application(tk.Frame):
 
     def add_photo(self, where):
         """Run file system dialog and place photo on collage.
-        
+
         ``where`` values:
-        
+
         - 's' is South (upper side),
         - 'n' is North (down side),
         - 'w' is West (left side),
         - 'e' is East (right side).
-        
+
         Adding a photo from one side of the collage border.
         In this case, the new cell appears on this side of the collage and
         takes up half of the collage regardless of size. All previously

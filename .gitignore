@@ -4,4 +4,5 @@ __pycache__
 collage.egg-info
 build
 dist
-!docs/build
+_templates
+_static
