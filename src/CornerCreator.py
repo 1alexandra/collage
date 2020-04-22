@@ -3,24 +3,24 @@ from PIL import Image, ImageFilter
 
 
 class CornerCreator:
-    """Create corners with a given curvature from 0 to 1.
+    """Create corners with a given curvature from ``0`` to ``1``.
 
-    ``Curve``:
-    - 0: no corners,
-    - from 0 to 0.5: hyperbolic convex corners,
-    - 0.5: linear corners,
-    - from 0.5 to 1: hyperbolic concave corners,
-    - 1: square corner.
+    Corners size is defined by ``corner_width``. 
+    Type of corners are defined by ``corner_curvature``:
+    
+    - ``0``: no corners,
+    - from ``0`` to ``0.5``: hyperbolic convex corners,
+    - ``0.5``: linear corners,
+    - from ``0.5`` to ``1``: hyperbolic concave corners,
+    - ``1``: square corner.
 
-    ``Width``:
-        defines corner size (Width x Width).
     """
     def __init__(self, corner_width, corner_curvature):
         self.Width = corner_width
         self.Curve = corner_curvature
 
-    Width = property()
-    Curve = property()
+    Width = property(doc="Defines corner size (``Width x Width``).")
+    Curve = property(doc="Corner curvature from ``0`` to ``1``.")
 
     @Width.getter
     def Width(self):
@@ -39,11 +39,12 @@ class CornerCreator:
         self._curve = max(min(value, 1), 0)
 
     def linear(self, x):
-        """Linear L(x).
+        """Linear ``L(x)``.
 
-        L(0) = Width,
-        L(Width * Curve) = Width * Curve,
-        L(Width) = 0.
+        - ``L(0) = Width``,
+        - ``L(Width * Curve) = Width * Curve``,
+        - ``L(Width) = 0``.
+
         """
         if self.Curve == 0:
             return 0
@@ -53,11 +54,11 @@ class CornerCreator:
             return self.Width
 
     def hyperbole(self, x):
-        """Hyperbolic h(x).
+        """Hyperbolic ``h(x)``.
 
-        h(0) = Width,
-        h(Width * Curve) = Width * Curve,
-        h(Width) = 0.
+        - ``h(0) = Width``,
+        - ``h(Width * Curve) = Width * Curve``,
+        - ``h(Width) = 0``.
         """
         c = self.Width
         z = self.Curve
@@ -67,6 +68,7 @@ class CornerCreator:
         return k / (x + a) + b
 
     def corner_function(self, x):
+        """Calculate lenght of corner line in ``x`` row."""
         if not (0 <= x <= self.Width):
             return 0
         if self.Curve in [0, 0.5, 1]:
@@ -74,7 +76,7 @@ class CornerCreator:
         return self.hyperbole(x)
 
     def get_corner(self):
-        """Return boolean array with (Width x Widht) corner."""
+        """Return boolean array with (``Width x Widht``) corner."""
         r = self.Width
         corner = np.ones((r, r))
         for i in range(r):
@@ -83,7 +85,7 @@ class CornerCreator:
         return np.logical_or(corner, corner.T)
 
     def apply_corner(self, arr, corner):
-        """Apply corner mask to all four arr corners with correct rotation."""
+        """Apply ``corner`` mask to ``arr`` corners with a correct rotation."""
         r = self.Width
 
         arr[:r, :r] = np.logical_and(arr[:r, :r], corner)
@@ -101,16 +103,16 @@ class CornerCreator:
         return arr
 
     def smooth_boundary(self, mask):
-        """Put zeros to the boundary points."""
+        """Put zeros to the boundary points of ``mask``."""
         mask[0] = 0
         mask[-1] = 0
         mask[:, 0] = 0
         mask[:, -1] = 0
 
     def get_alpha(self, size):
-        """Return PIL Image alpha channel with 0 in corners and boundary.
+        """Return ``PIL Image`` alpha channel with 0 in corners and boundary.
         
-        If size < 2.1 * Width, the corners don't appear."""
+        If ``size < 2.1 Width``, the corners don't appear."""
         h, w = size
         if w <= 0 or h <= 0:
             return np.array([])
