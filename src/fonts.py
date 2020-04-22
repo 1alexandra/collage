@@ -3,6 +3,7 @@ from matplotlib import font_manager
 
 
 def get_system_fonts():
+    """Return sorted list of all system font names."""
     fonts = set()
     for x in font_manager.findSystemFonts():
         dot = x.rfind('.')
