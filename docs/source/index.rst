@@ -10,6 +10,7 @@ Welcome to Simple Collage Creator's documentation!
    :maxdepth: 2
    :caption: Contents:
    
+   README
    modules
 
 
