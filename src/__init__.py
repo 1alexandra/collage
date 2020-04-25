@@ -3,3 +3,4 @@ import src.CollageImage
 import src.CollageSelector
 import src.CornerCreator
 import src.CollageItem
+import src.CollageTree
