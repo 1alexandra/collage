@@ -158,10 +158,10 @@ class CollageLeaf(tk.Canvas):
         self.id = self.create_image(0, 0, anchor="nw", image=self.image.PhotoImage)
 
         self.popup = tk.Menu(self, tearoff=0)
-        self.popup.add_command(label="Add image to the left", command=self._split('w'))
-        self.popup.add_command(label="Add image to the right", command=self._split('e'))
-        self.popup.add_command(label="Add image on top", command=self._split('n'))
-        self.popup.add_command(label="Add image below", command=self._split('s'))
+        self.popup.add_command(label="Add image to the left", command=self._add_image('w'))
+        self.popup.add_command(label="Add image to the right", command=self._add_image('e'))
+        self.popup.add_command(label="Add image on top", command=self._add_image('n'))
+        self.popup.add_command(label="Add image below", command=self._add_image('s'))
 
         self.bind("<Button-3>", self.selection_area_handler)
         self.bind("<Configure>", self.resize_event_handler)
@@ -197,7 +197,7 @@ class CollageLeaf(tk.Canvas):
             # update image on canvas
             self.itemconfig(self.id, image=self.image.PhotoImage)
 
-    def _split(self, where):
+    def _add_image(self, where):
         def func():
             filename = ask_open_image()
             image = safe_open_image(filename, corner_creator=self.corner_creator)
