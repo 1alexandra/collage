@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
@@ -137,12 +137,7 @@ class Application(tk.Frame):
         return window.get_return()
 
     def add_photo(self, where):
-        filename = filedialog.askopenfilename(
-            title="Select file",
-            filetypes=(
-                ("image files", ("*.jpg", "*.png", "*.gif", "*.jpeg", "*.tiff", "*.bmp")),
-            )
-        )
+        filename = ask_open_image()
 
         # file was not selected
         if filename != "":

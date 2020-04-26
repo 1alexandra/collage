@@ -2,25 +2,25 @@ from PIL import ImageTk, Image
 from src.CollageItem import CollageItem
 
 
-class PILCollageImage(CollageItem):
+class PILCollageImage:
     def __init__(
         self,
         filename,
-        coords,
-        width,
-        height,
+        # coords,
+        # width,
+        # height,
         corner_creator,
-        collage,
+        # collage,
     ):
-        self.collage = collage
+        # self.collage = collage
         self.corners = corner_creator
         self.PIL_image = Image.open(filename)
         self.original = Image.open(filename)
-        id = collage.create_image(
-            coords[0], coords[1], anchor="nw", image=self.PhotoImage
-        )
-        CollageItem.__init__(self, id, collage)
-        self.resize((width, height))
+        # self.id = collage.create_image(
+        #     0, 0, anchor="nw", image=self.PhotoImage
+        # )
+        # CollageItem.__init__(self, id, collage)
+        # self.resize((width, height))
 
     def resize(self, size):
         """
@@ -62,4 +62,4 @@ class PILCollageImage(CollageItem):
         alpha = self.corners.get_alpha(size)
         img.putalpha(alpha)
         self.PIL_image = img
-        self.collage.itemconfig(self.Id, image=self.PhotoImage)
+        # self.collage.itemconfig(self.id, image=self.PhotoImage)
