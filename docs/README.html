@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>User Guide &#8212; Simple Collage Creator 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Collage" href="modules.html" />
+    <link rel="prev" title="Welcome to Simple Collage Creator’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Collage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Simple Collage Creator’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Simple Collage Creator 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-application">
+<h2>About application<a class="headerlink" href="#about-application" title="Permalink to this headline">¶</a></h2>
+<p>The app allows you to create collages from photos.
+You can add photos interactively: you can add a photo from any of the four
+sides of the rectangle, but it will take up half of the image, and the rest
+of the collage will be scaled automatically. The basic functions are creating
+a canvas of any size, adding photos, automatically zooming and cropping them,
+and saving and printing the resulting collage. As additional functions, you can
+change the parameters of the image borders (size, steepness of the rounded
+corner), implement control of elements on the canvas: the ability to move the
+borders, change the cropping window of the photo (zoom and change the
+position), and add a caption to the canvas.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install the app clone repository <a class="reference external" href="https://github.com/1alexandra/collage">https://github.com/1alexandra/collage</a>
+and in collage root directory execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">setuptools</span><span class="o">==</span><span class="mf">46.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">wheel</span><span class="o">==</span><span class="mf">0.34</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="n">bdist_wheel</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">dist</span><span class="o">/</span><span class="n">collage</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>To run the app execute in collage root directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">run</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>To test the app modules execute in collage root directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-use">
+<h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h2>
+<p>After launching the app, you see a window divided into two areas: the menu and
+the workspace.</p>
+<p>Use the input fields in the menu to configure collage settings.
+Make sure that you have entered numbers that match the input format:
+the values in pixels must be natural numbers,
+and the real values must be real numbers.
+After completing the changes, click the <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">settings</span></code> button.
+You can also change the parameters while editing the collage.</p>
+<p>Use one of the <code class="docutils literal notranslate"><span class="pre">+</span></code> buttons on the right side of the screen to add the first
+photo to the collage. The app supports adding photos in JPEG, PNG, GIF, TIFF,
+and BMP formats.</p>
+<p>After adding the first photo to the collage,
+you can update layout by 3 types of operations:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Adding a photo from one side of the collage border.</dt><dd><p>In this case, the new cell appears on this side of the collage
+and takes up half of the collage regardless of size.
+All previously existing cells are compressed to make room for a new cell.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>The division of the photo cell.</dt><dd><p>After right-clicking on a photo, a drop-down menu appears with
+the options: add photo on the left, add photo on the right,
+add photo on the top, add photo on the bottom.
+If you click on one of them, the selected photo cell is divided into two cells,
+one of which is placed a new photo, according to your side choice,
+and the second remains the old photo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Movement of the border between photos.</dt><dd><p>Click on a border part. When it is selected, you can move it by the keyboard
+arrows: vertical borders can be moved left and right,
+horizontal can be moved up or down.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Initially, middle part of the photo appears in the cell. You can change the position:
+select photo sell using mouse click and use keyboard arrows to move photo inside
+the cell. When you reach the photo boarder, the app will show a warning message.
+Also, you can change photo scale by <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code> keyboard buttons. If you trying
+to scale photo beyond it’s boarder, a worning message will be shown. To confirm
+new photo scale and position, click somewhere outside this photo cell or press
+<code class="docutils literal notranslate"><span class="pre">Enter</span></code> button. If you want to cancel your changes, press <code class="docutils literal notranslate"><span class="pre">Esc</span></code>.</p>
+<p>Click on <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">text...</span></code> button to open capture setup window.
+This window consists of five blocks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>text redactor,</p></li>
+<li><p>font chooser,</p></li>
+<li><p>canvas with an intermediate result,</p></li>
+<li><p>font parameters input fields: italic, bold, underlined checkboxes
+and font size entry,</p></li>
+<li><p>buttons block: <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">color...</span></code>, <code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">font</span></code>, <code class="docutils literal notranslate"><span class="pre">OK</span></code> buttons.</p></li>
+</ul>
+</div></blockquote>
+<p>Write your caption in text redactor, choose font and style, click on <code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">font</span></code>
+button to see the result. If you want to add it to the collage, click on <code class="docutils literal notranslate"><span class="pre">OK</span></code>
+button. Otherwise continue changing it or close the window.</p>
+<p>When your caption is placed on the collage, you can click on it and move over
+the collage using keyboard arrows.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User Guide</a><ul>
+<li><a class="reference internal" href="#about-application">About application</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#running">Running</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Simple Collage Creator’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="next chapter">Collage</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Collage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Simple Collage Creator’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Simple Collage Creator 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Alexandra Zhuravskaya, Satbek Turganbayev, Timur Kamalbekov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
