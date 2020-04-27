@@ -13,7 +13,7 @@
 # import os
 import sys
 sys.path.insert(0, r'C:\Users\Александра\PROGRAM\Collage')
-
+master_doc = 'index'
 
 # -- Project information -----------------------------------------------------
 
