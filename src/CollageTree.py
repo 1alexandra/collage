@@ -1,49 +1,97 @@
 import tkinter as tk
-from src.utils import ask_open_image, safe_open_image, get_orient
-from src.BaseTkTree import BreedingTkNode, UpdatableTkNode
+from src.utils import ask_open_image, safe_open_image, get_orient, is_up_bottom, is_up_left
+from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
 
 
-class CollageRoot(BreedingTkNode):
-    def __init__(self, tk_master, **init_kwargs):
+class CollageBreedingNode(BreedingTkNode):
+    def add_image_child(self, image_node_class, image, where, corner_creator, margin=0):
+        width = self._width
+        height = self._height
+        if self._left is not None:
+            if is_up_bottom(where):
+                height //= 2
+            else:
+                width //= 2
+        leaf_node = image_node_class(
+            image=image, corner_creator=corner_creator, parent=self,
+            width=width, height=height, bg=self._bg, bd=-2, margin=margin
+        )
+        self.add_child(leaf_node, begin=is_up_left(where), align=True)
+
+
+class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
+    def __init__(self, parent, orient, **init_kwargs):
+        BaseTkTreeNode.__init__(
+            self, tk.PanedWindow, parent=parent, orient=orient,
+            sashwidth=2, sashpad=0, bd=0,
+            **init_kwargs
+        )
+
+
+class CollageRoot(CollageBreedingNode):
+    def __init__(self, tk_master, corner_creator, margin=0, **init_kwargs):
         super().__init__(obj_class=tk.PanedWindow, parent=None, bd=0, tk_master=tk_master, **init_kwargs)
+
+        self._margin = margin
+        self._corner_creator = corner_creator
 
     def add_image(self, image, where):
         assert where in ('w', 's', 'n', 'e')
         if self._left is not None:
             orient = get_orient(where)
-            self._left.wrap_into_paned(orient=orient)
-            self._left.add_image_child(image_node_class=CollageLeafNode, image=image, where=where)
-            self._root.update()
+            self._left.wrap_into_paned(internal_node_class=InternalTkNode, orient=orient)
+            self._left.add_image_child(
+                image_node_class=CollageLeafNode, image=image, where=where, margin=self._margin,
+                corner_creator=self._corner_creator)
         else:
-            self.add_image_child(image_node_class=CollageLeafNode, image=image, where=where)
+            self.add_image_child(
+                image_node_class=CollageLeafNode, image=image, where=where, margin=self._margin,
+                corner_creator=self._corner_creator)
 
     def update_corners(self, new_width, new_height, new_margin):
         self._root.config(width=new_width, height=new_height)
+        if new_margin != self._margin:
+            self._margin = new_margin
+            self.update_leaf_vars(margin=self._margin)
 
 
 class CollageLeafNode(UpdatableTkNode):
     def __init__(self, image, corner_creator, parent, margin=0, **init_kwargs):
-        super().__init__(obj_class=tk.Canvas, corner_creator=corner_creator, parent=parent, **init_kwargs)
-
         self._margin = margin
         self._image = image
-        self._image.resize((self._width, self._height))
+        self._image_id = None
+        self._corner_creator= corner_creator
 
-        self._image_id = self._root.create_image(0, 0, anchor="nw", image=self._image.PhotoImage)
+        super().__init__(obj_class=tk.Canvas, parent=parent, **init_kwargs)
+
+        self._image.resize((self.get_real_width(), self.get_real_height()))
+
+    def get_real_width(self):
+        return self._width - 2 * self._margin
+
+    def get_real_height(self):
+        return self._height - 2 * self._margin
+
+    def update_leaf_vars(self, margin=None, **kwargs):
+        if margin is not None:
+            self._margin = margin
+            self._set_image()
+
+    def _set_image(self):
+        self._image_id = self._root.create_image(self._margin, self._margin, anchor="nw", image=self._image.PhotoImage)
 
     def _resize_handler(self, event):
         if self._image is not None:
-            self._image.resize((event.width, event.height))
-
             self._width = event.width
             self._height = event.height
+
+            self._image.resize((self.get_real_width(), self.get_real_height()))
 
             self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
 
     def _create_tk_object(self, tk_master=None):
         super()._create_tk_object(tk_master)
-        if hasattr(self, '_image'):
-            self._image_id = self._root.create_image(0, 0, anchor="nw", image=self._image.PhotoImage)
+        self._set_image()
 
         self._context_menu = tk.Menu(self._root, tearoff=0)
         self._context_menu.add_command(label="Add image to the left", command=self._add_image('w'))
@@ -68,6 +116,9 @@ class CollageLeafNode(UpdatableTkNode):
             image = safe_open_image(filename, corner_creator=self._corner_creator)
 
             if image:
-                self.wrap_into_paned(get_orient(where))
-                self._parent.add_image_child(image_node_class=CollageLeafNode, image=image, where=where)
+                self.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
+                self._parent.add_image_child(
+                    image_node_class=CollageLeafNode, image=image, margin=self._margin, where=where,
+                    corner_creator=self._corner_creator
+                )
         return func
