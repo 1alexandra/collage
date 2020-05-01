@@ -4,7 +4,7 @@ from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
 
 
 class CollageBreedingNode(BreedingTkNode):
-    def add_image_child(self, image_node_class, image, where, corner_creator, margin=0):
+    def add_image_child(self, image, where, corner_creator, margin=0):
         width = self._width
         height = self._height
         if self._left is not None:
@@ -12,7 +12,7 @@ class CollageBreedingNode(BreedingTkNode):
                 height //= 2
             else:
                 width //= 2
-        leaf_node = image_node_class(
+        leaf_node = CollageLeafNode(
             image=image, corner_creator=corner_creator, parent=self,
             width=width, height=height, bg=self._bg, bd=-2, margin=margin
         )
@@ -41,11 +41,11 @@ class CollageRoot(CollageBreedingNode):
             orient = get_orient(where)
             self._left.wrap_into_paned(internal_node_class=InternalTkNode, orient=orient)
             self._left.add_image_child(
-                image_node_class=CollageLeafNode, image=image, where=where, margin=self._margin,
+                image=image, where=where, margin=self._margin,
                 corner_creator=self._corner_creator)
         else:
             self.add_image_child(
-                image_node_class=CollageLeafNode, image=image, where=where, margin=self._margin,
+                image=image, where=where, margin=self._margin,
                 corner_creator=self._corner_creator)
 
     def update_corners(self, new_width, new_height, new_margin):
@@ -60,7 +60,7 @@ class CollageLeafNode(UpdatableTkNode):
         self._margin = margin
         self._image = image
         self._image_id = None
-        self._corner_creator= corner_creator
+        self._corner_creator = corner_creator
 
         super().__init__(obj_class=tk.Canvas, parent=parent, **init_kwargs)
 
@@ -118,7 +118,7 @@ class CollageLeafNode(UpdatableTkNode):
             if image:
                 self.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
                 self._parent.add_image_child(
-                    image_node_class=CollageLeafNode, image=image, margin=self._margin, where=where,
+                    image=image, margin=self._margin, where=where,
                     corner_creator=self._corner_creator
                 )
         return func
