@@ -14,7 +14,7 @@ class CollageBreedingNode(BreedingTkNode):
                 height //= 2
             else:
                 width //= 2
-        leaf_node = CollageLeafNode(
+        leaf_node = ResizableLeaf(
             image=image, corner_creator=corner_creator, parent=self,
             width=width, height=height, bg=self._bg, bd=0, highlightthickness=0, margin=margin
         )
@@ -62,15 +62,22 @@ class CollageLeafNode(UpdatableTkNode):
         self._image = image
         self._image_id = None
 
-        self._double_button = None
-        self._cur_x = None
-        self._cur_y = None
-
         self._corner_creator = corner_creator
 
         super().__init__(obj_class=tk.Canvas, parent=parent, **init_kwargs)
 
-        self._image.resize((self.get_real_width(), self.get_real_height()))
+    def _resize_image(self, new_width, new_height):
+        self._image.resize((new_width, new_height))
+
+    def _set_image(self):
+        self._resize_image(self.get_real_width(), self.get_real_height())
+        self._create_image()
+
+    def _create_image(self):
+        self._image_id = self._root.create_image(self._margin, self._margin, anchor="nw", image=self._image.PhotoImage)
+
+    def _update_image(self):
+        self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
 
     def get_real_width(self):
         return self._width - 2 * self._margin
@@ -87,10 +94,6 @@ class CollageLeafNode(UpdatableTkNode):
         super()._create_tk_object(tk_master)
         self._set_image()
 
-        self._double_button = False
-        self._cur_x = None
-        self._cur_y = None
-
         self._context_menu = tk.Menu(self._root, tearoff=0)
         self._context_menu.add_command(label="Add image to the left", command=self._add_image_func('w'))
         self._context_menu.add_command(label="Add image to the right", command=self._add_image_func('e'))
@@ -98,32 +101,8 @@ class CollageLeafNode(UpdatableTkNode):
         self._context_menu.add_command(label="Add image below", command=self._add_image_func('s'))
 
         self._root.bind("<Button-3>", self._context_menu_handler)
-        self._root.bind("<Button-1>", lambda event: self._root.focus_set())
         self._root.bind("<FocusIn>", self._on_focus_in)
         self._root.bind("<FocusOut>", self._on_focus_out)
-        self._root.bind("<Double-Button-1>", self._drag_event_handler)
-        self._root.bind("<ButtonRelease-1>", self._drag_release_handler)
-        self._root.bind("<B1-Motion>", self._pressed_mouse_motion_handler)
-
-    def _drag_event_handler(self, event):
-        self._root.config(cursor="fleur")
-        self._double_button = True
-        self._cur_x = event.x
-        self._cur_y = event.y
-
-    def _pressed_mouse_motion_handler(self, event):
-        if self._double_button:
-            offset_x = event.x - self._cur_x
-            offset_y = event.y - self._cur_y
-            self._cur_x = event.x
-            self._cur_y = event.y
-            print(offset_x, offset_y)
-
-    def _drag_release_handler(self, _):
-        self._root.config(cursor="")
-        self._double_button = False
-        self._cur_x = None
-        self._cur_y = None
 
     def _on_focus_in(self, _):
         self._root.config(highlightthickness=1)
@@ -131,18 +110,13 @@ class CollageLeafNode(UpdatableTkNode):
     def _on_focus_out(self, _):
         self._root.config(highlightthickness=0)
 
-    def _set_image(self):
-        self._image.resize((self.get_real_width(), self.get_real_height()))
-        self._image_id = self._root.create_image(self._margin, self._margin, anchor="nw", image=self._image.PhotoImage)
-
     def _resize_handler(self, event):
         if self._image is not None:
             self._width = event.width
             self._height = event.height
 
-            self._image.resize((self.get_real_width(), self.get_real_height()))
-
-            self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
+            self._resize_image(self.get_real_width(), self.get_real_height())
+            self._update_image()
 
     def _context_menu_handler(self, event):
         self._root.focus_set()
@@ -164,3 +138,71 @@ class CollageLeafNode(UpdatableTkNode):
                     corner_creator=self._corner_creator
                 )
         return func
+
+
+class ResizableLeaf(CollageLeafNode):
+    def _create_tk_object(self, tk_master=None):
+        super()._create_tk_object(tk_master)
+
+        self._cur_x = None
+        self._cur_y = None
+
+        self._root.bind("<Button-1>", self._drag_event_handler)
+        self._root.bind("<ButtonRelease-1>", self._drag_release_handler)
+        self._root.bind("<B1-Motion>", self._pressed_mouse_motion_handler)
+        self._root.bind("<Up>", self._move_image_view_up_handler)
+        self._root.bind("<Down>", self._move_image_view_down_handler)
+        self._root.bind("<Left>", self._move_image_view_left_handler)
+        self._root.bind("<Right>", self._move_image_view_right_handler)
+        self._root.bind("<Key>", self._scale_image_handler)
+        self._root.bind("<MouseWheel>", self._on_mousewheel)
+
+    def _on_mousewheel(self, event):
+        if event.delta > 0:
+            self._image.zoom_in()
+        else:
+            self._image.zoom_out()
+        self._update_image()
+
+    def _scale_image_handler(self, event):
+        if event.char in ['[', ']']:
+            if event.char == '[':
+                self._image.zoom_in()
+            elif event.char == ']':
+                self._image.zoom_out()
+            self._update_image()
+
+    def _move_image_view_up_handler(self, _):
+        self._image.move_view_up()
+        self._update_image()
+
+    def _move_image_view_down_handler(self, _):
+        self._image.move_view_down()
+        self._update_image()
+
+    def _move_image_view_left_handler(self, _):
+        self._image.move_view_left()
+        self._update_image()
+
+    def _move_image_view_right_handler(self, _):
+        self._image.move_view_right()
+        self._update_image()
+
+    def _drag_event_handler(self, event):
+        self._root.focus_set()
+        self._root.config(cursor="fleur")
+        self._cur_x = event.x
+        self._cur_y = event.y
+
+    def _pressed_mouse_motion_handler(self, event):
+        offset_x = event.x - self._cur_x
+        offset_y = event.y - self._cur_y
+        self._cur_x = event.x
+        self._cur_y = event.y
+        self._image.move_view(-offset_x, -offset_y)
+        self._update_image()
+
+    def _drag_release_handler(self, _):
+        self._root.config(cursor="")
+        self._cur_x = None
+        self._cur_y = None
