@@ -49,8 +49,8 @@ class CollageRoot(CollageBreedingNode):
                 corner_creator=self._corner_creator)
 
     def update_corners(self, new_width, new_height, new_margin):
-        if self.get_width() != new_width or self.get_height() != new_height:
-            self._root.config(width=new_width, height=new_height)
+        self._root.config(width=new_width, height=new_height)
+        # if self.get_width() != new_width or self.get_height() != new_height:
         if new_margin != self._margin:
             self._margin = new_margin
             self.update_leaf_vars(margin=self._margin)
@@ -61,6 +61,11 @@ class CollageLeafNode(UpdatableTkNode):
         self._margin = margin
         self._image = image
         self._image_id = None
+
+        self._double_button = None
+        self._cur_x = None
+        self._cur_y = None
+
         self._corner_creator = corner_creator
 
         super().__init__(obj_class=tk.Canvas, parent=parent, **init_kwargs)
@@ -82,6 +87,10 @@ class CollageLeafNode(UpdatableTkNode):
         super()._create_tk_object(tk_master)
         self._set_image()
 
+        self._double_button = False
+        self._cur_x = None
+        self._cur_y = None
+
         self._context_menu = tk.Menu(self._root, tearoff=0)
         self._context_menu.add_command(label="Add image to the left", command=self._add_image_func('w'))
         self._context_menu.add_command(label="Add image to the right", command=self._add_image_func('e'))
@@ -90,14 +99,36 @@ class CollageLeafNode(UpdatableTkNode):
 
         self._root.bind("<Button-3>", self._context_menu_handler)
         self._root.bind("<Button-1>", lambda event: self._root.focus_set())
-        self._root.bind("<FocusIn>", self.on_focus_in)
-        self._root.bind("<FocusOut>", self.on_focus_out)
-        # self._root.bind("<Motion>", self.motion)
+        self._root.bind("<FocusIn>", self._on_focus_in)
+        self._root.bind("<FocusOut>", self._on_focus_out)
+        self._root.bind("<Double-Button-1>", self._drag_event_handler)
+        self._root.bind("<ButtonRelease-1>", self._drag_release_handler)
+        self._root.bind("<B1-Motion>", self._pressed_mouse_motion_handler)
 
-    def on_focus_in(self, event):
+    def _drag_event_handler(self, event):
+        self._root.config(cursor="fleur")
+        self._double_button = True
+        self._cur_x = event.x
+        self._cur_y = event.y
+
+    def _pressed_mouse_motion_handler(self, event):
+        if self._double_button:
+            offset_x = event.x - self._cur_x
+            offset_y = event.y - self._cur_y
+            self._cur_x = event.x
+            self._cur_y = event.y
+            print(offset_x, offset_y)
+
+    def _drag_release_handler(self, _):
+        self._root.config(cursor="")
+        self._double_button = False
+        self._cur_x = None
+        self._cur_y = None
+
+    def _on_focus_in(self, _):
         self._root.config(highlightthickness=1)
 
-    def on_focus_out(self, event):
+    def _on_focus_out(self, _):
         self._root.config(highlightthickness=0)
 
     def _set_image(self):
