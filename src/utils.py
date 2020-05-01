@@ -1,5 +1,6 @@
 import tkinter.messagebox as messagebox
 from tkinter import filedialog
+from tkinter import VERTICAL, HORIZONTAL
 from src.CollageImage import PILCollageImage
 from PIL import UnidentifiedImageError
 
@@ -10,6 +11,10 @@ def is_up_left(where):
 
 def is_up_bottom(where):
     return where in ('s', 'n')
+
+
+def get_orient(where):
+    return VERTICAL if is_up_bottom(where) else HORIZONTAL
 
 
 def ask_open_image():

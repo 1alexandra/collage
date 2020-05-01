@@ -26,8 +26,8 @@ class Collage(tk.Frame):
         # )
         self.bind("<Configure>", self.resize_event_handler)
         self.bind("<Double-Button-1>", self.selection_area_handler)
-        self.collage_root = CollageRoot(self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
-        self.collage_root.grid(row=0, column=0)
+        self.collage_root = CollageRoot(tk_master=self, corner_creator=self.corner_creator, **master_kwargs)
+        self.collage_root.get_tk_object().grid(row=0, column=0)
 
     def add_image(self, filename, where):
         """
