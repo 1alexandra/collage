@@ -57,7 +57,7 @@ class BreedingTkNode(BaseTkTreeNode):
                 if self._right is not None:
                     self._root.paneconfigure(self._get_right_child_internal(), before=self._get_left_child_internal())
             else:
-                self._right = self._left
+                self._left = self._right
         elif self._right is old_child:
             if self._right is not None:
                 self._root.forget(self._get_right_child_internal())
