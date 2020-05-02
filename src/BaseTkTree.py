@@ -51,15 +51,17 @@ class BreedingTkNode(BaseTkTreeNode):
                 self._root.forget(self._get_left_child_internal())
 
             self._left = new_child
-            self._root.add(self._left.get_tk_object())
+            if new_child is not None:
+                self._root.add(self._left.get_tk_object())
 
-            if self._right is not None:
-                self._root.paneconfigure(self._get_right_child_internal(), before=self._get_left_child_internal())
+                if self._right is not None:
+                    self._root.paneconfigure(self._get_right_child_internal(), before=self._get_left_child_internal())
         elif self._right is old_child:
             if self._right is not None:
                 self._root.forget(self._get_right_child_internal())
             self._right = new_child
-            self._root.add(self._right.get_tk_object())
+            if new_child is not None:
+                self._root.add(self._right.get_tk_object())
         else:
             assert False
 
@@ -70,6 +72,9 @@ class BreedingTkNode(BaseTkTreeNode):
             self._left, self._right = self._right, self._left
         if self._right is not None and align:
             self._align_children()
+
+    def remove_child(self, child):
+        self.replace_child(old_child=child, new_child=None)
 
     def _forget_children(self):
         if self._left is not None:

@@ -68,30 +68,43 @@ class CollageLeafNode(UpdatableTkNode):
 
     def _resize_image(self, new_width, new_height):
         self._image.resize((new_width, new_height))
+        if self._image_id is None:
+            self._create_image()
+        else:
+            self._update_image()
 
     def _set_image(self):
         self._resize_image(self.get_real_width(), self.get_real_height())
-        self._create_image()
 
     def _create_image(self):
+        self._delete_image()
         self._image_id = self._root.create_image(self._margin, self._margin, anchor="nw", image=self._image.PhotoImage)
 
     def _update_image(self):
         self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
 
+    def _delete_image(self):
+        if self._image_id is not None:
+            self._root.delete(self._image_id)
+            self._image_id = None
+
     def get_real_width(self):
-        return self._width - 2 * self._margin
+        return max(self._width - 2 * self._margin, 0)
 
     def get_real_height(self):
-        return self._height - 2 * self._margin
+        return max(self._height - 2 * self._margin, 0)
 
     def update_leaf_vars(self, margin=None, **kwargs):
         if margin is not None:
             self._margin = margin
+            self._delete_image()
             self._set_image()
 
     def _create_tk_object(self, tk_master=None):
+        self._image_id = None
+
         super()._create_tk_object(tk_master)
+
         self._set_image()
 
         self._context_menu = tk.Menu(self._root, tearoff=0)
@@ -99,10 +112,14 @@ class CollageLeafNode(UpdatableTkNode):
         self._context_menu.add_command(label="Add image to the right", command=self._add_image_func('e'))
         self._context_menu.add_command(label="Add image on top", command=self._add_image_func('n'))
         self._context_menu.add_command(label="Add image below", command=self._add_image_func('s'))
+        self._context_menu.add_command(label="Remove the image", command=self._destroy)
 
         self._root.bind("<Button-3>", self._context_menu_handler)
         self._root.bind("<FocusIn>", self._on_focus_in)
         self._root.bind("<FocusOut>", self._on_focus_out)
+
+    def _destroy(self):
+        self._parent.remove_child(self)
 
     def _on_focus_in(self, _):
         self._root.config(highlightthickness=1)
@@ -116,7 +133,6 @@ class CollageLeafNode(UpdatableTkNode):
             self._height = event.height
 
             self._resize_image(self.get_real_width(), self.get_real_height())
-            self._update_image()
 
     def _context_menu_handler(self, event):
         self._root.focus_set()
@@ -141,6 +157,11 @@ class CollageLeafNode(UpdatableTkNode):
 
 
 class ResizableLeaf(CollageLeafNode):
+    def __init__(self, *args, **kwargs):
+        self._corner = None
+
+        super().__init__(*args, **kwargs)
+
     def _create_tk_object(self, tk_master=None):
         super()._create_tk_object(tk_master)
 
@@ -157,6 +178,22 @@ class ResizableLeaf(CollageLeafNode):
         self._root.bind("<Key>", self._scale_image_handler)
         self._root.bind("<MouseWheel>", self._on_mousewheel)
 
+    def _create_image(self):
+        self._delete_image()
+        corner = (self._margin, self._margin)
+        if self._corner is not None:
+            corner = (self._margin + self._corner[0], self._margin + self._corner[1])
+        self._image_id = self._root.create_image(corner[0], corner[1], anchor="nw", image=self._image.PhotoImage)
+
+    def _update_image(self):
+        if self._corner is None:
+            diff = self._image.corner
+        else:
+            diff = (self._image.corner[0] - self._corner[0], self._image.corner[1] - self._corner[1])
+        self._corner = self._image.corner
+        self._move_image_on_canvas(*diff)
+        super()._update_image()
+
     def _on_mousewheel(self, event):
         if event.delta > 0:
             self._image.zoom_in()
@@ -171,6 +208,10 @@ class ResizableLeaf(CollageLeafNode):
             elif event.char == ']':
                 self._image.zoom_out()
             self._update_image()
+
+    def _move_image_on_canvas(self, dx, dy):
+        if self._image_id is not None:
+            self._root.move(self._image_id, dx, dy)
 
     def _move_image_view_up_handler(self, _):
         self._image.move_view_up()

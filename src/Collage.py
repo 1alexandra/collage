@@ -5,23 +5,6 @@ from src.CornerCreator import CornerCreator
 from src.utils import safe_open_image
 
 
-# from functools import wraps
-# import tkinter.messagebox as messagebox
-#
-# from src.CollageImage import ViewingWindowException
-#
-#
-# def image_update_event_wrapper(fn):
-#     @wraps(fn)
-#     def wrapper(self, *args, **kwargs):
-#         if self.selected_image is not None:
-#             try:
-#                 fn(self, *args, **kwargs)
-#             except ViewingWindowException as ex:
-#                 messagebox.showinfo("Info", ex.message)
-#     return wrapper
-
-
 class Collage(tk.Canvas):
     def __init__(
         self,
