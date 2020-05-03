@@ -130,15 +130,21 @@ class BreedingTkNode(BaseTkTreeNode):
         if child_internal is not None:
             self._root.paneconfig(child_internal, width=width, height=height)
 
+    def _get_proportion(self):
+        return min(
+            self._left.get_width() / (self._left.get_width() + self._right.get_width()),
+            self._left.get_height() / (self._left.get_height() + self._right.get_height())
+        )
+
     def _resize_handler(self, event):
         if self._right is not None:
+            sep_width = self._root['sashwidth']
             width_scale = event.width / self._width
             height_scale = event.height / self._height
 
-            new_width = int(self._left.get_width() * width_scale)
-            new_height = int(self._left.get_height() * height_scale)
+            new_width = int(width_scale * (self._left.get_width() + sep_width) - sep_width)
+            new_height = int(height_scale * (self._left.get_height() + sep_width) - sep_width)
             self._set_child_window_size(self._left, width=new_width, height=new_height)
-
         self._width = event.width
         self._height = event.height
 

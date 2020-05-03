@@ -25,7 +25,7 @@ class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
     def __init__(self, parent, orient, **init_kwargs):
         BaseTkTreeNode.__init__(
             self, tk.PanedWindow, parent=parent, orient=orient,
-            sashwidth=2, sashpad=0, bd=0,
+            sashwidth=2, sashpad=0, bd=0, opaqueresize=False,
             **init_kwargs
         )
 
