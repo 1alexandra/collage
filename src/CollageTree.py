@@ -120,6 +120,7 @@ class CollageLeafNode(UpdatableTkNode):
 
     def _destroy(self):
         self._parent.remove_child(self)
+        self._parent.collapse()
 
     def _on_focus_in(self, _):
         self._root.config(highlightthickness=1)

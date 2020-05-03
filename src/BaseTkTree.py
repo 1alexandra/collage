@@ -17,6 +17,10 @@ class BaseTkTreeNode:
 
         self._create_tk_object(tk_master=tk_master)
 
+    def _copy_window_size(self, from_obj):
+        self._width = from_obj.get_width()
+        self._height = from_obj.get_height()
+
     def get_width(self):
         return self._width
 
@@ -58,6 +62,7 @@ class BreedingTkNode(BaseTkTreeNode):
                     self._root.paneconfigure(self._get_right_child_internal(), before=self._get_left_child_internal())
             else:
                 self._left = self._right
+                self._right = None
         elif self._right is old_child:
             if self._right is not None:
                 self._root.forget(self._get_right_child_internal())
@@ -77,6 +82,12 @@ class BreedingTkNode(BaseTkTreeNode):
 
     def remove_child(self, child):
         self.replace_child(old_child=child, new_child=None)
+
+    def collapse(self):
+        assert self._right is None
+
+        if self._left is not None:
+            self._left.update_tk_object(new_parent=self._parent, instead=self)
 
     def _forget_children(self):
         if self._left is not None:
@@ -133,12 +144,14 @@ class BreedingTkNode(BaseTkTreeNode):
 
 
 class UpdatableTkNode(BaseTkTreeNode):
-    def update_tk_object(self, new_parent=None):
+    def update_tk_object(self, new_parent=None, instead=None):
         if new_parent is not None:
             self._parent = new_parent
+        if instead is not None:
+            self._copy_window_size(from_obj=instead)
         self._create_tk_object()
         if new_parent is not None:
-            self._parent.add_child(child=self)
+            self._parent.replace_child(old_child=instead, new_child=self)
 
         if self._left is not None:
             self._forget_children()

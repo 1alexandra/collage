@@ -6,7 +6,7 @@ class ViewingWindow:
     """
     Class for managing viewing window in original image
     """
-    def __init__(self, original, width, height, scale_step=0.1, scale_value_min=0.2, move_step=5):
+    def __init__(self, original, width, height, scale_step=0.05, scale_value_min=0.2, move_step=5):
         self.original = original
         self.image_size = (width, height)
         self.scale_value = 1
@@ -66,7 +66,9 @@ class ViewingWindow:
         return self._scale(self.scale_value + self.scale_step)
 
     def move(self, dx, dy):
-        self.view_vector = (self.view_vector[0] + dx, self.view_vector[1] + dy)
+        self.view_vector = (
+            self.view_vector[0] + int(dx * self.scale_value),
+            self.view_vector[1] + int(dy * self.scale_value))
         return self._crop()
 
     def move_up(self):
