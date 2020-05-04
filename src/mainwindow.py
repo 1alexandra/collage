@@ -127,7 +127,7 @@ class Application(tk.Frame):
         self.collage.margin = self.collage_margin.get()
         self.collage.corner_creator.Width = self.corner_width.get()
         self.collage.corner_creator.Curve = self.corner_curve.get()
-        self.collage.update_corners()
+        self.collage.update_params()
 
     def open_text_window(self):
         # Output: tk.canvas object

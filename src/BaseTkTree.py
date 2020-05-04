@@ -33,6 +33,7 @@ class BaseTkTreeNode:
         return self._root
 
     def update_leaf_vars(self, **kwargs):
+        """Calls function from the children"""
         if self._left is not None:
             self._left.update_leaf_vars(**kwargs)
         if self._right is not None:
@@ -42,6 +43,10 @@ class BaseTkTreeNode:
         pass
 
     def _create_tk_object(self, tk_master=None):
+        """
+        If tk_master is passed, creates TkObject with tk_master as master,
+        otherwise - gets master from "parent" field.
+        """
         if self._root is not None:
             del self._root
         master = self._parent.get_tk_object() if tk_master is None else tk_master
@@ -52,6 +57,9 @@ class BaseTkTreeNode:
 
 class BreedingTkNode(BaseTkTreeNode):
     def replace_child(self, old_child, new_child):
+        """
+        Replaces child "old_child" by "new_child".
+        """
         if self._left is old_child:
             if self._left is not None:
                 self._root.forget(self._get_left_child_internal())

@@ -37,7 +37,7 @@ class Collage(tk.Canvas):
         if image is not None:
             self.collage_root.add_image(image=image, where=where)
 
-    def update_corners(self):
+    def update_params(self):
         if self.collage_root is not None:
-            self.collage_root.update_corners(
+            self.collage_root.update_params(
                 new_width=self['width'], new_height=self['height'], new_margin=self.margin)

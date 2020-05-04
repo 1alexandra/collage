@@ -1,5 +1,5 @@
 import tkinter as tk
-from src.utils import ask_open_image, get_orient, is_up_bottom, is_up_left, int_clamp
+from src.utils import ask_open_image, get_orient, is_up_left, int_clamp
 from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
 from src.constants import WINDOW_SEP_WIDTH, HIGHLIGHT_BORDER_WIDTH
@@ -9,13 +9,9 @@ class CollageBreedingNode(BreedingTkNode):
     def add_image_child(self, image, where, corner_creator, margin=0):
         assert where in ('w', 's', 'n', 'e')
 
-        width = self._width
-        height = self._height
-        if self._left is not None:
-            if is_up_bottom(where):
-                height //= 2
-            else:
-                width //= 2
+        # actually, it doesn't matter, what width and height we are passing
+        # to the constructor, because we align the windows later anyway
+        width, height = self._width, self._height
         leaf_node = ResizableLeaf(
             image=image, corner_creator=corner_creator, parent=self,
             width=width, height=height, bg=self._bg, bd=0, highlightthickness=0, margin=margin
@@ -40,6 +36,20 @@ class CollageRoot(CollageBreedingNode):
         self._corner_creator = corner_creator
 
     def add_image(self, image, where):
+        """
+        Adds the image to the collage.
+        If there were no images before, just adds it,
+        otherwise - creates new PanedWindow that consists of
+        old version of collage and new image.
+
+        Parameters
+        ----------
+        image : PILCollageImage
+
+        where: str
+            Specifies the place where we should put the image.
+            Can be one of ('w', 's', 'n', 'e').
+        """
         if self._left is not None:
             self._left.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
             self._left.add_image_child(
@@ -50,9 +60,21 @@ class CollageRoot(CollageBreedingNode):
                 image=image, where=where, margin=self._margin,
                 corner_creator=self._corner_creator)
 
-    def update_corners(self, new_width, new_height, new_margin):
+    def update_params(self, new_width, new_height, new_margin):
+        """
+        Updates images' corners.
+        Also updates some other collage parameters according to the passed arguments.
+
+        Parameters
+        ----------
+        new_width: int, non-negative
+        new_height: int, non-negative
+        new_margin: int, non-negative
+        """
+        # assert new_margin >= 0
+        # assert new_height >= 0
+        # assert new_width >= 0
         self._root.config(width=new_width, height=new_height)
-        # if self.get_width() != new_width or self.get_height() != new_height:
         if new_margin != self._margin:
             self._margin = new_margin
             self.update_leaf_vars(margin=self._margin)
@@ -68,41 +90,55 @@ class CollageLeafNode(UpdatableTkNode):
 
         super().__init__(obj_class=tk.Canvas, parent=parent, **init_kwargs)
 
-    def _resize_image(self, new_width, new_height):
-        self._image.resize((new_width, new_height))
-        if self._image_id is None:
-            self._create_image()
-        else:
-            self._update_image()
+    def get_real_width(self):
+        """Returns actual width of the image (without margin)"""
+        return int_clamp(self._width - 2 * self._margin, min_val=0)
+
+    def get_real_height(self):
+        """Returns actual height of the image (without margin)"""
+        return int_clamp(self._height - 2 * self._margin, min_val=0)
+
+    def update_leaf_vars(self, margin=None, **kwargs):
+        """Updates the margin"""
+        if margin is not None:
+            diff = margin - self._margin
+            self._margin = margin
+            self._move_image_on_canvas(dx=diff, dy=diff)
+            self._set_image()
+
+    def _move_image_on_canvas(self, dx, dy):
+        """Moves the image on canvas"""
+        if self._image_id is not None:
+            self._root.move(self._image_id, dx, dy)
 
     def _set_image(self):
-        self._resize_image(self.get_real_width(), self.get_real_height())
+        """Resizes the image and puts it on canvas"""
+        if self._image is not None:
+            width, height = self.get_real_width(), self.get_real_height()
+            self._image.resize((width, height))
+            if self._image_id is None:
+                self._create_image()
+            else:
+                self._update_image()
 
-    def _create_image(self):
+    def _create_image(self, x_coord=0, y_coord=0):
+        """Creates the image and puts it on canvas"""
         self._delete_image()
-        self._image_id = self._root.create_image(self._margin, self._margin, anchor="nw", image=self._image.PhotoImage)
+        self._image_id = self._root.create_image(
+            self._margin + x_coord, self._margin + y_coord, anchor="nw", image=self._image.PhotoImage)
 
     def _update_image(self):
+        """Updates the image on canvas"""
         self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
 
     def _delete_image(self):
+        """Deletes the image from canvas"""
         if self._image_id is not None:
             self._root.delete(self._image_id)
             self._image_id = None
 
-    def get_real_width(self):
-        return int_clamp(self._width - 2 * self._margin, min_val=0)
-
-    def get_real_height(self):
-        return int_clamp(self._height - 2 * self._margin, min_val=0)
-
-    def update_leaf_vars(self, margin=None, **kwargs):
-        if margin is not None:
-            self._margin = margin
-            self._delete_image()
-            self._set_image()
-
     def _create_tk_object(self, tk_master=None):
+        """Creates the canvas"""
         self._image_id = None
 
         super()._create_tk_object(tk_master)
@@ -117,25 +153,21 @@ class CollageLeafNode(UpdatableTkNode):
         self._context_menu.add_command(label="Remove the image", command=self._destroy)
 
         self._root.bind("<Button-3>", self._context_menu_handler)
-        self._root.bind("<FocusIn>", self._on_focus_in)
-        self._root.bind("<FocusOut>", self._on_focus_out)
+        self._root.bind("<FocusIn>", lambda _: self._root.config(highlightthickness=HIGHLIGHT_BORDER_WIDTH))
+        self._root.bind("<FocusOut>", lambda _: self._root.config(highlightthickness=0))
 
     def _destroy(self):
+        """
+        Destroys the leaf and replaces the parent of the leaf
+        by the only child left (so the tree remains to be binary).
+        """
         self._parent.remove_child(self)
         self._parent.collapse()
 
-    def _on_focus_in(self, _):
-        self._root.config(highlightthickness=HIGHLIGHT_BORDER_WIDTH)
-
-    def _on_focus_out(self, _):
-        self._root.config(highlightthickness=0)
-
     def _resize_handler(self, event):
-        if self._image is not None:
-            self._width = event.width
-            self._height = event.height
-
-            self._resize_image(self.get_real_width(), self.get_real_height())
+        self._width = event.width
+        self._height = event.height
+        self._set_image()
 
     def _context_menu_handler(self, event):
         self._root.focus_set()
@@ -146,6 +178,18 @@ class CollageLeafNode(UpdatableTkNode):
             self._context_menu.grab_release()
 
     def _add_image_func(self, where):
+        """
+        Method that returns the function that adds new image to the tree.
+
+        The function calls ask_open_image() dialog and creates new PanedWindow
+        that consists of this image and the currently loaded image.
+
+        Parameters
+        ----------
+        where: str
+            Specifies the place where we should put the image.
+            Can be one of ('w', 's', 'n', 'e').
+        """
         def func():
             filename = ask_open_image()
             image = safe_open_image(filename, corner_creator=self._corner_creator)
@@ -166,6 +210,7 @@ class ResizableLeaf(CollageLeafNode):
         super().__init__(*args, **kwargs)
 
     def _create_tk_object(self, tk_master=None):
+        """Creates the canvas"""
         super()._create_tk_object(tk_master)
 
         self._cur_x = None
@@ -182,13 +227,14 @@ class ResizableLeaf(CollageLeafNode):
         self._root.bind("<MouseWheel>", self._on_mousewheel)
 
     def _create_image(self):
-        self._delete_image()
-        corner = (self._margin, self._margin)
-        if self._corner is not None:
-            corner = (self._margin + self._corner[0], self._margin + self._corner[1])
-        self._image_id = self._root.create_image(corner[0], corner[1], anchor="nw", image=self._image.PhotoImage)
+        """Creates the image and puts it on canvas"""
+        if self._corner is None:
+            super()._create_image()
+        else:
+            super()._create_image(x_coord=self._corner[0], y_coord=self._corner[1])
 
     def _update_image(self):
+        """Updates the image on canvas"""
         if self._corner is None:
             diff = self._image.corner
         else:
@@ -211,10 +257,6 @@ class ResizableLeaf(CollageLeafNode):
             elif event.char == ']':
                 self._image.zoom_out()
             self._update_image()
-
-    def _move_image_on_canvas(self, dx, dy):
-        if self._image_id is not None:
-            self._root.move(self._image_id, dx, dy)
 
     def _move_image_view_up_handler(self, _):
         self._image.move_view_up()
