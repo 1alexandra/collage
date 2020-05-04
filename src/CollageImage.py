@@ -19,9 +19,9 @@ class ViewingWindow:
     """
     Class for managing viewing window in original image
     """
-    def __init__(self, original, width=1, height=1, scale_step=0.05, scale_value_min=0.2, move_step=5):
+    def __init__(self, original, scale_step=0.05, scale_value_min=0.2, move_step=5):
         self.original = original
-        self.image_size = (width, height)
+        self.image_size = None
         self.scale_value = 1
         self.scale_step = scale_step
         self.move_step = move_step
@@ -106,7 +106,7 @@ class ViewingWindow:
 
     @ImageSize.setter
     def ImageSize(self, value):
-        self.image_size = value
+        self.image_size = int_clamp(value[0], min_val=1), int_clamp(value[1], min_val=1)
 
 
 def update_image(fn):

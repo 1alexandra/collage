@@ -3,10 +3,10 @@ from tkinter import VERTICAL, HORIZONTAL
 
 
 def int_clamp(val, min_val=None, max_val=None):
-    if min_val is not None:
-        val = max(val, min_val)
     if max_val is not None:
         val = min(val, max_val)
+    if min_val is not None:
+        val = max(val, min_val)
     return int(round(val))
 
 
