@@ -16,7 +16,7 @@ class CollageBreedingNode(BreedingTkNode):
             image=image, corner_creator=corner_creator, parent=self,
             width=width, height=height, bg=self._bg, bd=0, highlightthickness=0, margin=margin
         )
-        self.add_child(leaf_node, begin=is_up_left(where), align=True)
+        self.add_child(leaf_node, begin=is_up_left(where))
 
 
 class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
@@ -168,6 +168,7 @@ class CollageLeafNode(UpdatableTkNode):
         self._width = event.width
         self._height = event.height
         self._set_image()
+        self._parent.update_proportion()
 
     def _context_menu_handler(self, event):
         self._root.focus_set()
