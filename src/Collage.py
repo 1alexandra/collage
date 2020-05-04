@@ -2,7 +2,7 @@ import tkinter as tk
 
 from src.CollageTree import CollageRoot
 from src.CornerCreator import CornerCreator
-from src.utils import safe_open_image
+from src.CollageImage import safe_open_image
 
 
 class Collage(tk.Canvas):

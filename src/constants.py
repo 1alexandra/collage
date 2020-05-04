@@ -1,0 +1,1 @@
+WINDOW_SEP_WIDTH = 4

@@ -1,6 +1,8 @@
 import tkinter as tk
-from src.utils import ask_open_image, safe_open_image, get_orient, is_up_bottom, is_up_left
+from src.utils import ask_open_image, get_orient, is_up_bottom, is_up_left
+from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
+from src.constants import WINDOW_SEP_WIDTH
 
 
 class CollageBreedingNode(BreedingTkNode):
@@ -25,7 +27,7 @@ class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
     def __init__(self, parent, orient, **init_kwargs):
         BaseTkTreeNode.__init__(
             self, tk.PanedWindow, parent=parent, orient=orient,
-            sashwidth=2, sashpad=0, bd=0, opaqueresize=False,
+            sashwidth=WINDOW_SEP_WIDTH, sashpad=0, bd=0, opaqueresize=False,
             **init_kwargs
         )
 

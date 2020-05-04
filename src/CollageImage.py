@@ -1,12 +1,25 @@
 from PIL import ImageTk, Image
 from functools import wraps
+from src.utils import int_clamp
+from PIL import UnidentifiedImageError
+import tkinter.messagebox as messagebox
+
+
+def safe_open_image(filename, corner_creator):
+    image = None
+    try:
+        if filename is not None and filename != "":
+            image = PILCollageImage(filename, corner_creator)
+    except UnidentifiedImageError:
+        messagebox.showerror("Error", "Failed open file {0}".format(filename))
+    return image
 
 
 class ViewingWindow:
     """
     Class for managing viewing window in original image
     """
-    def __init__(self, original, width, height, scale_step=0.05, scale_value_min=0.2, move_step=5):
+    def __init__(self, original, width=1, height=1, scale_step=0.05, scale_value_min=0.2, move_step=5):
         self.original = original
         self.image_size = (width, height)
         self.scale_value = 1
@@ -39,16 +52,18 @@ class ViewingWindow:
         lower = center[1] + self.height / 2
 
         new_borders = (
-            int(round(max(left, 0))),
-            int(round(max(upper, 0))),
-            int(round(min(right, self.original.width))),
-            int(round(min(lower, self.original.height)))
+            int_clamp(left, min_val=0),
+            int_clamp(upper, min_val=0),
+            int_clamp(right, max_val=self.original.width),
+            int_clamp(lower, max_val=self.original.height)
         )
-        new_width = max(min(int(round((new_borders[2] - new_borders[0]) / self.scale_value)), self.ImageSize[0]), 1)
-        new_height = max(min(int(round((new_borders[3] - new_borders[1]) / self.scale_value)), self.ImageSize[1]), 1)
+        new_width = int_clamp(
+            (new_borders[2] - new_borders[0]) / self.scale_value, min_val=1, max_val=self.ImageSize[0])
+        new_height = int_clamp(
+            (new_borders[3] - new_borders[1]) / self.scale_value, min_val=1, max_val=self.ImageSize[1])
 
-        corner_x = int(min(max(round(-left / self.scale_value), 0), self.ImageSize[0] - 1))
-        corner_y = int(min(max(round(-upper / self.scale_value), 0), self.ImageSize[1] - 1))
+        corner_x = int_clamp(-left / self.scale_value, min_val=0, max_val=self.ImageSize[0] - 1)
+        corner_y = int_clamp(-upper / self.scale_value, min_val=0, max_val=self.ImageSize[1] - 1)
 
         return self.original.crop(new_borders).resize((new_width, new_height)), (corner_x, corner_y)
 
@@ -67,8 +82,8 @@ class ViewingWindow:
 
     def move(self, dx, dy):
         self.view_vector = (
-            self.view_vector[0] + int(dx * self.scale_value),
-            self.view_vector[1] + int(dy * self.scale_value))
+            self.view_vector[0] + dx * self.scale_value,
+            self.view_vector[1] + dy * self.scale_value)
         return self._crop()
 
     def move_up(self):
@@ -105,14 +120,11 @@ def update_image(fn):
 
 
 class PILCollageImage:
-    def __init__(
-        self,
-        filename,
-        corner_creator
-    ):
+    def __init__(self, filename, corner_creator):
         self.corners = corner_creator
-        self.original = Image.open(filename)
-        self.viewing_window = None
+
+        original = Image.open(filename)
+        self.viewing_window = ViewingWindow(original)
         self._photo_image = None
         self._corner = None
 
@@ -122,10 +134,7 @@ class PILCollageImage:
         Resize the image
         size – The requested size in pixels, as a 2-tuple: (width, height).
         """
-        if self.viewing_window is None:
-            self.viewing_window = ViewingWindow(self.original, *size)
-        else:
-            self.viewing_window.ImageSize = size
+        self.viewing_window.ImageSize = size
         return self.viewing_window.get()
 
     @update_image

@@ -1,8 +1,13 @@
-import tkinter.messagebox as messagebox
 from tkinter import filedialog
 from tkinter import VERTICAL, HORIZONTAL
-from src.CollageImage import PILCollageImage
-from PIL import UnidentifiedImageError
+
+
+def int_clamp(val, min_val=None, max_val=None):
+    if min_val is not None:
+        val = max(val, min_val)
+    if max_val is not None:
+        val = min(val, max_val)
+    return int(round(val))
 
 
 def is_up_left(where):
@@ -26,13 +31,3 @@ def ask_open_image():
     )
 
     return filename
-
-
-def safe_open_image(filename, corner_creator):
-    image = None
-    try:
-        if filename is not None and filename != "":
-            image = PILCollageImage(filename, corner_creator)
-    except UnidentifiedImageError:
-        messagebox.showerror("Error", "Failed open file {0}".format(filename))
-    return image

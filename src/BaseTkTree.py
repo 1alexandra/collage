@@ -1,3 +1,5 @@
+from src.utils import int_clamp
+
 
 class BaseTkTreeNode:
     def __init__(self, obj_class, parent, width, height, tk_master=None, bg='white', **special_kwargs):
@@ -107,8 +109,8 @@ class BreedingTkNode(BaseTkTreeNode):
             self._root.update()
             self._set_child_window_size(
                 self._left,
-                width=(self._width - sep_width) // 2,
-                height=(self._height - sep_width) // 2
+                width=int_clamp((self._width - sep_width) // 2, min_val=0),
+                height=int_clamp((self._height - sep_width) // 2, min_val=0)
             )
             self._root.update()
 
@@ -130,20 +132,14 @@ class BreedingTkNode(BaseTkTreeNode):
         if child_internal is not None:
             self._root.paneconfig(child_internal, width=width, height=height)
 
-    def _get_proportion(self):
-        return min(
-            self._left.get_width() / (self._left.get_width() + self._right.get_width()),
-            self._left.get_height() / (self._left.get_height() + self._right.get_height())
-        )
-
     def _resize_handler(self, event):
         if self._right is not None:
             sep_width = self._root['sashwidth']
             width_scale = event.width / self._width
             height_scale = event.height / self._height
 
-            new_width = int(width_scale * (self._left.get_width() + sep_width) - sep_width)
-            new_height = int(height_scale * (self._left.get_height() + sep_width) - sep_width)
+            new_width = int_clamp(width_scale * (self._left.get_width() + sep_width) - sep_width, min_val=0)
+            new_height = int_clamp(height_scale * (self._left.get_height() + sep_width) - sep_width, min_val=0)
             self._set_child_window_size(self._left, width=new_width, height=new_height)
         self._width = event.width
         self._height = event.height
