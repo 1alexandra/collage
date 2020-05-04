@@ -1,8 +1,8 @@
 import tkinter as tk
-from src.utils import ask_open_image, get_orient, is_up_bottom, is_up_left
+from src.utils import ask_open_image, get_orient, is_up_bottom, is_up_left, int_clamp
 from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
-from src.constants import WINDOW_SEP_WIDTH
+from src.constants import WINDOW_SEP_WIDTH, HIGHLIGHT_BORDER_WIDTH
 
 
 class CollageBreedingNode(BreedingTkNode):
@@ -91,10 +91,10 @@ class CollageLeafNode(UpdatableTkNode):
             self._image_id = None
 
     def get_real_width(self):
-        return max(self._width - 2 * self._margin, 0)
+        return int_clamp(self._width - 2 * self._margin, min_val=0)
 
     def get_real_height(self):
-        return max(self._height - 2 * self._margin, 0)
+        return int_clamp(self._height - 2 * self._margin, min_val=0)
 
     def update_leaf_vars(self, margin=None, **kwargs):
         if margin is not None:
@@ -125,7 +125,7 @@ class CollageLeafNode(UpdatableTkNode):
         self._parent.collapse()
 
     def _on_focus_in(self, _):
-        self._root.config(highlightthickness=1)
+        self._root.config(highlightthickness=HIGHLIGHT_BORDER_WIDTH)
 
     def _on_focus_out(self, _):
         self._root.config(highlightthickness=0)
