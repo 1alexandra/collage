@@ -71,13 +71,13 @@ class CollageRoot(CollageBreedingNode):
         new_height: int, non-negative
         new_margin: int, non-negative
         """
-        # assert new_margin >= 0
-        # assert new_height >= 0
-        # assert new_width >= 0
-        self._root.config(width=new_width, height=new_height)
-        if new_margin != self._margin:
-            self._margin = new_margin
-            self.update_leaf_vars(margin=self._margin)
+        assert new_margin >= 0
+        assert new_height >= 0
+        assert new_width >= 0
+        if new_width != self._width or new_height != self._height:
+            self._root.config(width=new_width, height=new_height)
+        self._margin = new_margin
+        self.update_leaf_vars(margin=self._margin)
 
 
 class CollageLeafNode(UpdatableTkNode):
@@ -99,12 +99,12 @@ class CollageLeafNode(UpdatableTkNode):
         return int_clamp(self._height - 2 * self._margin, min_val=0)
 
     def update_leaf_vars(self, margin=None, **kwargs):
-        """Updates the margin"""
+        """Updates the margin and corners of the image"""
         if margin is not None:
             diff = margin - self._margin
             self._margin = margin
             self._move_image_on_canvas(dx=diff, dy=diff)
-            self._set_image()
+        self._set_image()
 
     def destroy(self):
         """
@@ -165,10 +165,11 @@ class CollageLeafNode(UpdatableTkNode):
         self._root.bind("<FocusOut>", lambda _: self._root.config(highlightthickness=0))
 
     def _resize_handler(self, event):
-        self._width = event.width
-        self._height = event.height
-        self._set_image()
-        self._parent.update_proportion()
+        if event.width != self._width or event.height != self._height:
+            self._width = event.width
+            self._height = event.height
+            self._set_image()
+            self._parent.update_proportion(self)
 
     def _context_menu_handler(self, event):
         self._root.focus_set()

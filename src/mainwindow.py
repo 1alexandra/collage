@@ -143,8 +143,7 @@ class Application(tk.Frame):
 
     def change_canvas_parameters(self):
         """Validate and apply user input from menu entries."""
-        self.collage['width'] = self.collage_width.get()
-        self.collage['height'] = self.collage_height.get()
+        self.collage.configure(width=self.collage_width.get(), height=self.collage_height.get())
         self.collage.margin = self.collage_margin.get()
         self.collage.corner_creator.Width = self.corner_width.get()
         self.collage.corner_creator.Curve = self.corner_curve.get()

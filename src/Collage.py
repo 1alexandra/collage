@@ -5,7 +5,7 @@ from src.CornerCreator import CornerCreator
 from src.CollageImage import safe_open_image
 
 
-class Collage(tk.Canvas):
+class Collage(tk.Frame):
     def __init__(
         self,
         margin,
@@ -17,11 +17,6 @@ class Collage(tk.Canvas):
         super().__init__(*master_args, **master_kwargs)
         self.margin = margin
         self.corner_creator = CornerCreator(corner_width, corner_curve)
-
-        self.selected_image = None
-        self.selection_rectangle_id = self.create_rectangle(
-            0, 0, 0, 0, dash=(2, 2), fill='', outline='white', tag="image"
-        )
 
         self.collage_root = CollageRoot(
             tk_master=self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
@@ -46,4 +41,4 @@ class Collage(tk.Canvas):
     def update_params(self):
         if self.collage_root is not None:
             self.collage_root.update_params(
-                new_width=self['width'], new_height=self['height'], new_margin=self.margin)
+                new_width=self.winfo_reqwidth(), new_height=self.winfo_reqheight(), new_margin=self.margin)

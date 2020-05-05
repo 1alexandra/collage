@@ -20,10 +20,6 @@ class BaseTkTreeNode:
 
         self._create_tk_object(tk_master=tk_master)
 
-    def _copy_window_size(self, from_obj):
-        self._width = from_obj.get_width()
-        self._height = from_obj.get_height()
-
     def get_left(self):
         return self._left
 
@@ -87,6 +83,9 @@ class BreedingTkNode(BaseTkTreeNode):
         else:
             assert False
 
+        if self._right is not None:
+            self._align_children()
+
     def add_child(self, child, begin=False):
         self._proportion = 0.5
         self.replace_child(old_child=None, new_child=child)
@@ -138,34 +137,42 @@ class BreedingTkNode(BaseTkTreeNode):
         if len(self._root.panes()) > 1:
             return self._root.panes()[1]
 
-    def update_proportion(self):
+    def get_children_number(self):
+        if self._right is not None:
+            return 2
+        elif self._left is not None:
+            return 1
+        return 0
+
+    def update_proportion(self, child):
         """Updates the proportion of children's windows' sizes"""
-        if self._left is not None and self._right is not None:
-            sep_width = int(self._root['sashwidth'])
-            self._proportion = min(self._left.get_width() / int_clamp(self._width - sep_width, min_val=1),
-                                   self._left.get_height() / int_clamp(self._height - sep_width, min_val=1))
+        if child is self._left:
+            if not hasattr(self, '_left_unresized'):
+                self._left_unresized = False
+            if self._left is not None and self._right is not None and not self._left_unresized:
+                sep_width = int(self._root['sashwidth'])
+                self._proportion = min(self._left.get_width() / int_clamp(self._width - sep_width, min_val=1),
+                                       self._left.get_height() / int_clamp(self._height - sep_width, min_val=1))
+            elif self._left_unresized:
+                self._left_unresized = False
 
     def _resize_handler(self, event):
-        self._width = event.width
-        self._height = event.height
+        if event.width != self._width or event.height != self._height:
+            self._width = event.width
+            self._height = event.height
 
-        if self._parent is not None:
-            self._parent.update_proportion()
+            if self._parent is not None:
+                self._parent.update_proportion(self)
 
-        if self._right is not None:
-            # ignore attempts of children to call the update_proportion() method here
-            # (for numerical stability).
-            buf = self._proportion
-            self._align_children()
-            self._proportion = buf
+            self._left_unresized = self._left is not None
+            if self._right is not None:
+                self._align_children()
 
 
 class UpdatableTkNode(BaseTkTreeNode):
     def update_tk_object(self, new_parent=None, instead=None):
         if new_parent is not None:
             self._parent = new_parent
-        if instead is not None:
-            self._copy_window_size(from_obj=instead)
         self._create_tk_object()
         if new_parent is not None:
             self._parent.replace_child(old_child=instead, new_child=self)
