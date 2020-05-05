@@ -21,6 +21,9 @@ Clone repository and in collage root directory execute:
  - python3 setup.py sdist bdist_wheel
  - pip3 install dist/collage-0.0.1-py3-none-any.whl
 
+# Documentation
+https://1alexandra.github.io/collage/
+
 # Licence
 
 **MIT**

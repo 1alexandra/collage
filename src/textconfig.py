@@ -6,6 +6,21 @@ from src.grid import grid_frame
 
 
 class TextConfigureApp(tk.Frame):
+    """Simple Collage Creator second window.
+
+    Used for adding a caption to a collage. Allows user to customize a
+    content and a style of the caption.
+
+    The window consists of five blocks:
+
+    - text redactor,
+    - font chooser,
+    - canvas with an intermediate result,
+    - font parameters input fields: italic, bold, underlined checkboxes \
+    and font size entry,
+    - buttons block: ``Change color...``, ``Try font``, ``OK`` buttons.
+
+    """
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -21,6 +36,7 @@ class TextConfigureApp(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        """Create and grid all widgets."""
         grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [0], 0, 0, 'news')
         frame = tk.Frame(self, bd=10)
@@ -33,10 +49,12 @@ class TextConfigureApp(tk.Frame):
         self.draw()
 
     def create_canvas(self, frame, row, col):
+        """Create, configure and grid result canvas."""
         self.canvas = tk.Canvas(frame, width=300, height=100, bg='white')
         self.canvas.grid(row=row, column=col)
 
     def create_text_redactor(self, frame, row, col):
+        """Create, grid and initialize text redactor."""
         # TODO: add scrollbar
         text_frame = tk.Frame(frame, bd=10)
         grid_frame(text_frame, [1], [0], row, col, 'news')
@@ -47,6 +65,7 @@ class TextConfigureApp(tk.Frame):
         self.text_redactor.insert(tk.END, datetime.now().date().strftime("%B %Y"))
 
     def create_font_chooser(self, frame, row, col):
+        """Create and grid font chooser listbox, fill the options."""
         # TODO: add scrollbar
         font_frame = tk.Frame(frame, bd=10)
         grid_frame(font_frame, [1], [0], row, col, 'news')
@@ -59,6 +78,7 @@ class TextConfigureApp(tk.Frame):
         self.font_chooser.selection_set(0)
 
     def create_modifiers(self, frame, row, col):
+        """Create and grid font modifiers block."""
         # TODO: add validation function
         buttons = tk.Frame(frame, bd=10)
         grid_frame(buttons, [1], [0, 1, 2], row, col, 'news')
@@ -76,6 +96,7 @@ class TextConfigureApp(tk.Frame):
         entry.grid(row=1, column=1, sticky='new', columnspan=2)
 
     def create_buttons(self, frame, row, col):
+        """Create and grid buttons block."""
         buttons = tk.Frame(frame, bd=10)
         grid_frame(buttons, [], [0, 1, 2], row, col, 'news')
         commands = {
@@ -88,6 +109,7 @@ class TextConfigureApp(tk.Frame):
             button.grid(row=0, column=i, sticky='ews')
 
     def draw(self):
+        """Show intermediate result on the canvas."""
         # TODO: drawing text in choosen style on canvas
         text = self.text_redactor.get('1.0', 'end-1c')
         font = self.font
@@ -100,18 +122,23 @@ class TextConfigureApp(tk.Frame):
         pass
 
     def choose_color(self):
+        """Run askcolor dialog and show intermediate result."""
+        # ToDo: validation
         self.rgb, _ = askcolor(parent=self, title="Choose color:")
         self.draw()
 
     def choose_font(self):
+        """Update font and show intermediate result."""
         self.font = self.system_fonts[self.font_chooser.curselection()[0]]
         self.draw()
 
     def ok_quit(self):
+        """Update result canvas and close the window."""
         self.draw()
         self.master.destroy()
         return 'break'
 
     def get_return(self):
+        """Return canvas with stylized capture."""
         # TODO: check if canvas exists after self.master.destroy()
         return self.canvas

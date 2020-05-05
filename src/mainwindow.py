@@ -6,6 +6,22 @@ from src.Collage import Collage
 
 
 class Application(tk.Frame):
+    """Simple Collage Creator application main window.
+
+    The window consists of two frames: **menu** and **workspace**.
+
+    The **menu** contains control buttons and fields for entering collage
+    parameters:
+
+    - ``Undo``, ``Redo``, ``Load``, ``Save``, ``Save as...``, ``Print`` \
+    buttons at the top,
+    - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature`` \
+    entries in the middle,
+    - ``Change parameters``, ``Add text`` buttons below it.
+
+    The **workspace** contains ``Collage`` object in the middle and four buttons
+    for adding photos (one on each side).
+    """
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -19,6 +35,7 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        """Create and grid menu and workspace."""
         grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [1])
         left_frame = tk.LabelFrame(self, text='Menu')
@@ -32,6 +49,7 @@ class Application(tk.Frame):
         self.create_canvas_frame(right_frame, 0, 0)
 
     def create_menu_buttons(self, frame, row, col):
+        """Create, grid and bind menu top buttons block."""
         # TODO: add icons
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], row, col, 'news')
@@ -48,6 +66,7 @@ class Application(tk.Frame):
             button.grid(row=i // 2, column=i % 2, sticky='new')
 
     def create_entries(self, frame, row, col):
+        """Create, grid and bind menu entries block."""
         # TODO: add validation functions
         entries_frame = tk.Frame(frame, bd=10)
         grid_frame(entries_frame, [0, 1, 2, 3], [0, 1], row, col, 'news')
@@ -65,6 +84,7 @@ class Application(tk.Frame):
             entry.grid(row=i, column=1, sticky='w')
 
     def create_change_buttons(self, frame, row, col):
+        """Create, bind and bind menu bottom buttons block."""
         button_frame = tk.Frame(frame, bd=10)
         grid_frame(button_frame, [], [0], row, col, 'news')
         commands = {
@@ -76,6 +96,7 @@ class Application(tk.Frame):
             button.grid(row=i, column=0, sticky='new')
 
     def create_canvas_frame(self, frame, row, col):
+        """Create, grid and bind workspace units."""
         # TODO: add two scrolling bars to canvas_frame
         canvas_frame = tk.Frame(frame, bd=10)
         grid_frame(canvas_frame, [0, 2], [0, 2], row, col, 'news')
@@ -100,7 +121,6 @@ class Application(tk.Frame):
                 "width": self.collage_width.get(),
             }
         )
-        # collage will be placed on the center of the widget
         self.collage.grid(row=1, column=1)
 
     def undo_command(self):
@@ -122,6 +142,7 @@ class Application(tk.Frame):
         pass
 
     def change_canvas_parameters(self):
+        """Validate and apply user input from menu entries."""
         self.collage['width'] = self.collage_width.get()
         self.collage['height'] = self.collage_height.get()
         self.collage.margin = self.collage_margin.get()
@@ -130,13 +151,28 @@ class Application(tk.Frame):
         self.collage.update_params()
 
     def open_text_window(self):
-        # Output: tk.canvas object
+        """Open ``TextConfigureApp`` window. Return canvas with result."""
         root = tk.Tk()
         window = TextConfigureApp(master=root)
         window.mainloop()
         return window.get_return()
 
     def add_photo(self, where):
+        """Run file system dialog and place photo on collage.
+
+        ``where`` values:
+
+        - 's' is South (upper side),
+        - 'n' is North (down side),
+        - 'w' is West (left side),
+        - 'e' is East (right side).
+
+        Adding a photo from one side of the collage border.
+        In this case, the new cell appears on this side of the collage and
+        takes up half of the collage regardless of size. All previously
+        existing cells are compressed to make room for a new cell.
+        """
+        
         filename = ask_open_image()
 
         # file was not selected
