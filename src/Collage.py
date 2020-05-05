@@ -39,6 +39,8 @@ class Collage(tk.Frame):
             self.collage_root.add_image(image=image, where=where)
 
     def update_params(self):
-        if self.collage_root is not None:
-            self.collage_root.update_params(
-                new_width=self.winfo_reqwidth(), new_height=self.winfo_reqheight(), new_margin=self.margin)
+        self.collage_root.update_params(
+            new_width=self.winfo_reqwidth(), new_height=self.winfo_reqheight(), new_margin=self.margin)
+
+    def save_collage(self, filename):
+        self.collage_root.save_collage(filename)

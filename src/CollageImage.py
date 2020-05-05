@@ -128,6 +128,11 @@ class PILCollageImage:
         self._photo_image = None
         self._corner = None
 
+    def get_pil_image(self):
+        img, _ = self.viewing_window.get()
+        img = self._update_corners(img)
+        return img
+
     @update_image
     def resize(self, size):
         """

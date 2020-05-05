@@ -3,6 +3,7 @@ from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
+from tkinter import filedialog
 
 
 class Application(tk.Frame):
@@ -136,7 +137,9 @@ class Application(tk.Frame):
         pass
 
     def save_as_command(self):
-        pass
+        filename = filedialog.asksaveasfile(mode='w', defaultextension=".png", filetypes=(
+            ("PNG file", "*.png"), ("All Files", "*.*"))).name
+        self.collage.save_collage(filename)
 
     def print_command(self):
         pass

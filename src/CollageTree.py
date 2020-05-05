@@ -1,8 +1,9 @@
 import tkinter as tk
-from src.utils import ask_open_image, get_orient, is_up_left, int_clamp
+from src.utils import ask_open_image, get_orient, is_up_left, int_clamp, is_vertical, mix_image_with_bg
 from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
 from src.constants import WINDOW_SEP_WIDTH, HIGHLIGHT_BORDER_WIDTH
+from PIL import Image
 
 
 class CollageBreedingNode(BreedingTkNode):
@@ -26,6 +27,16 @@ class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
             sashwidth=WINDOW_SEP_WIDTH, sashpad=0, bd=0, opaqueresize=False,
             **init_kwargs
         )
+        self._is_vertical = is_vertical(orient)
+
+    def add_to_collage(self, im, x_offset, y_offset):
+        if self._left is not None:
+            self._left.add_to_collage(im, x_offset, y_offset)
+        if self._right is not None:
+            if self._is_vertical:
+                self._right.add_to_collage(im, x_offset, y_offset + self._left.get_height() + WINDOW_SEP_WIDTH)
+            else:
+                self._right.add_to_collage(im, x_offset + self._left.get_width() + WINDOW_SEP_WIDTH, y_offset)
 
 
 class CollageRoot(CollageBreedingNode):
@@ -34,6 +45,14 @@ class CollageRoot(CollageBreedingNode):
 
         self._margin = margin
         self._corner_creator = corner_creator
+
+    def save_collage(self, filename):
+        if self._left is not None:
+            collage_im = Image.new('RGBA', (self._width, self._height))
+            self._left.add_to_collage(collage_im, 0, 0)
+
+            collage_im = mix_image_with_bg(collage_im, bg_color=self._bg)
+            collage_im.save(filename)
 
     def add_image(self, image, where):
         """
@@ -205,6 +224,9 @@ class CollageLeafNode(UpdatableTkNode):
             self.add_image(image=image, where=where)
         return func
 
+    def add_to_collage(self, im, x_offset, y_offset):
+        raise NotImplementedError('add_to_collage is not implemented')
+
 
 class ResizableLeaf(CollageLeafNode):
     def __init__(self, *args, **kwargs):
@@ -295,3 +317,9 @@ class ResizableLeaf(CollageLeafNode):
         self._root.config(cursor="")
         self._cur_x = None
         self._cur_y = None
+
+    def add_to_collage(self, collage_im, x_offset, y_offset):
+        im = self._image.get_pil_image()
+        corner = (0, 0) if self._corner is None else self._corner
+        corner = (corner[0] + self._margin, corner[1] + self._margin)
+        collage_im.paste(im, (x_offset + corner[0], y_offset + corner[1]))
