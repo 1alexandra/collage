@@ -106,6 +106,14 @@ class CollageLeafNode(UpdatableTkNode):
             self._move_image_on_canvas(dx=diff, dy=diff)
             self._set_image()
 
+    def destroy(self):
+        """
+        Destroys the leaf and replaces the parent of the leaf
+        by the only child left (so the tree remains to be binary).
+        """
+        self._parent.remove_child(self)
+        self._parent.collapse()
+
     def _move_image_on_canvas(self, dx, dy):
         """Moves the image on canvas"""
         if self._image_id is not None:
@@ -150,19 +158,11 @@ class CollageLeafNode(UpdatableTkNode):
         self._context_menu.add_command(label="Add image to the right", command=self._add_image_func('e'))
         self._context_menu.add_command(label="Add image on top", command=self._add_image_func('n'))
         self._context_menu.add_command(label="Add image below", command=self._add_image_func('s'))
-        self._context_menu.add_command(label="Remove the image", command=self._destroy)
+        self._context_menu.add_command(label="Remove the image", command=self.destroy)
 
         self._root.bind("<Button-3>", self._context_menu_handler)
         self._root.bind("<FocusIn>", lambda _: self._root.config(highlightthickness=HIGHLIGHT_BORDER_WIDTH))
         self._root.bind("<FocusOut>", lambda _: self._root.config(highlightthickness=0))
-
-    def _destroy(self):
-        """
-        Destroys the leaf and replaces the parent of the leaf
-        by the only child left (so the tree remains to be binary).
-        """
-        self._parent.remove_child(self)
-        self._parent.collapse()
 
     def _resize_handler(self, event):
         self._width = event.width
@@ -178,12 +178,11 @@ class CollageLeafNode(UpdatableTkNode):
         finally:
             self._context_menu.grab_release()
 
-    def _add_image_func(self, where):
+    def add_image(self, image, where):
         """
-        Method that returns the function that adds new image to the tree.
+        Adds new image to the tree.
 
-        The function calls ask_open_image() dialog and creates new PanedWindow
-        that consists of this image and the currently loaded image.
+        Creates new PanedWindow that consists of this image and the currently loaded image.
 
         Parameters
         ----------
@@ -191,16 +190,18 @@ class CollageLeafNode(UpdatableTkNode):
             Specifies the place where we should put the image.
             Can be one of ('w', 's', 'n', 'e').
         """
+        if image:
+            self.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
+            self._parent.add_image_child(
+                image=image, margin=self._margin, where=where,
+                corner_creator=self._corner_creator
+            )
+
+    def _add_image_func(self, where):
         def func():
             filename = ask_open_image()
             image = safe_open_image(filename, corner_creator=self._corner_creator)
-
-            if image:
-                self.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
-                self._parent.add_image_child(
-                    image=image, margin=self._margin, where=where,
-                    corner_creator=self._corner_creator
-                )
+            self.add_image(image=image, where=where)
         return func
 
 

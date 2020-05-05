@@ -24,6 +24,12 @@ class BaseTkTreeNode:
         self._width = from_obj.get_width()
         self._height = from_obj.get_height()
 
+    def get_left(self):
+        return self._left
+
+    def get_right(self):
+        return self._right
+
     def get_width(self):
         return self._width
 

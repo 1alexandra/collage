@@ -27,6 +27,12 @@ class Collage(tk.Canvas):
             tk_master=self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
         self.collage_root.get_tk_object().grid(row=0, column=0)
 
+    def get_collage_root(self):
+        return self.collage_root
+
+    def get_corners(self):
+        return self.corner_creator
+
     def add_image(self, filename, where):
         """
         Add image in collage to specified side

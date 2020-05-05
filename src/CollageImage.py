@@ -172,6 +172,7 @@ class PILCollageImage:
 
     PhotoImage = property()
     corner = property()
+    ViewingWindow = property()
 
     @PhotoImage.getter
     def PhotoImage(self):
@@ -180,3 +181,7 @@ class PILCollageImage:
     @corner.getter
     def corner(self):
         return self._corner
+
+    @ViewingWindow.getter
+    def ViewingWindow(self):
+        return self.viewing_window
