@@ -1,4 +1,5 @@
 from src.utils import int_clamp
+from src.constants import WINDOW_SEP_WIDTH
 
 
 class BaseTkTreeNode:
@@ -118,10 +119,8 @@ class BreedingTkNode(BaseTkTreeNode):
     def _align_children(self):
         """Updates the border between windows according to self._proportion"""
         if self._right is not None:
-            sep_width = self._root['sashwidth']
-
-            new_width = int_clamp(self._proportion * (self._width - sep_width), min_val=0)
-            new_height = int_clamp(self._proportion * (self._height - sep_width), min_val=0)
+            new_width = int_clamp(self._proportion * (self._width - WINDOW_SEP_WIDTH), min_val=0)
+            new_height = int_clamp(self._proportion * (self._height - WINDOW_SEP_WIDTH), min_val=0)
 
             child_internal = self._get_left_child_internal()
             assert child_internal is not None
@@ -150,9 +149,8 @@ class BreedingTkNode(BaseTkTreeNode):
             if not hasattr(self, '_left_unresized'):
                 self._left_unresized = False
             if self._left is not None and self._right is not None and not self._left_unresized:
-                sep_width = int(self._root['sashwidth'])
-                self._proportion = min(self._left.get_width() / int_clamp(self._width - sep_width, min_val=1),
-                                       self._left.get_height() / int_clamp(self._height - sep_width, min_val=1))
+                self._proportion = min(self._left.get_width() / int_clamp(self._width - WINDOW_SEP_WIDTH, min_val=1),
+                                       self._left.get_height() / int_clamp(self._height - WINDOW_SEP_WIDTH, min_val=1))
             elif self._left_unresized:
                 self._left_unresized = False
 
