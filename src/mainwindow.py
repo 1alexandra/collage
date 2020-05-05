@@ -171,7 +171,6 @@ class Application(tk.Frame):
         takes up half of the collage regardless of size. All previously
         existing cells are compressed to make room for a new cell.
         """
-        
         filename = ask_open_image()
 
         # file was not selected
