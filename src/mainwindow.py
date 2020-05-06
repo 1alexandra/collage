@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 
+import pickle
+
 from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
@@ -61,8 +63,8 @@ class Application(tk.Frame):
         commands = {
             'Undo': None,
             'Redo': None,
-            'Load...': None,
-            'Dump as...': None,
+            'Load project': self.load_command,
+            'Dump project': self.dump_command,
             'Save as...': self.save_as_command,
             'Print...': None,
         }
@@ -140,17 +142,40 @@ class Application(tk.Frame):
         raise NotImplementedError
 
     def load_command(self):
-        raise NotImplementedError
+        filename = filedialog.askopenfilename(
+            title="Select file",
+            filetypes=(
+                ("CLG file", "*.clg"),
+            )
+        )
+        if filename != "":
+            with open(filename, "rb") as file:
+                width, height, margin, corner_width, corner_curve, collage_root = pickle.load(file)
+                self.collage_width.set(width)
+                self.collage_height.set(height)
+                self.collage_margin.set(margin)
+                self.corner_width.set(corner_width)
+                self.corner_curve.set(corner_curve)
+                self.change_canvas_parameters()
+                self.collage.load_collage_root(collage_root)
 
-    def dump_as_command(self):
-        raise NotImplementedError
+    def dump_command(self):
+        filename = filedialog.asksaveasfile(mode="w", defaultextension=".clg", filetypes=(
+            ("CLG file", "*.clg"), ("All Files", "*.*")))
+        if filename is not None:
+            obj = (
+                self.collage_width.get(), self.collage_height.get(), self.collage_margin.get(),
+                self.corner_width.get(), self.corner_curve.get(),
+                self.collage.get_collage_root()
+            )
+            with open(filename.name, "wb") as file:
+                pickle.dump(obj, file)
 
     def save_as_command(self):
-        filename = filedialog.asksaveasfile(mode='w', defaultextension=".png", filetypes=(
+        filename = filedialog.asksaveasfile(mode="w", defaultextension=".png", filetypes=(
             ("PNG file", "*.png"), ("All Files", "*.*")))
-        if filename is None:
-            return
-        self.collage.save_collage(filename.name)
+        if filename is not None:
+            self.collage.save_collage(filename.name)
 
     def print_command(self):
         raise NotImplementedError

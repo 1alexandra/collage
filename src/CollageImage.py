@@ -1,5 +1,4 @@
-from PIL import ImageTk, Image
-from functools import wraps
+from PIL import Image
 from src.utils import int_clamp
 from PIL import UnidentifiedImageError
 import tkinter.messagebox as messagebox
@@ -21,29 +20,29 @@ class ViewingWindow:
     """
     def __init__(self, original, scale_step=0.05, scale_value_min=0.2, move_step=5):
         self.original = original
-        self.image_size = None
+        self._image_size = None
         self.scale_value = 1
         self.scale_step = scale_step
         self.move_step = move_step
         self.view_vector = (0, 0)
         self.scale_value_min = scale_value_min
 
+        self._borders = None
+        self._corner = None
+        self._actual_im_size = None
+
     width = property()
     height = property()
 
     @width.getter
     def width(self):
-        return self.ImageSize[0] * self.scale_value
+        return self._image_size[0] * self.scale_value
 
     @height.getter
     def height(self):
-        return self.ImageSize[1] * self.scale_value
+        return self._image_size[1] * self.scale_value
 
-    def _crop(self):
-        """
-        Crops rectangle from original image and resizes it to image size
-        Returns cropped PIL Image
-        """
+    def _update_params(self):
         center = (self.original.width / 2 + self.view_vector[0], self.original.height / 2 + self.view_vector[1])
 
         left = center[0] - self.width / 2
@@ -58,65 +57,61 @@ class ViewingWindow:
             int_clamp(lower, max_val=self.original.height)
         )
         new_width = int_clamp(
-            (new_borders[2] - new_borders[0]) / self.scale_value, min_val=1, max_val=self.ImageSize[0])
+            (new_borders[2] - new_borders[0]) / self.scale_value, min_val=1, max_val=self._image_size[0])
         new_height = int_clamp(
-            (new_borders[3] - new_borders[1]) / self.scale_value, min_val=1, max_val=self.ImageSize[1])
+            (new_borders[3] - new_borders[1]) / self.scale_value, min_val=1, max_val=self._image_size[1])
 
-        corner_x = int_clamp(-left / self.scale_value, min_val=0, max_val=self.ImageSize[0] - 1)
-        corner_y = int_clamp(-upper / self.scale_value, min_val=0, max_val=self.ImageSize[1] - 1)
+        corner_x = int_clamp(-left / self.scale_value, min_val=0, max_val=self._image_size[0] - 1)
+        corner_y = int_clamp(-upper / self.scale_value, min_val=0, max_val=self._image_size[1] - 1)
 
-        return self.original.crop(new_borders).resize((new_width, new_height)), (corner_x, corner_y)
+        self._borders = new_borders
+        self._actual_im_size = (new_width, new_height)
+        self._corner = (corner_x, corner_y)
+
+    def get(self):
+        """
+        Crops rectangle from original image and resizes it to image size
+        Returns cropped PIL Image
+        """
+        return self.original.crop(self._borders).resize(self._actual_im_size)
 
     def _scale(self, new_scale_value):
         self.scale_value = new_scale_value
-        return self._crop()
+        self._update_params()
 
-    def get(self):
-        return self._crop()
-
-    def zoom_in(self):
-        return self._scale(max(self.scale_value - self.scale_step, self.scale_value_min))
-
-    def zoom_out(self):
-        return self._scale(self.scale_value + self.scale_step)
+    def resize(self, size):
+        self._image_size = int_clamp(size[0], min_val=1), int_clamp(size[1], min_val=1)
+        self._update_params()
 
     def move(self, dx, dy):
         self.view_vector = (
             self.view_vector[0] + dx * self.scale_value,
             self.view_vector[1] + dy * self.scale_value)
-        return self._crop()
+        self._update_params()
+
+    def zoom_in(self):
+        self._scale(max(self.scale_value - self.scale_step, self.scale_value_min))
+
+    def zoom_out(self):
+        self._scale(self.scale_value + self.scale_step)
 
     def move_up(self):
-        return self.move(dx=0, dy=-self.move_step)
+        self.move(dx=0, dy=-self.move_step)
 
     def move_down(self):
-        return self.move(dx=0, dy=self.move_step)
+        self.move(dx=0, dy=self.move_step)
 
     def move_left(self):
-        return self.move(dx=-self.move_step, dy=0)
+        self.move(dx=-self.move_step, dy=0)
 
     def move_right(self):
-        return self.move(dx=self.move_step, dy=0)
+        self.move(dx=self.move_step, dy=0)
 
-    ImageSize = property()
+    corner = property()
 
-    @ImageSize.getter
-    def ImageSize(self):
-        return self.image_size
-
-    @ImageSize.setter
-    def ImageSize(self, value):
-        self.image_size = int_clamp(value[0], min_val=1), int_clamp(value[1], min_val=1)
-
-
-def update_image(fn):
-    @wraps(fn)
-    def wrapper(self, *args, **kwargs):
-        img, corner = fn(self, *args, **kwargs)
-        img = self._update_corners(img)
-        self._corner = corner
-        self._photo_image = ImageTk.PhotoImage(img)
-    return wrapper
+    @corner.getter
+    def corner(self):
+        return self._corner
 
 
 class PILCollageImage:
@@ -125,50 +120,35 @@ class PILCollageImage:
 
         original = Image.open(filename)
         self.viewing_window = ViewingWindow(original)
-        self._photo_image = None
         self._corner = None
 
-    def get_pil_image(self):
-        img, _ = self.viewing_window.get()
-        img = self._update_corners(img)
-        return img
-
-    @update_image
     def resize(self, size):
         """
         Resize the image
         size – The requested size in pixels, as a 2-tuple: (width, height).
         """
-        self.viewing_window.ImageSize = size
-        return self.viewing_window.get()
+        self.viewing_window.resize(size)
 
-    @update_image
     def move_view_up(self):
-        return self.viewing_window.move_up()
+        self.viewing_window.move_up()
 
-    @update_image
     def move_view(self, dx, dy):
-        return self.viewing_window.move(dx=dx, dy=dy)
+        self.viewing_window.move(dx=dx, dy=dy)
 
-    @update_image
     def move_view_down(self):
-        return self.viewing_window.move_down()
+        self.viewing_window.move_down()
 
-    @update_image
     def move_view_left(self):
-        return self.viewing_window.move_left()
+        self.viewing_window.move_left()
 
-    @update_image
     def move_view_right(self):
-        return self.viewing_window.move_right()
+        self.viewing_window.move_right()
 
-    @update_image
     def zoom_in(self):
-        return self.viewing_window.zoom_in()
+        self.viewing_window.zoom_in()
 
-    @update_image
     def zoom_out(self):
-        return self.viewing_window.zoom_out()
+        self.viewing_window.zoom_out()
 
     def _update_corners(self, img):
         alpha = self.corners.get_alpha(img.size)
@@ -180,12 +160,12 @@ class PILCollageImage:
     ViewingWindow = property()
 
     @PhotoImage.getter
-    def PhotoImage(self):
-        return self._photo_image
+    def PIL(self):
+        return self._update_corners(self.viewing_window.get())
 
     @corner.getter
     def corner(self):
-        return self._corner
+        return self.viewing_window.corner
 
     @ViewingWindow.getter
     def ViewingWindow(self):

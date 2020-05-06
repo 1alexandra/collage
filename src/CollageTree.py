@@ -4,6 +4,7 @@ from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
 from src.constants import WINDOW_SEP_WIDTH, HIGHLIGHT_BORDER_WIDTH
 from PIL import Image
+from PIL.ImageTk import PhotoImage
 
 
 class CollageBreedingNode(BreedingTkNode):
@@ -38,6 +39,11 @@ class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
             else:
                 self._right.add_to_collage(im, x_offset + self._left.get_width() + WINDOW_SEP_WIDTH, y_offset)
 
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state['_root'] = None
+        return state
+
 
 class CollageRoot(CollageBreedingNode):
     def __init__(self, tk_master, corner_creator, margin=0, **init_kwargs):
@@ -46,9 +52,21 @@ class CollageRoot(CollageBreedingNode):
         self._margin = margin
         self._corner_creator = corner_creator
 
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state['_root'] = None
+        return state
+
+    def reload_object(self, tk_master):
+        self._create_tk_object(tk_master=tk_master)
+        self._left.update_tk_object()
+
+    def get_corners(self):
+        return self._corner_creator
+
     def save_collage(self, filename):
-        if self._left is not None:
-            collage_im = Image.new('RGBA', (self._width, self._height))
+        if self._left is not None and filename != "":
+            collage_im = Image.new("RGBA", (self._width, self._height))
             self._left.add_to_collage(collage_im, 0, 0)
 
             collage_im = mix_image_with_bg(collage_im, bg_color=self._bg)
@@ -148,15 +166,20 @@ class CollageLeafNode(UpdatableTkNode):
             else:
                 self._update_image()
 
+    def _set_photo_image(self):
+        self._photo_im = PhotoImage(self._image.PIL)
+
     def _create_image(self, x_coord=0, y_coord=0):
         """Creates the image and puts it on canvas"""
         self._delete_image()
+        self._set_photo_image()
         self._image_id = self._root.create_image(
-            self._margin + x_coord, self._margin + y_coord, anchor="nw", image=self._image.PhotoImage)
+            self._margin + x_coord, self._margin + y_coord, anchor="nw", image=self._photo_im)
 
     def _update_image(self):
         """Updates the image on canvas"""
-        self._root.itemconfig(self._image_id, image=self._image.PhotoImage)
+        self._set_photo_image()
+        self._root.itemconfig(self._image_id, image=self._photo_im)
 
     def _delete_image(self):
         """Deletes the image from canvas"""
@@ -319,7 +342,15 @@ class ResizableLeaf(CollageLeafNode):
         self._cur_y = None
 
     def add_to_collage(self, collage_im, x_offset, y_offset):
-        im = self._image.get_pil_image()
+        im = self._image.PIL
         corner = (0, 0) if self._corner is None else self._corner
         corner = (corner[0] + self._margin, corner[1] + self._margin)
         collage_im.paste(im, (x_offset + corner[0], y_offset + corner[1]))
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state['_root'] = None
+        state['_image_id'] = None
+        state['_photo_im'] = None
+        state['_context_menu'] = None
+        return state
