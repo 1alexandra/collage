@@ -4,6 +4,7 @@ from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
 from tkinter import filedialog
+import pickle
 
 
 class Application(tk.Frame):
@@ -57,8 +58,8 @@ class Application(tk.Frame):
         commands = {
             'Undo': self.undo_command,
             'Redo': self.redo_command,
-            'Load': self.load_command,
-            'Save': self.save_command,
+            'Load project': self.load_command,
+            'Dump project': self.dump_command,
             'Save as...': self.save_as_command,
             'Print': self.print_command
         }
@@ -131,15 +132,40 @@ class Application(tk.Frame):
         pass
 
     def load_command(self):
-        pass
+        filename = filedialog.askopenfilename(
+            title="Select file",
+            filetypes=(
+                ("CLG file", "*.clg"),
+            )
+        )
+        if filename != "":
+            with open(filename, "rb") as file:
+                width, height, margin, corner_width, corner_curve, collage_root = pickle.load(file)
+                self.collage_width.set(width)
+                self.collage_height.set(height)
+                self.collage_margin.set(margin)
+                self.corner_width.set(corner_width)
+                self.corner_curve.set(corner_curve)
+                self.change_canvas_parameters()
+                self.collage.load_collage_root(collage_root)
 
-    def save_command(self):
-        pass
+    def dump_command(self):
+        filename = filedialog.asksaveasfile(mode="w", defaultextension=".clg", filetypes=(
+            ("CLG file", "*.clg"), ("All Files", "*.*")))
+        if filename is not None:
+            obj = (
+                self.collage_width.get(), self.collage_height.get(), self.collage_margin.get(),
+                self.corner_width.get(), self.corner_curve.get(),
+                self.collage.get_collage_root()
+            )
+            with open(filename.name, "wb") as file:
+                pickle.dump(obj, file)
 
     def save_as_command(self):
-        filename = filedialog.asksaveasfile(mode='w', defaultextension=".png", filetypes=(
-            ("PNG file", "*.png"), ("All Files", "*.*"))).name
-        self.collage.save_collage(filename)
+        filename = filedialog.asksaveasfile(mode="w", defaultextension=".png", filetypes=(
+            ("PNG file", "*.png"), ("All Files", "*.*")))
+        if filename is not None:
+            self.collage.save_collage(filename.name)
 
     def print_command(self):
         pass

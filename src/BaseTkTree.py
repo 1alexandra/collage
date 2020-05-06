@@ -104,12 +104,6 @@ class BreedingTkNode(BaseTkTreeNode):
         if self._left is not None:
             self._left.update_tk_object(new_parent=self._parent, instead=self)
 
-    def _forget_children(self):
-        if self._left is not None:
-            self._root.forget(self._left.get_tk_object())
-        if self._right is not None:
-            self._root.forget(self._right.get_tk_object())
-
     def _display_children(self):
         if self._left is not None:
             self._root.add(self._left.get_tk_object())
@@ -135,13 +129,6 @@ class BreedingTkNode(BaseTkTreeNode):
         """Get tkinter object of the right child"""
         if len(self._root.panes()) > 1:
             return self._root.panes()[1]
-
-    def get_children_number(self):
-        if self._right is not None:
-            return 2
-        elif self._left is not None:
-            return 1
-        return 0
 
     def update_proportion(self, child):
         """Updates the proportion of children's windows' sizes"""
@@ -176,7 +163,6 @@ class UpdatableTkNode(BaseTkTreeNode):
             self._parent.replace_child(old_child=instead, new_child=self)
 
         if self._left is not None:
-            self._forget_children()
             self._left.update_tk_object()
             if self._right is not None:
                 self._right.update_tk_object()
