@@ -104,7 +104,10 @@ class BreedingTkNode(BaseTkTreeNode):
         if self._left is not None:
             self._left.update_tk_object(new_parent=self._parent, instead=self)
 
-    def _display_children(self):
+    def display_children(self):
+        if len(self._root.panes()) > 0:
+            for child in self._root.panes():
+                self._root.forget(child)
         if self._left is not None:
             self._root.add(self._left.get_tk_object())
         if self._right is not None:
@@ -155,18 +158,22 @@ class BreedingTkNode(BaseTkTreeNode):
 
 
 class UpdatableTkNode(BaseTkTreeNode):
+    def _update_tk_object(self):
+        self._create_tk_object()
+        if self._left is not None:
+            self._left._update_tk_object()
+            if self._right is not None:
+                self._right._update_tk_object()
+            self.display_children()
+
     def update_tk_object(self, new_parent=None, instead=None):
         if new_parent is not None:
             self._parent = new_parent
-        self._create_tk_object()
+        self._update_tk_object()
         if new_parent is not None:
             self._parent.replace_child(old_child=instead, new_child=self)
-
-        if self._left is not None:
-            self._left.update_tk_object()
-            if self._right is not None:
-                self._right.update_tk_object()
-            self._display_children()
+        else:
+            self._parent.display_children()
 
     def wrap_into_paned(self, internal_node_class, orient):
         new_parent = internal_node_class(

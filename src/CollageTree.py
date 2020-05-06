@@ -59,10 +59,7 @@ class CollageRoot(CollageBreedingNode):
 
     def reload_object(self, tk_master):
         self._create_tk_object(tk_master=tk_master)
-        child = self._left
-        if child is not None:
-            self._left = None
-            child.update_tk_object(new_parent=self)
+        self._left.update_tk_object()
 
     def save_collage(self, filename):
         if self._left is not None and filename != "":
