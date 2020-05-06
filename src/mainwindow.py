@@ -1,6 +1,9 @@
 import os
+import sys
 import tkinter as tk
 from tkinter import filedialog
+import gettext
+import locale
 
 import pickle
 
@@ -11,6 +14,16 @@ from src.Collage import Collage
 from src.scroll import ScrolledFrame
 from src.utils import int_clamp
 from src.constants import WINDOW_SEP_WIDTH, CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
+
+
+if sys.platform.startswith('win'):
+    if os.getenv('LANG') is None:
+        lang, enc = locale.getdefaultlocale()
+        os.environ['LANG'] = lang
+
+gettext.bindtextdomain('gui_messages', 'locales')
+gettext.textdomain('gui_messages')
+_ = gettext.gettext
 
 
 class Application(tk.Frame):
@@ -47,7 +60,7 @@ class Application(tk.Frame):
         """Create and grid menu and workspace."""
         grid_frame(self.master, is_root=True)
         grid_frame(self, [0], [1])
-        left_frame = tk.LabelFrame(self, text='Menu')
+        left_frame = tk.LabelFrame(self, text=_("Menu"))
         grid_frame(left_frame, [0, 1, 2], [0], 0, 0, 'nw')
         right_frame = tk.Frame(self)
         grid_frame(right_frame, [0], [0], 0, 1, 'news')
@@ -62,12 +75,12 @@ class Application(tk.Frame):
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], row, col, 'news')
         commands = {
-            'Undo': None,
-            'Redo': None,
-            'Load project': self.load_command,
-            'Dump project': self.dump_command,
-            'Save as...': self.save_as_command,
-            'Print...': None,
+            _("Undo"): None,
+            _("Redo"): None,
+            _("Load project"): self.load_command,
+            _("Dump project"): self.dump_command,
+            _("Save as..."): self.save_as_command,
+            _("Print..."): None,
         }
         for i, (text, command) in enumerate(commands.items()):
             if command is None:
@@ -80,11 +93,11 @@ class Application(tk.Frame):
         entries_frame = tk.Frame(frame, bd=10)
         grid_frame(entries_frame, [0, 1, 2, 3], [0, 1], row, col, 'news')
         variables = {
-            'Width in pixels': self.collage_width,
-            'Height in pixels': self.collage_height,
-            'Margin in pixels': self.collage_margin,
-            'Corner size in pixels': self.corner_width,
-            'Corner curvature (0-1)': self.corner_curve
+            _('Width in pixels'): self.collage_width,
+            _('Height in pixels'): self.collage_height,
+            _('Margin in pixels'): self.collage_margin,
+            _('Corner size in pixels'): self.corner_width,
+            _('Corner curvature (0-1)'): self.corner_curve
         }
         for i, (text, variable) in enumerate(variables.items()):
             label = tk.Label(entries_frame, text=text, padx=5)
@@ -97,8 +110,8 @@ class Application(tk.Frame):
         button_frame = tk.Frame(frame, bd=10)
         grid_frame(button_frame, [], [0], row, col, 'news')
         commands = {
-            'Change parameters': self.change_canvas_parameters,
-            # 'Add text...': self.open_text_window
+            _('Change parameters'): self.change_canvas_parameters,
+            # _('Add text...'): self.open_text_window
         }
         for i, (text, command) in enumerate(commands.items()):
             button = tk.Button(button_frame, text=text, command=command, padx=5, pady=5)
@@ -143,9 +156,9 @@ class Application(tk.Frame):
 
     def load_command(self):
         filename = filedialog.askopenfilename(
-            title="Select file",
+            title=_("Select file"),
             filetypes=(
-                ("CLG file", "*.clg"),
+                (_("CLG file"), "*.clg"),
             )
         )
         if filename != "":
@@ -161,7 +174,7 @@ class Application(tk.Frame):
 
     def dump_command(self):
         filename = filedialog.asksaveasfile(mode="w", defaultextension=".clg", filetypes=(
-            ("CLG file", "*.clg"), ("All Files", "*.*")))
+            (_("CLG file"), "*.clg"), ("All Files", "*.*")))
         if filename is not None:
             obj = (
                 self.collage_width.get(), self.collage_height.get(), self.collage_margin.get(),
@@ -173,7 +186,7 @@ class Application(tk.Frame):
 
     def save_as_command(self):
         filename = filedialog.asksaveasfile(mode="w", defaultextension=".png", filetypes=(
-            ("PNG file", "*.png"), ("All Files", "*.*")))
+            (_("PNG file"), "*.png"), (_("All Files"), "*.*")))
         if filename is not None:
             self.collage.save_collage(filename.name)
 
@@ -194,7 +207,7 @@ class Application(tk.Frame):
             cc = min(1.0, max(0.0, self.corner_curve.get()))
             self.corner_curve.set(cc)
         except tk.TclError:
-            tk.messagebox.showerror(title="Input error", message="Incorrect input. Try again.")
+            tk.messagebox.showerror(title=_("Input error"), message=_("Incorrect input. Try again."))
             return
 
         self.collage.configure(width=w, height=h)
