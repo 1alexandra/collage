@@ -46,6 +46,8 @@ class Collage(tk.Frame):
         self.collage_root.save_collage(filename)
 
     def load_collage_root(self, obj):
+        if self.collage_root is not None:
+            self.collage_root.get_tk_object().grid_remove()
         self.collage_root = obj
         self.collage_root.reload_object(tk_master=self)
         self.collage_root.get_tk_object().grid(row=0, column=0)
