@@ -47,7 +47,6 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.master.geometry("900x600")
         self.collage = None
         self.collage_width = tk.IntVar(master, 300)
         self.collage_height = tk.IntVar(master, 300)
@@ -217,7 +216,7 @@ class Application(tk.Frame):
             return
 
         self.collage.configure(width=w, height=h)
-        self.collage.margin = (m - WINDOW_SEP_WIDTH) // 2
+        self.collage.margin = m
         self.collage.corner_creator.Width = cw
         self.collage.corner_creator.Curve = cc
         self.collage.update_params()
