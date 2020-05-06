@@ -1,18 +1,18 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>User Guide &#8212; Simple Collage Creator 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -56,7 +56,7 @@ and saving and printing the resulting collage. As additional functions, you can
 change the parameters of the image borders (size, steepness of the rounded
 corner), implement control of elements on the canvas: the ability to move the
 borders, change the cropping window of the photo (zoom and change the
-position), and add a caption to the canvas.</p>
+position).</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -81,6 +81,18 @@ and in collage root directory execute:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="flake8">
+<h2>Flake8<a class="headerlink" href="#flake8" title="Permalink to this headline">¶</a></h2>
+<p>Run the command to check flake8 code in collage root directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flake8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="localisation">
+<h2>Localisation<a class="headerlink" href="#localisation" title="Permalink to this headline">¶</a></h2>
+<p>The application is adapted for two languages: English and Russian.
+Localization is selected based on system parameters.</p>
 </div>
 <div class="section" id="how-to-use">
 <h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h2>
@@ -116,37 +128,19 @@ and the second remains the old photo.</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Movement of the border between photos.</dt><dd><p>Click on a border part. When it is selected, you can move it by the keyboard
-arrows: vertical borders can be moved left and right,
-horizontal can be moved up or down.</p>
+<dt>Movement of the border between photos.</dt><dd><p>Hold down the left mouse button on boarder part and
+drag the border between cells moving the mouse.</p>
 </dd>
 </dl>
 </li>
 </ol>
 <p>Initially, middle part of the photo appears in the cell. You can change the position:
-select photo sell using mouse click and use keyboard arrows to move photo inside
-the cell. When you reach the photo boarder, the app will show a warning message.
-Also, you can change photo scale by <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code> keyboard buttons. If you trying
-to scale photo beyond it’s boarder, a worning message will be shown. To confirm
-new photo scale and position, click somewhere outside this photo cell or press
-<code class="docutils literal notranslate"><span class="pre">Enter</span></code> button. If you want to cancel your changes, press <code class="docutils literal notranslate"><span class="pre">Esc</span></code>.</p>
-<p>Click on <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">text...</span></code> button to open capture setup window.
-This window consists of five blocks:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>text redactor,</p></li>
-<li><p>font chooser,</p></li>
-<li><p>canvas with an intermediate result,</p></li>
-<li><p>font parameters input fields: italic, bold, underlined checkboxes
-and font size entry,</p></li>
-<li><p>buttons block: <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">color...</span></code>, <code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">font</span></code>, <code class="docutils literal notranslate"><span class="pre">OK</span></code> buttons.</p></li>
-</ul>
-</div></blockquote>
-<p>Write your caption in text redactor, choose font and style, click on <code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">font</span></code>
-button to see the result. If you want to add it to the collage, click on <code class="docutils literal notranslate"><span class="pre">OK</span></code>
-button. Otherwise continue changing it or close the window.</p>
-<p>When your caption is placed on the collage, you can click on it and move over
-the collage using keyboard arrows.</p>
+select photo cell using mouse click and use keyboard arrows to move photo inside
+the cell or simply use mouse.
+Also, you can change photo scale using mouse wheel or <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code> keyboard buttons.</p>
+<p>You can dump and load collage project using menu buttons. Use <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as...</span></code>
+menu button to save collage image file to file system.
+After saving the file, you can open it in any graphics editor and do whatever you want with it.</p>
 </div>
 </div>
 
@@ -163,6 +157,8 @@ the collage using keyboard arrows.</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#running">Running</a></li>
 <li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#flake8">Flake8</a></li>
+<li><a class="reference internal" href="#localisation">Localisation</a></li>
 <li><a class="reference internal" href="#how-to-use">How to use</a></li>
 </ul>
 </li>
@@ -190,7 +186,7 @@ the collage using keyboard arrows.</p>
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -215,7 +211,7 @@ the collage using keyboard arrows.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Alexandra Zhuravskaya, Satbek Turganbayev, Timur Kamalbekov.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
     </div>
   </body>
 </html>

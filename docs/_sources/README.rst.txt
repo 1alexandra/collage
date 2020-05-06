@@ -14,7 +14,7 @@ and saving and printing the resulting collage. As additional functions, you can
 change the parameters of the image borders (size, steepness of the rounded
 corner), implement control of elements on the canvas: the ability to move the
 borders, change the cropping window of the photo (zoom and change the
-position), and add a caption to the canvas.
+position).
 
 
 Installation
@@ -42,6 +42,21 @@ Testing
 To test the app modules execute in collage root directory::
 
     python3 -m pytest
+
+
+Flake8
+------
+
+Run the command to check flake8 code in collage root directory::
+
+    flake8
+
+
+Localisation
+------------
+
+The application is adapted for two languages: English and Russian. 
+Localization is selected based on system parameters.
 
 
 How to use
@@ -76,32 +91,14 @@ you can update layout by 3 types of operations:
       one of which is placed a new photo, according to your side choice,
       and the second remains the old photo.
 3. Movement of the border between photos.
-      Click on a border part. When it is selected, you can move it by the keyboard
-      arrows: vertical borders can be moved left and right,
-      horizontal can be moved up or down. 
+      Hold down the left mouse button on boarder part and
+      drag the border between cells moving the mouse.
 
 Initially, middle part of the photo appears in the cell. You can change the position:
-select photo sell using mouse click and use keyboard arrows to move photo inside
-the cell. When you reach the photo boarder, the app will show a warning message.
-Also, you can change photo scale by ``[`` and ``]`` keyboard buttons. If you trying 
-to scale photo beyond it's boarder, a worning message will be shown. To confirm 
-new photo scale and position, click somewhere outside this photo cell or press
-``Enter`` button. If you want to cancel your changes, press ``Esc``.
+select photo cell using mouse click and use keyboard arrows to move photo inside
+the cell or simply use mouse.
+Also, you can change photo scale using mouse wheel or ``[`` and ``]`` keyboard buttons.
 
-Click on ``Add text...`` button to open capture setup window.
-This window consists of five blocks:
-
-    - text redactor,
-    - font chooser,
-    - canvas with an intermediate result,
-    - font parameters input fields: italic, bold, underlined checkboxes
-      and font size entry,
-    - buttons block: ``Change color...``, ``Try font``, ``OK`` buttons.
-
-Write your caption in text redactor, choose font and style, click on ``Try font``
-button to see the result. If you want to add it to the collage, click on ``OK``
-button. Otherwise continue changing it or close the window.
-
-When your caption is placed on the collage, you can click on it and move over
-the collage using keyboard arrows.
-
+You can dump and load collage project using menu buttons. Use ``Save as...``
+menu button to save collage image file to file system.
+After saving the file, you can open it in any graphics editor and do whatever you want with it.

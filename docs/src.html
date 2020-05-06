@@ -1,22 +1,21 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>src package &#8212; Simple Collage Creator 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="run module" href="run.html" />
     <link rel="prev" title="Collage" href="modules.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,9 +27,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="run.html" title="run module"
-             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="modules.html" title="Collage"
              accesskey="P">previous</a> |</li>
@@ -49,33 +45,137 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-src.BaseTkTree">
+<span id="src-basetktree-module"></span><h2>src.BaseTkTree module<a class="headerlink" href="#module-src.BaseTkTree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="src.BaseTkTree.BaseTkTreeNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BaseTkTreeNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.get_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.get_left">
+<code class="sig-name descname">get_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.get_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.get_right">
+<code class="sig-name descname">get_right</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.get_right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.get_tk_object">
+<code class="sig-name descname">get_tk_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.get_tk_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.get_width">
+<code class="sig-name descname">get_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.get_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BaseTkTreeNode.update_leaf_vars">
+<code class="sig-name descname">update_leaf_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.update_leaf_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls function recursively</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="src.BaseTkTree.BreedingTkNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BreedingTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BaseTkTreeNode" title="src.BaseTkTree.BaseTkTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BaseTkTreeNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.add_child">
+<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em>, <em class="sig-param"><span class="n">begin</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.add_child" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.collapse">
+<code class="sig-name descname">collapse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.collapse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.display_children">
+<code class="sig-name descname">display_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.display_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.remove_child">
+<code class="sig-name descname">remove_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.remove_child" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.replace_child">
+<code class="sig-name descname">replace_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_child</span></em>, <em class="sig-param"><span class="n">new_child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.replace_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces child “old_child” by “new_child”.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.BreedingTkNode.update_proportion">
+<code class="sig-name descname">update_proportion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode.update_proportion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the proportion of children’s windows’ sizes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="src.BaseTkTree.UpdatableTkNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">UpdatableTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.UpdatableTkNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BaseTkTreeNode" title="src.BaseTkTree.BaseTkTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BaseTkTreeNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.BaseTkTree.UpdatableTkNode.update_tk_object">
+<code class="sig-name descname">update_tk_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instead</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.UpdatableTkNode.update_tk_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.BaseTkTree.UpdatableTkNode.wrap_into_paned">
+<code class="sig-name descname">wrap_into_paned</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">internal_node_class</span></em>, <em class="sig-param"><span class="n">orient</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.UpdatableTkNode.wrap_into_paned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.Collage">
 <span id="src-collage-module"></span><h2>src.Collage module<a class="headerlink" href="#module-src.Collage" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="src.Collage.Collage">
-<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param">margin</em>, <em class="sig-param">corner_width</em>, <em class="sig-param">corner_curve</em>, <em class="sig-param">master_args</em>, <em class="sig-param">master_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Canvas</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span></em>, <em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curve</span></em>, <em class="sig-param"><span class="n">scrolled_parent</span></em>, <em class="sig-param"><span class="n">master_args</span></em>, <em class="sig-param"><span class="n">master_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="py method">
 <dt id="src.Collage.Collage.add_image">
-<code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">where</em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.add_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.add_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add image in collage to specified side
 filename: image file name
 where: ‘n’, ‘w’, ‘e’, ‘s’</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.Collage.Collage.resize_event_handler">
-<code class="sig-name descname">resize_event_handler</code><span class="sig-paren">(</span><em class="sig-param">event</em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.resize_event_handler" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.Collage.Collage.get_collage_root">
+<code class="sig-name descname">get_collage_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.get_collage_root" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.Collage.Collage.selection_area_handler">
-<code class="sig-name descname">selection_area_handler</code><span class="sig-paren">(</span><em class="sig-param">event</em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.selection_area_handler" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.Collage.Collage.get_corners">
+<code class="sig-name descname">get_corners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.get_corners" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.Collage.Collage.update_corners">
-<code class="sig-name descname">update_corners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.update_corners" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.Collage.Collage.load_collage_root">
+<code class="sig-name descname">load_collage_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.load_collage_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.Collage.Collage.save_collage">
+<code class="sig-name descname">save_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.save_collage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.Collage.Collage.update_params">
+<code class="sig-name descname">update_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage.update_params" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -83,125 +183,274 @@ where: ‘n’, ‘w’, ‘e’, ‘s’</p>
 </div>
 <div class="section" id="module-src.CollageImage">
 <span id="src-collageimage-module"></span><h2>src.CollageImage module<a class="headerlink" href="#module-src.CollageImage" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="src.CollageImage.PILCollageImage">
-<em class="property">class </em><code class="sig-prename descclassname">src.CollageImage.</code><code class="sig-name descname">PILCollageImage</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">coords</em>, <em class="sig-param">width</em>, <em class="sig-param">height</em>, <em class="sig-param">corner_creator</em>, <em class="sig-param">collage</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.CollageItem.CollageItem" title="src.CollageItem.CollageItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.CollageItem.CollageItem</span></code></a></p>
-<dl class="method">
-<dt id="src.CollageImage.PILCollageImage.Height">
-<em class="property">property </em><code class="sig-name descname">Height</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.Height" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageImage.</code><code class="sig-name descname">PILCollageImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">corner_creator</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.PIL">
+<em class="property">property </em><code class="sig-name descname">PIL</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.PIL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.CollageImage.PILCollageImage.PIL_image">
-<em class="property">property </em><code class="sig-name descname">PIL_image</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.PIL_image" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="src.CollageImage.PILCollageImage.PhotoImage">
 <em class="property">property </em><code class="sig-name descname">PhotoImage</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.PhotoImage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.CollageImage.PILCollageImage.Width">
-<em class="property">property </em><code class="sig-name descname">Width</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.Width" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.ViewingWindow">
+<em class="property">property </em><code class="sig-name descname">ViewingWindow</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.ViewingWindow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.corner">
+<em class="property">property </em><code class="sig-name descname">corner</code><a class="headerlink" href="#src.CollageImage.PILCollageImage.corner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.move_view">
+<code class="sig-name descname">move_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span></em>, <em class="sig-param"><span class="n">dy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.move_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.move_view_down">
+<code class="sig-name descname">move_view_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.move_view_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.move_view_left">
+<code class="sig-name descname">move_view_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.move_view_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.move_view_right">
+<code class="sig-name descname">move_view_right</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.move_view_right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.move_view_up">
+<code class="sig-name descname">move_view_up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.move_view_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="src.CollageImage.PILCollageImage.resize">
-<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">size</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.resize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.resize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resize the image
 size – The requested size in pixels, as a 2-tuple: (width, height).</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.CollageImage.PILCollageImage.update_corners">
-<code class="sig-name descname">update_corners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.update_corners" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.zoom_in">
+<code class="sig-name descname">zoom_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.zoom_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.PILCollageImage.zoom_out">
+<code class="sig-name descname">zoom_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.PILCollageImage.zoom_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="py class">
+<dt id="src.CollageImage.ViewingWindow">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageImage.</code><code class="sig-name descname">ViewingWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">original</span></em>, <em class="sig-param"><span class="n">scale_step</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">scale_value_min</span><span class="o">=</span><span class="default_value">0.2</span></em>, <em class="sig-param"><span class="n">move_step</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for managing viewing window in original image</p>
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.corner">
+<em class="property">property </em><code class="sig-name descname">corner</code><a class="headerlink" href="#src.CollageImage.ViewingWindow.corner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crops rectangle from original image and resizes it to image size
+Returns cropped PIL Image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.height">
+<em class="property">property </em><code class="sig-name descname">height</code><a class="headerlink" href="#src.CollageImage.ViewingWindow.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.move">
+<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span></em>, <em class="sig-param"><span class="n">dy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.move" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.move_down">
+<code class="sig-name descname">move_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.move_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.move_left">
+<code class="sig-name descname">move_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.move_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.move_right">
+<code class="sig-name descname">move_right</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.move_right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.move_up">
+<code class="sig-name descname">move_up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.move_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.resize">
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.width">
+<em class="property">property </em><code class="sig-name descname">width</code><a class="headerlink" href="#src.CollageImage.ViewingWindow.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.zoom_in">
+<code class="sig-name descname">zoom_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.zoom_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageImage.ViewingWindow.zoom_out">
+<code class="sig-name descname">zoom_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.ViewingWindow.zoom_out" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.CollageImage.safe_open_image">
+<code class="sig-prename descclassname">src.CollageImage.</code><code class="sig-name descname">safe_open_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">corner_creator</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageImage.safe_open_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
-<div class="section" id="module-src.CollageItem">
-<span id="src-collageitem-module"></span><h2>src.CollageItem module<a class="headerlink" href="#module-src.CollageItem" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="src.CollageItem.CollageItem">
-<em class="property">class </em><code class="sig-prename descclassname">src.CollageItem.</code><code class="sig-name descname">CollageItem</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">collage</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.Id">
-<em class="property">property </em><code class="sig-name descname">Id</code><a class="headerlink" href="#src.CollageItem.CollageItem.Id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.IsSelected">
-<em class="property">property </em><code class="sig-name descname">IsSelected</code><a class="headerlink" href="#src.CollageItem.CollageItem.IsSelected" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.Pos">
-<em class="property">property </em><code class="sig-name descname">Pos</code><a class="headerlink" href="#src.CollageItem.CollageItem.Pos" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.apply_selection">
-<code class="sig-name descname">apply_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem.apply_selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>If item not selected then sets selection
-If item select then unsets selection</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.move">
-<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">dx</em>, <em class="sig-param">dy</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem.move" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.reset_selection">
-<code class="sig-name descname">reset_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem.reset_selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>If item selected then redraws selection</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.set_selection">
-<code class="sig-name descname">set_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem.set_selection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="src.CollageItem.CollageItem.unset_selection">
-<code class="sig-name descname">unset_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageItem.CollageItem.unset_selection" title="Permalink to this definition">¶</a></dt>
+<div class="section" id="module-src.CollageTree">
+<span id="src-collagetree-module"></span><h2>src.CollageTree module<a class="headerlink" href="#module-src.CollageTree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="src.CollageTree.CollageBreedingNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">CollageBreedingNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageBreedingNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BreedingTkNode" title="src.BaseTkTree.BreedingTkNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BreedingTkNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.CollageTree.CollageBreedingNode.add_image_child">
+<code class="sig-name descname">add_image_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">where</span></em>, <em class="sig-param"><span class="n">corner_creator</span></em>, <em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageBreedingNode.add_image_child" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-src.CollageSelector">
-<span id="src-collageselector-module"></span><h2>src.CollageSelector module<a class="headerlink" href="#module-src.CollageSelector" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="src.CollageSelector.CollageSelector">
-<em class="property">class </em><code class="sig-prename descclassname">src.CollageSelector.</code><code class="sig-name descname">CollageSelector</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageSelector.CollageSelector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class for collage items selection</p>
-<dl class="method">
-<dt id="src.CollageSelector.CollageSelector.apply_selection">
-<code class="sig-name descname">apply_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageSelector.CollageSelector.apply_selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>If item not selected then sets selection
-If item select then unsets selection</p>
+<dl class="py class">
+<dt id="src.CollageTree.CollageLeafNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">CollageLeafNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">corner_creator</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">init_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.UpdatableTkNode" title="src.BaseTkTree.UpdatableTkNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.UpdatableTkNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.add_image">
+<code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.add_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds new image to the tree.</p>
+<p>Creates new PanedWindow that consists of this image and the currently loaded image.</p>
+<dl class="simple">
+<dt>where: str</dt><dd><p>Specifies the place where we should put the image.
+Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.CollageSelector.CollageSelector.reset_selection">
-<code class="sig-name descname">reset_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageSelector.CollageSelector.reset_selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>If item selected then redraws selection</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="src.CollageSelector.CollageSelector.set_selection">
-<code class="sig-name descname">set_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageSelector.CollageSelector.set_selection" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.add_to_collage">
+<code class="sig-name descname">add_to_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">x_offset</span></em>, <em class="sig-param"><span class="n">y_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.add_to_collage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.CollageSelector.CollageSelector.unset_selection">
-<code class="sig-name descname">unset_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageSelector.CollageSelector.unset_selection" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.destroy">
+<code class="sig-name descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroys the leaf and replaces the parent of the leaf
+by the only child left (so the tree remains to be binary).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.get_real_height">
+<code class="sig-name descname">get_real_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.get_real_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns actual height of the image (without margin)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.get_real_width">
+<code class="sig-name descname">get_real_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.get_real_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns actual width of the image (without margin)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageLeafNode.update_leaf_vars">
+<code class="sig-name descname">update_leaf_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.update_leaf_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the margin and corners of the image</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="src.CollageTree.CollageRoot">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">CollageRoot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tk_master</span></em>, <em class="sig-param"><span class="n">corner_creator</span></em>, <em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">init_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.CollageTree.CollageBreedingNode" title="src.CollageTree.CollageBreedingNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.CollageTree.CollageBreedingNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.CollageTree.CollageRoot.add_image">
+<code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.add_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the image to the collage.
+If there were no images before, just adds it,
+otherwise - creates new PanedWindow that consists of
+old version of collage and new image.</p>
+<p>image : PILCollageImage</p>
+<dl class="simple">
+<dt>where: str</dt><dd><p>Specifies the place where we should put the image.
+Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageRoot.get_corners">
+<code class="sig-name descname">get_corners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.get_corners" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageRoot.reload_object">
+<code class="sig-name descname">reload_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tk_master</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.reload_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageRoot.save_collage">
+<code class="sig-name descname">save_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.save_collage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.CollageRoot.update_params">
+<code class="sig-name descname">update_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_width</span></em>, <em class="sig-param"><span class="n">new_height</span></em>, <em class="sig-param"><span class="n">new_margin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.update_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates images’ corners.
+Also updates some other collage parameters according to the passed arguments.</p>
+<p>new_width: int, non-negative
+new_height: int, non-negative
+new_margin: int, non-negative</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="src.CollageTree.InternalTkNode">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">InternalTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">orient</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">init_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.CollageTree.CollageBreedingNode" title="src.CollageTree.CollageBreedingNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.CollageTree.CollageBreedingNode</span></code></a>, <a class="reference internal" href="#src.BaseTkTree.UpdatableTkNode" title="src.BaseTkTree.UpdatableTkNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.UpdatableTkNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.CollageTree.InternalTkNode.add_to_collage">
+<code class="sig-name descname">add_to_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">x_offset</span></em>, <em class="sig-param"><span class="n">y_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode.add_to_collage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="src.CollageTree.ResizableLeaf">
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">ResizableLeaf</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.ResizableLeaf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.CollageTree.CollageLeafNode" title="src.CollageTree.CollageLeafNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.CollageTree.CollageLeafNode</span></code></a></p>
+<dl class="py method">
+<dt id="src.CollageTree.ResizableLeaf.add_to_collage">
+<code class="sig-name descname">add_to_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">collage_im</span></em>, <em class="sig-param"><span class="n">x_offset</span></em>, <em class="sig-param"><span class="n">y_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.ResizableLeaf.add_to_collage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -209,9 +458,9 @@ If item select then unsets selection</p>
 </div>
 <div class="section" id="module-src.CornerCreator">
 <span id="src-cornercreator-module"></span><h2>src.CornerCreator module<a class="headerlink" href="#module-src.CornerCreator" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="src.CornerCreator.CornerCreator">
-<em class="property">class </em><code class="sig-prename descclassname">src.CornerCreator.</code><code class="sig-name descname">CornerCreator</code><span class="sig-paren">(</span><em class="sig-param">corner_width</em>, <em class="sig-param">corner_curvature</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.CornerCreator.</code><code class="sig-name descname">CornerCreator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curvature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Create corners with a given curvature from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <p>Corners size is defined by <code class="docutils literal notranslate"><span class="pre">corner_width</span></code>.
@@ -223,46 +472,46 @@ Type of corners are defined by <code class="docutils literal notranslate"><span 
 <li><p>from <code class="docutils literal notranslate"><span class="pre">0.5</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>: hyperbolic concave corners,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: square corner.</p></li>
 </ul>
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.Curve">
 <em class="property">property </em><code class="sig-name descname">Curve</code><a class="headerlink" href="#src.CornerCreator.CornerCreator.Curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Corner curvature from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.Width">
 <em class="property">property </em><code class="sig-name descname">Width</code><a class="headerlink" href="#src.CornerCreator.CornerCreator.Width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines corner size (<code class="docutils literal notranslate"><span class="pre">Width</span> <span class="pre">x</span> <span class="pre">Width</span></code>).</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.apply_corner">
-<code class="sig-name descname">apply_corner</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">corner</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.apply_corner" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apply_corner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em>, <em class="sig-param"><span class="n">corner</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.apply_corner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply <code class="docutils literal notranslate"><span class="pre">corner</span></code> mask to <code class="docutils literal notranslate"><span class="pre">arr</span></code> corners with a correct rotation.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.corner_function">
-<code class="sig-name descname">corner_function</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.corner_function" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">corner_function</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.corner_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate lenght of corner line in <code class="docutils literal notranslate"><span class="pre">x</span></code> row.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.get_alpha">
-<code class="sig-name descname">get_alpha</code><span class="sig-paren">(</span><em class="sig-param">size</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.get_alpha" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_alpha</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.get_alpha" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">PIL</span> <span class="pre">Image</span></code> alpha channel with 0 in corners and boundary.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">size</span> <span class="pre">&lt;</span> <span class="pre">2.1</span> <span class="pre">Width</span></code>, the corners don’t appear.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.get_corner">
 <code class="sig-name descname">get_corner</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.get_corner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return boolean array with (<code class="docutils literal notranslate"><span class="pre">Width</span> <span class="pre">x</span> <span class="pre">Widht</span></code>) corner.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.hyperbole">
-<code class="sig-name descname">hyperbole</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.hyperbole" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">hyperbole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.hyperbole" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hyperbolic <code class="docutils literal notranslate"><span class="pre">h(x)</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">h(0)</span> <span class="pre">=</span> <span class="pre">Width</span></code>,</p></li>
@@ -271,9 +520,9 @@ Type of corners are defined by <code class="docutils literal notranslate"><span 
 </ul>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.linear">
-<code class="sig-name descname">linear</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.linear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">linear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.linear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Linear <code class="docutils literal notranslate"><span class="pre">L(x)</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">L(0)</span> <span class="pre">=</span> <span class="pre">Width</span></code>,</p></li>
@@ -282,18 +531,21 @@ Type of corners are defined by <code class="docutils literal notranslate"><span 
 </ul>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.CornerCreator.CornerCreator.smooth_boundary">
-<code class="sig-name descname">smooth_boundary</code><span class="sig-paren">(</span><em class="sig-param">mask</em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.smooth_boundary" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">smooth_boundary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CornerCreator.CornerCreator.smooth_boundary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put zeros to the boundary points of <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.constants">
+<span id="src-constants-module"></span><h2>src.constants module<a class="headerlink" href="#module-src.constants" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-src.fonts">
 <span id="src-fonts-module"></span><h2>src.fonts module<a class="headerlink" href="#module-src.fonts" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="src.fonts.get_system_fonts">
 <code class="sig-prename descclassname">src.fonts.</code><code class="sig-name descname">get_system_fonts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.fonts.get_system_fonts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return sorted list of all system font names.</p>
@@ -302,9 +554,9 @@ Type of corners are defined by <code class="docutils literal notranslate"><span 
 </div>
 <div class="section" id="module-src.grid">
 <span id="src-grid-module"></span><h2>src.grid module<a class="headerlink" href="#module-src.grid" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="src.grid.grid_frame">
-<code class="sig-prename descclassname">src.grid.</code><code class="sig-name descname">grid_frame</code><span class="sig-paren">(</span><em class="sig-param">frame, frame_rows=[0], frame_cols=[0], parent_row=0, parent_column=0, frame_sticky='snwe', is_root=False</em><span class="sig-paren">)</span><a class="headerlink" href="#src.grid.grid_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.grid.</code><code class="sig-name descname">grid_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">frame_rows</span><span class="o">=</span><span class="default_value">[0]</span></em>, <em class="sig-param"><span class="n">frame_cols</span><span class="o">=</span><span class="default_value">[0]</span></em>, <em class="sig-param"><span class="n">parent_row</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">parent_column</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">frame_sticky</span><span class="o">=</span><span class="default_value">'snwe'</span></em>, <em class="sig-param"><span class="n">is_root</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.grid.grid_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grid <code class="docutils literal notranslate"><span class="pre">frame</span></code> and configure <code class="docutils literal notranslate"><span class="pre">frame_rows</span></code> and <code class="docutils literal notranslate"><span class="pre">frame_cols</span></code>.</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">frame_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">frame_cols</span></code>:</dt><dd><p>Lists of indexes of <code class="docutils literal notranslate"><span class="pre">frame</span></code> rows and cols respectively to configue.
@@ -320,24 +572,24 @@ are ignored.</p>
 </div>
 <div class="section" id="module-src.mainwindow">
 <span id="src-mainwindow-module"></span><h2>src.mainwindow module<a class="headerlink" href="#module-src.mainwindow" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="src.mainwindow.Application">
-<em class="property">class </em><code class="sig-prename descclassname">src.mainwindow.</code><code class="sig-name descname">Application</code><span class="sig-paren">(</span><em class="sig-param">master=None</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.mainwindow.</code><code class="sig-name descname">Application</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
 <p>Simple Collage Creator application main window.</p>
 <p>The window consists of two frames: <strong>menu</strong> and <strong>workspace</strong>.</p>
 <p>The <strong>menu</strong> contains control buttons and fields for entering collage
 parameters:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Undo</span></code>, <code class="docutils literal notranslate"><span class="pre">Redo</span></code>, <code class="docutils literal notranslate"><span class="pre">Load</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as...</span></code>, <code class="docutils literal notranslate"><span class="pre">Print</span></code>     buttons at the top,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Load</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as...</span></code>    buttons at the top,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Margin</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">Curvature</span></code>     entries in the middle,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">text</span></code> buttons below it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">parameters</span></code> button below it.</p></li>
 </ul>
 <p>The <strong>workspace</strong> contains <code class="docutils literal notranslate"><span class="pre">Collage</span></code> object in the middle and four buttons
 for adding photos (one on each side).</p>
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.add_photo">
-<code class="sig-name descname">add_photo</code><span class="sig-paren">(</span><em class="sig-param">where</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.add_photo" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_photo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.add_photo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run file system dialog and place photo on collage.</p>
 <p><code class="docutils literal notranslate"><span class="pre">where</span></code> values:</p>
 <ul class="simple">
@@ -352,79 +604,79 @@ takes up half of the collage regardless of size. All previously
 existing cells are compressed to make room for a new cell.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.change_canvas_parameters">
 <code class="sig-name descname">change_canvas_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.change_canvas_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate and apply user input from menu entries.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.create_canvas_frame">
-<code class="sig-name descname">create_canvas_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_canvas_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_canvas_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_canvas_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, grid and bind workspace units.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.create_change_buttons">
-<code class="sig-name descname">create_change_buttons</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_change_buttons" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_change_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_change_buttons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, bind and bind menu bottom buttons block.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.create_entries">
-<code class="sig-name descname">create_entries</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_entries" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_entries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_entries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, grid and bind menu entries block.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.create_menu_buttons">
-<code class="sig-name descname">create_menu_buttons</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_menu_buttons" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_menu_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_menu_buttons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, grid and bind menu top buttons block.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.create_widgets">
 <code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.create_widgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and grid menu and workspace.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.mainwindow.Application.get_add_photo_command">
-<code class="sig-name descname">get_add_photo_command</code><span class="sig-paren">(</span><em class="sig-param">where</em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.get_add_photo_command" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="src.mainwindow.Application.dump_command">
+<code class="sig-name descname">dump_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.dump_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="src.mainwindow.Application.get_add_photo_command">
+<code class="sig-name descname">get_add_photo_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.get_add_photo_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="src.mainwindow.Application.load_command">
 <code class="sig-name descname">load_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.load_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.open_text_window">
 <code class="sig-name descname">open_text_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.open_text_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open <code class="docutils literal notranslate"><span class="pre">TextConfigureApp</span></code> window. Return canvas with result.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.print_command">
 <code class="sig-name descname">print_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.print_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.redo_command">
 <code class="sig-name descname">redo_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.redo_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.save_as_command">
 <code class="sig-name descname">save_as_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.save_as_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="src.mainwindow.Application.save_command">
-<code class="sig-name descname">save_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.save_command" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="src.mainwindow.Application.undo_command">
 <code class="sig-name descname">undo_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.undo_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -432,11 +684,42 @@ existing cells are compressed to make room for a new cell.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.scroll">
+<span id="src-scroll-module"></span><h2>src.scroll module<a class="headerlink" href="#module-src.scroll" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="src.scroll.ScrolledFrame">
+<em class="property">class </em><code class="sig-prename descclassname">src.scroll.</code><code class="sig-name descname">ScrolledFrame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">vertical</span></em>, <em class="sig-param"><span class="n">horizontal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scroll.ScrolledFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<p>Frame with scrollbars.</p>
+<p>parent – parent frame,
+vertical – do you need vertical scrollbar,
+horisontal – do you need horisontal scrollbar.</p>
+<dl class="py method">
+<dt id="src.scroll.ScrolledFrame.canvas_config">
+<code class="sig-name descname">canvas_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scroll.ScrolledFrame.canvas_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canvas resize event handler</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.scroll.ScrolledFrame.frame_config">
+<code class="sig-name descname">frame_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scroll.ScrolledFrame.frame_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self frame resize event handler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.scroll.ScrolledFrame.resize_handler">
+<code class="sig-name descname">resize_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scroll.ScrolledFrame.resize_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>self.inner frame resize event handler. Use &lt;Configure&gt; event or width and height of result frame.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.textconfig">
 <span id="src-textconfig-module"></span><h2>src.textconfig module<a class="headerlink" href="#module-src.textconfig" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="src.textconfig.TextConfigureApp">
-<em class="property">class </em><code class="sig-prename descclassname">src.textconfig.</code><code class="sig-name descname">TextConfigureApp</code><span class="sig-paren">(</span><em class="sig-param">master=None</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.textconfig.</code><code class="sig-name descname">TextConfigureApp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
 <p>Simple Collage Creator second window.</p>
 <p>Used for adding a caption to a collage. Allows user to customize a
@@ -449,73 +732,111 @@ content and a style of the caption.</p>
 <li><p>font parameters input fields: italic, bold, underlined checkboxes     and font size entry,</p></li>
 <li><p>buttons block: <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">color...</span></code>, <code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">font</span></code>, <code class="docutils literal notranslate"><span class="pre">OK</span></code> buttons.</p></li>
 </ul>
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.choose_color">
 <code class="sig-name descname">choose_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.choose_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run askcolor dialog and show intermediate result.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.choose_font">
 <code class="sig-name descname">choose_font</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.choose_font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update font and show intermediate result.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_buttons">
-<code class="sig-name descname">create_buttons</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_buttons" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_buttons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and grid buttons block.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_canvas">
-<code class="sig-name descname">create_canvas</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_canvas" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_canvas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_canvas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, configure and grid result canvas.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_font_chooser">
-<code class="sig-name descname">create_font_chooser</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_font_chooser" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_font_chooser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_font_chooser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and grid font chooser listbox, fill the options.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_modifiers">
-<code class="sig-name descname">create_modifiers</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_modifiers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_modifiers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_modifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and grid font modifiers block.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_text_redactor">
-<code class="sig-name descname">create_text_redactor</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_text_redactor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_text_redactor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_text_redactor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, grid and initialize text redactor.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.create_widgets">
 <code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.create_widgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and grid all widgets.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.draw">
 <code class="sig-name descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show intermediate result on the canvas.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.get_return">
 <code class="sig-name descname">get_return</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.get_return" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return canvas with stylized capture.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="src.textconfig.TextConfigureApp.ok_quit">
 <code class="sig-name descname">ok_quit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.textconfig.TextConfigureApp.ok_quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update result canvas and close the window.</p>
 </dd></dl>
 
 </dd></dl>
+
+</div>
+<div class="section" id="module-src.utils">
+<span id="src-utils-module"></span><h2>src.utils module<a class="headerlink" href="#module-src.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.utils.ask_open_image">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">ask_open_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.ask_open_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.get_orient">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">get_orient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.get_orient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.int_clamp">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">int_clamp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em>, <em class="sig-param"><span class="n">min_val</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_val</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.int_clamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.is_up_bottom">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">is_up_bottom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.is_up_bottom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.is_up_left">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">is_up_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.is_up_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.is_vertical">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">is_vertical</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">orient</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.is_vertical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="src.utils.mix_image_with_bg">
+<code class="sig-prename descclassname">src.utils.</code><code class="sig-name descname">mix_image_with_bg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">bg_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.utils.mix_image_with_bg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-src">
@@ -533,15 +854,18 @@ content and a style of the caption.</p>
   <ul>
 <li><a class="reference internal" href="#">src package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.BaseTkTree">src.BaseTkTree module</a></li>
 <li><a class="reference internal" href="#module-src.Collage">src.Collage module</a></li>
 <li><a class="reference internal" href="#module-src.CollageImage">src.CollageImage module</a></li>
-<li><a class="reference internal" href="#module-src.CollageItem">src.CollageItem module</a></li>
-<li><a class="reference internal" href="#module-src.CollageSelector">src.CollageSelector module</a></li>
+<li><a class="reference internal" href="#module-src.CollageTree">src.CollageTree module</a></li>
 <li><a class="reference internal" href="#module-src.CornerCreator">src.CornerCreator module</a></li>
+<li><a class="reference internal" href="#module-src.constants">src.constants module</a></li>
 <li><a class="reference internal" href="#module-src.fonts">src.fonts module</a></li>
 <li><a class="reference internal" href="#module-src.grid">src.grid module</a></li>
 <li><a class="reference internal" href="#module-src.mainwindow">src.mainwindow module</a></li>
+<li><a class="reference internal" href="#module-src.scroll">src.scroll module</a></li>
 <li><a class="reference internal" href="#module-src.textconfig">src.textconfig module</a></li>
+<li><a class="reference internal" href="#module-src.utils">src.utils module</a></li>
 <li><a class="reference internal" href="#module-src">Module contents</a></li>
 </ul>
 </li>
@@ -550,9 +874,6 @@ content and a style of the caption.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="modules.html"
                         title="previous chapter">Collage</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="run.html"
-                        title="next chapter">run module</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -569,7 +890,7 @@ content and a style of the caption.</p>
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -584,9 +905,6 @@ content and a style of the caption.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="run.html" title="run module"
-             >next</a> |</li>
-        <li class="right" >
           <a href="modules.html" title="Collage"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Simple Collage Creator 0.0.1 documentation</a> &#187;</li>
@@ -595,7 +913,7 @@ content and a style of the caption.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Alexandra Zhuravskaya, Satbek Turganbayev, Timur Kamalbekov.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
     </div>
   </body>
 </html>

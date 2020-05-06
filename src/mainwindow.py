@@ -21,11 +21,11 @@ class Application(tk.Frame):
     The **menu** contains control buttons and fields for entering collage
     parameters:
 
-    - ``Undo``, ``Redo``, ``Load``, ``Save``, ``Save as...``, ``Print`` \
+    - ``Load``, ``Save``, ``Save as...``\
     buttons at the top,
     - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature`` \
     entries in the middle,
-    - ``Change parameters``, ``Add text`` buttons below it.
+    - ``Change parameters`` button below it.
 
     The **workspace** contains ``Collage`` object in the middle and four buttons
     for adding photos (one on each side).
@@ -59,7 +59,6 @@ class Application(tk.Frame):
 
     def create_menu_buttons(self, frame, row, col):
         """Create, grid and bind menu top buttons block."""
-        # TODO: add icons
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], row, col, 'news')
         commands = {
@@ -78,7 +77,6 @@ class Application(tk.Frame):
 
     def create_entries(self, frame, row, col):
         """Create, grid and bind menu entries block."""
-        # TODO: add validation functions
         entries_frame = tk.Frame(frame, bd=10)
         grid_frame(entries_frame, [0, 1, 2, 3], [0, 1], row, col, 'news')
         variables = {
