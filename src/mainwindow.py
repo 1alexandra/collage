@@ -2,6 +2,7 @@ import os
 import sys
 import tkinter as tk
 from tkinter import filedialog
+import tkinter.messagebox as messagebox
 import gettext
 import locale
 
@@ -162,15 +163,20 @@ class Application(tk.Frame):
             )
         )
         if filename != "":
-            with open(filename, "rb") as file:
-                width, height, margin, corner_width, corner_curve, collage_root = pickle.load(file)
-                self.collage_width.set(width)
-                self.collage_height.set(height)
-                self.collage_margin.set(margin)
-                self.corner_width.set(corner_width)
-                self.corner_curve.set(corner_curve)
-                self.change_canvas_parameters()
-                self.collage.load_collage_root(collage_root)
+            try:
+                with open(filename, "rb") as file:
+                    obj = pickle.load(file)
+                    width, height, margin, corner_width, corner_curve, collage_root = obj
+                    # todo: add validation here
+                    self.collage_width.set(width)
+                    self.collage_height.set(height)
+                    self.collage_margin.set(margin)
+                    self.corner_width.set(corner_width)
+                    self.corner_curve.set(corner_curve)
+                    self.change_canvas_parameters()
+                    self.collage.load_collage_root(collage_root)
+            except (pickle.UnpicklingError, TypeError):
+                messagebox.showerror("Error", "Can't load collage from file {0}".format(filename))
 
     def dump_command(self):
         filename = filedialog.asksaveasfile(mode="w", defaultextension=".clg", filetypes=(
