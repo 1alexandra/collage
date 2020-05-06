@@ -6,6 +6,7 @@ from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
+from src.scroll import ScrolledFrame
 
 
 class Application(tk.Frame):
@@ -28,6 +29,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.master.geometry("900x600")
         self.collage = None
         self.collage_width = tk.IntVar(master, 300)
         self.collage_height = tk.IntVar(master, 300)
@@ -102,24 +104,27 @@ class Application(tk.Frame):
 
     def create_canvas_frame(self, frame, row, col):
         """Create, grid and bind workspace units."""
-        # TODO: add two scrolling bars to canvas_frame
-        canvas_frame = tk.Frame(frame, bd=10)
-        grid_frame(canvas_frame, [0, 2], [0, 2], row, col, 'news')
+        parent_frame = tk.Frame(frame, bd=10)
+        grid_frame(parent_frame, [0], [0], row, col, 'news')
+        scrolled_frame = ScrolledFrame(parent_frame, True, True)
         compass = {
             'n': (-1, 0),
             'e': (0, 1),
             'w': (0, -1),
             's': (1, 0)
         }
+        self.add_buttons = {}
         for key, (row, col) in compass.items():
             sticky = 'news'.replace(key, '')
-            button = tk.Button(canvas_frame, text='+', command=self.get_add_photo_command(key))
+            button = tk.Button(scrolled_frame.inner, text='+', command=self.get_add_photo_command(key))
             button.grid(row=row + 1, column=col + 1, sticky=sticky)
+            self.add_buttons[key] = button
         self.collage = Collage(
             margin=self.collage_margin.get(),
             corner_width=self.corner_width.get(),
             corner_curve=self.corner_curve.get(),
-            master_args=[canvas_frame],
+            scrolled_parent=scrolled_frame,
+            master_args=[],
             master_kwargs={
                 "bg": "white",
                 "height": self.collage_height.get(),
@@ -152,11 +157,17 @@ class Application(tk.Frame):
 
     def change_canvas_parameters(self):
         """Validate and apply user input from menu entries."""
-        self.collage.configure(width=self.collage_width.get(), height=self.collage_height.get())
+        w = self.collage_width.get()
+        h = self.collage_height.get()
+        self.collage.configure(width=w, height=h)
         self.collage.margin = self.collage_margin.get()
         self.collage.corner_creator.Width = self.corner_width.get()
         self.collage.corner_creator.Curve = self.corner_curve.get()
         self.collage.update_params()
+
+        frame_width = w + self.add_buttons['e'].winfo_width() + self.add_buttons['w'].winfo_width()
+        frame_height = h + self.add_buttons['s'].winfo_height() + self.add_buttons['n'].winfo_height()
+        self.collage.scrolled_parent.resize_handler(width=frame_width, height=frame_height)
 
     def open_text_window(self):
         """Open ``TextConfigureApp`` window. Return canvas with result."""

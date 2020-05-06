@@ -11,12 +11,14 @@ class Collage(tk.Frame):
         margin,
         corner_width,
         corner_curve,
+        scrolled_parent,
         master_args,
         master_kwargs
     ):
-        super().__init__(*master_args, **master_kwargs)
+        super().__init__(master=scrolled_parent.inner, *master_args, **master_kwargs)
         self.margin = margin
         self.corner_creator = CornerCreator(corner_width, corner_curve)
+        self.scrolled_parent = scrolled_parent
 
         self.collage_root = CollageRoot(
             tk_master=self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
