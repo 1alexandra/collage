@@ -105,9 +105,8 @@ class BreedingTkNode(BaseTkTreeNode):
             self._left.update_tk_object(new_parent=self._parent, instead=self)
 
     def display_children(self):
-        if len(self._root.panes()) > 0:
-            for child in self._root.panes():
-                self._root.forget(child)
+        for child in self._root.panes():
+            self._root.forget(child)
         if self._left is not None:
             self._root.add(self._left.get_tk_object())
         if self._right is not None:
@@ -116,6 +115,8 @@ class BreedingTkNode(BaseTkTreeNode):
     def _align_children(self):
         """Updates the border between windows according to self._proportion"""
         if self._right is not None:
+            self._left_unresized = self._left is not None
+
             new_width = int_clamp(self._proportion * (self._width - WINDOW_SEP_WIDTH), min_val=0)
             new_height = int_clamp(self._proportion * (self._height - WINDOW_SEP_WIDTH), min_val=0)
 
@@ -138,11 +139,13 @@ class BreedingTkNode(BaseTkTreeNode):
         if child is self._left:
             if not hasattr(self, '_left_unresized'):
                 self._left_unresized = False
-            if self._left is not None and self._right is not None and not self._left_unresized:
+            if self._right is not None and not self._left_unresized:
                 self._proportion = min(self._left.get_width() / int_clamp(self._width - WINDOW_SEP_WIDTH, min_val=1),
                                        self._left.get_height() / int_clamp(self._height - WINDOW_SEP_WIDTH, min_val=1))
+                return True
             elif self._left_unresized:
                 self._left_unresized = False
+        return False
 
     def _resize_handler(self, event):
         if event.width != self._width or event.height != self._height:
@@ -151,10 +154,7 @@ class BreedingTkNode(BaseTkTreeNode):
 
             if self._parent is not None:
                 self._parent.update_proportion(self)
-
-            self._left_unresized = self._left is not None
-            if self._right is not None:
-                self._align_children()
+            self._align_children()
 
 
 class UpdatableTkNode(BaseTkTreeNode):

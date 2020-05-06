@@ -93,7 +93,7 @@ class ViewingWindow:
         self._scale(max(self.scale_value - self.scale_step, self.scale_value_min))
 
     def zoom_out(self):
-        return self._scale(self.scale_value + self.scale_step)
+        self._scale(self.scale_value + self.scale_step)
 
     def move_up(self):
         self.move(dx=0, dy=-self.move_step)

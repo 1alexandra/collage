@@ -61,6 +61,9 @@ class CollageRoot(CollageBreedingNode):
         self._create_tk_object(tk_master=tk_master)
         self._left.update_tk_object()
 
+    def get_corners(self):
+        return self._corner_creator
+
     def save_collage(self, filename):
         if self._left is not None and filename != "":
             collage_im = Image.new("RGBA", (self._width, self._height))

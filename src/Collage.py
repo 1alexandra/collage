@@ -49,5 +49,6 @@ class Collage(tk.Frame):
         if self.collage_root is not None:
             self.collage_root.get_tk_object().grid_remove()
         self.collage_root = obj
+        self.corner_creator = obj.get_corners()
         self.collage_root.reload_object(tk_master=self)
         self.collage_root.get_tk_object().grid(row=0, column=0)
