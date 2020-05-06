@@ -1,8 +1,9 @@
 import tkinter as tk
-from tkinter import filedialog
+from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
+from tkinter import filedialog
 
 
 class Application(tk.Frame):
@@ -136,19 +137,20 @@ class Application(tk.Frame):
         pass
 
     def save_as_command(self):
-        pass
+        filename = filedialog.asksaveasfile(mode='w', defaultextension=".png", filetypes=(
+            ("PNG file", "*.png"), ("All Files", "*.*"))).name
+        self.collage.save_collage(filename)
 
     def print_command(self):
         pass
 
     def change_canvas_parameters(self):
         """Validate and apply user input from menu entries."""
-        self.collage['width'] = self.collage_width.get()
-        self.collage['height'] = self.collage_height.get()
+        self.collage.configure(width=self.collage_width.get(), height=self.collage_height.get())
         self.collage.margin = self.collage_margin.get()
         self.collage.corner_creator.Width = self.corner_width.get()
         self.collage.corner_creator.Curve = self.corner_curve.get()
-        self.collage.update_corners()
+        self.collage.update_params()
 
     def open_text_window(self):
         """Open ``TextConfigureApp`` window. Return canvas with result."""
@@ -172,12 +174,7 @@ class Application(tk.Frame):
         takes up half of the collage regardless of size. All previously
         existing cells are compressed to make room for a new cell.
         """
-        filename = filedialog.askopenfilename(
-            title="Select file",
-            filetypes=(
-                ("image files", ("*.jpg", "*.png", "*.gif", "*.jpeg", "*.tiff", "*.bmp")),
-            )
-        )
+        filename = ask_open_image()
 
         # file was not selected
         if filename != "":
