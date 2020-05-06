@@ -9,6 +9,8 @@ from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
 from src.scroll import ScrolledFrame
+from src.utils import int_clamp
+from src.constants import WINDOW_SEP_WIDTH, CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
 
 
 class Application(tk.Frame):
@@ -35,7 +37,7 @@ class Application(tk.Frame):
         self.collage = None
         self.collage_width = tk.IntVar(master, 300)
         self.collage_height = tk.IntVar(master, 300)
-        self.collage_margin = tk.IntVar(master, 3)
+        self.collage_margin = tk.IntVar(master, WINDOW_SEP_WIDTH)
         self.corner_width = tk.IntVar(master, 30)
         self.corner_curve = tk.DoubleVar(master, 0.2)
 
@@ -182,12 +184,25 @@ class Application(tk.Frame):
 
     def change_canvas_parameters(self):
         """Validate and apply user input from menu entries."""
-        w = self.collage_width.get()
-        h = self.collage_height.get()
+        try:
+            w = int_clamp(self.collage_width.get(), CANVAS_MIN_SIZE, CANVAS_MAX_SIZE)
+            self.collage_width.set(w)
+            h = int_clamp(self.collage_height.get(), CANVAS_MIN_SIZE, CANVAS_MAX_SIZE)
+            self.collage_height.set(h)
+            m = int_clamp(self.collage_margin.get(), WINDOW_SEP_WIDTH, CANVAS_MAX_SIZE // 2)
+            self.collage_margin.set(m)
+            cw = int_clamp(self.corner_width.get(), 0, CANVAS_MAX_SIZE // 2)
+            self.corner_width.set(cw)
+            cc = min(1.0, max(0.0, self.corner_curve.get()))
+            self.corner_curve.set(cc)
+        except tk.TclError:
+            tk.messagebox.showerror(title="Input error", message="Incorrect input. Try again.")
+            return
+
         self.collage.configure(width=w, height=h)
-        self.collage.margin = self.collage_margin.get()
-        self.collage.corner_creator.Width = self.corner_width.get()
-        self.collage.corner_creator.Curve = self.corner_curve.get()
+        self.collage.margin = (m - WINDOW_SEP_WIDTH) // 2
+        self.collage.corner_creator.Width = cw
+        self.collage.corner_creator.Curve = cc
         self.collage.update_params()
 
         frame_width = w + self.add_buttons['e'].winfo_width() + self.add_buttons['w'].winfo_width()
