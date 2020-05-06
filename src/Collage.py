@@ -15,7 +15,10 @@ class Collage(tk.Frame):
         master_args,
         master_kwargs
     ):
-        super().__init__(master=scrolled_parent.inner, *master_args, **master_kwargs)
+        if scrolled_parent is not None:
+            super().__init__(master=scrolled_parent.inner, *master_args, **master_kwargs)
+        else:
+            super().__init__(*master_args, **master_kwargs)
         self.margin = margin
         self.corner_creator = CornerCreator(corner_width, corner_curve)
         self.scrolled_parent = scrolled_parent
