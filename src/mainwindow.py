@@ -152,7 +152,7 @@ class Application(tk.Frame):
                     self.corner_curve.set(corner_curve)
                     self.change_canvas_parameters()
                     self.collage.load_collage_root(collage_root)
-            except:
+            except (pickle.UnpicklingError, TypeError):
                 messagebox.showerror("Error", "Can't load collage from file {0}".format(filename))
 
     def dump_command(self):
