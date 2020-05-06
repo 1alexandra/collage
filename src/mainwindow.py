@@ -1,9 +1,11 @@
+import os
 import tkinter as tk
+from tkinter import filedialog
+
 from src.utils import ask_open_image
 from src.textconfig import TextConfigureApp
 from src.grid import grid_frame
 from src.Collage import Collage
-from tkinter import filedialog
 
 
 class Application(tk.Frame):
@@ -55,16 +57,18 @@ class Application(tk.Frame):
         buttons_frame = tk.Frame(frame, bd=10)
         grid_frame(buttons_frame, [0, 1, 2], [0, 1], row, col, 'news')
         commands = {
-            'Undo': self.undo_command,
-            'Redo': self.redo_command,
-            'Load': self.load_command,
-            'Save': self.save_command,
+            'Undo': None,
+            'Redo': None,
+            'Load...': None,
+            'Dump as...': None,
             'Save as...': self.save_as_command,
-            'Print': self.print_command
+            'Print...': None,
         }
         for i, (text, command) in enumerate(commands.items()):
-            button = tk.Button(buttons_frame, text=text, command=command, width=10)
-            button.grid(row=i // 2, column=i % 2, sticky='new')
+            if command is None:
+                continue
+            button = tk.Button(buttons_frame, text=text, command=command)
+            button.grid(row=i // 2, column=i % 2, sticky='news')
 
     def create_entries(self, frame, row, col):
         """Create, grid and bind menu entries block."""
@@ -90,7 +94,7 @@ class Application(tk.Frame):
         grid_frame(button_frame, [], [0], row, col, 'news')
         commands = {
             'Change parameters': self.change_canvas_parameters,
-            'Add text...': self.open_text_window
+            # 'Add text...': self.open_text_window
         }
         for i, (text, command) in enumerate(commands.items()):
             button = tk.Button(button_frame, text=text, command=command, padx=5, pady=5)
@@ -125,24 +129,26 @@ class Application(tk.Frame):
         self.collage.grid(row=1, column=1)
 
     def undo_command(self):
-        pass
+        raise NotImplementedError
 
     def redo_command(self):
-        pass
+        raise NotImplementedError
 
     def load_command(self):
-        pass
+        raise NotImplementedError
 
-    def save_command(self):
-        pass
+    def dump_as_command(self):
+        raise NotImplementedError
 
     def save_as_command(self):
         filename = filedialog.asksaveasfile(mode='w', defaultextension=".png", filetypes=(
-            ("PNG file", "*.png"), ("All Files", "*.*"))).name
-        self.collage.save_collage(filename)
+            ("PNG file", "*.png"), ("All Files", "*.*")))
+        if filename is None:
+            return
+        self.collage.save_collage(filename.name)
 
     def print_command(self):
-        pass
+        raise NotImplementedError
 
     def change_canvas_parameters(self):
         """Validate and apply user input from menu entries."""
