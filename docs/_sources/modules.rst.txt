@@ -5,4 +5,3 @@ Collage
    :maxdepth: 4
 
    src
-   run

@@ -11,12 +11,17 @@ class Collage(tk.Frame):
         margin,
         corner_width,
         corner_curve,
+        scrolled_parent,
         master_args,
         master_kwargs
     ):
-        super().__init__(*master_args, **master_kwargs)
+        if scrolled_parent is not None:
+            super().__init__(master=scrolled_parent.inner, *master_args, **master_kwargs)
+        else:
+            super().__init__(*master_args, **master_kwargs)
         self.margin = margin
         self.corner_creator = CornerCreator(corner_width, corner_curve)
+        self.scrolled_parent = scrolled_parent
 
         self.collage_root = CollageRoot(
             tk_master=self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
@@ -44,3 +49,11 @@ class Collage(tk.Frame):
 
     def save_collage(self, filename):
         self.collage_root.save_collage(filename)
+
+    def load_collage_root(self, obj):
+        if self.collage_root is not None:
+            self.collage_root.get_tk_object().grid_remove()
+        self.collage_root = obj
+        self.corner_creator = obj.get_corners()
+        self.collage_root.reload_object(tk_master=self)
+        self.collage_root.get_tk_object().grid(row=0, column=0)

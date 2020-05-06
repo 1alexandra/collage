@@ -1,0 +1,92 @@
+# Русский перевод для Simple Collage Creator
+# Alexandra Zhuravskaya <a.v.zhuravskaya@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.0.1\n"
+"POT-Creation-Date: 2020-05-06 20:54+0300\n"
+"PO-Revision-Date: 2020-05-06 21:43+0300\n"
+"Last-Translator: Alexandra Zhuravskaya <a.v.zhuravskaya@gmail.com>\n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: src\mainwindow.py:52
+msgid "Menu"
+msgstr "Меню"
+
+#: src\mainwindow.py:67
+msgid "Undo"
+msgstr "Отменить"
+
+#: src\mainwindow.py:68
+msgid "Redo"
+msgstr "Вернуть"
+
+#: src\mainwindow.py:69
+msgid "Load project"
+msgstr "Загрузить проект"
+
+#: src\mainwindow.py:70
+msgid "Dump project"
+msgstr "Сохранить проект"
+
+#: src\mainwindow.py:71
+msgid "Save as..."
+msgstr "Сохранить как..."
+
+#: src\mainwindow.py:72
+msgid "Print..."
+msgstr "Печать..."
+
+#: src\mainwindow.py:85
+msgid "Width in pixels"
+msgstr "Ширина в пикселях"
+
+#: src\mainwindow.py:86
+msgid "Height in pixels"
+msgstr "Высота в пикселях"
+
+#: src\mainwindow.py:87
+msgid "Margin in pixels"
+msgstr "Ширина рамки в пикселях"
+
+#: src\mainwindow.py:88
+msgid "Corner size in pixels"
+msgstr "Размер уголка в пикселях"
+
+#: src\mainwindow.py:89
+msgid "Corner curvature (0-1)"
+msgstr "Кривизна уголков (0-1)"
+
+#: src\mainwindow.py:102
+msgid "Change parameters"
+msgstr "Применить параметры"
+
+#: src\mainwindow.py:148
+msgid "Select file"
+msgstr "Выберите файл"
+
+#: src\mainwindow.py:150 src\mainwindow.py:166
+msgid "CLG file"
+msgstr "CLG файлы"
+
+#: src\mainwindow.py:178
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src\mainwindow.py:178
+msgid "PNG file"
+msgstr "PNG файлы"
+
+#: src\mainwindow.py:199
+msgid "Incorrect input. Try again."
+msgstr "Введенные параметры не соответствуют требованиям. Попробуйте ввести снова."
+
+#: src\mainwindow.py:199
+msgid "Input error"
+msgstr "Ошибка ввода"
+

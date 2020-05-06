@@ -104,13 +104,9 @@ class BreedingTkNode(BaseTkTreeNode):
         if self._left is not None:
             self._left.update_tk_object(new_parent=self._parent, instead=self)
 
-    def _forget_children(self):
-        if self._left is not None:
-            self._root.forget(self._left.get_tk_object())
-        if self._right is not None:
-            self._root.forget(self._right.get_tk_object())
-
-    def _display_children(self):
+    def display_children(self):
+        for child in self._root.panes():
+            self._root.forget(child)
         if self._left is not None:
             self._root.add(self._left.get_tk_object())
         if self._right is not None:
@@ -119,6 +115,8 @@ class BreedingTkNode(BaseTkTreeNode):
     def _align_children(self):
         """Updates the border between windows according to self._proportion"""
         if self._right is not None:
+            self._left_unresized = self._left is not None
+
             new_width = int_clamp(self._proportion * (self._width - WINDOW_SEP_WIDTH), min_val=0)
             new_height = int_clamp(self._proportion * (self._height - WINDOW_SEP_WIDTH), min_val=0)
 
@@ -136,23 +134,18 @@ class BreedingTkNode(BaseTkTreeNode):
         if len(self._root.panes()) > 1:
             return self._root.panes()[1]
 
-    def get_children_number(self):
-        if self._right is not None:
-            return 2
-        elif self._left is not None:
-            return 1
-        return 0
-
     def update_proportion(self, child):
         """Updates the proportion of children's windows' sizes"""
         if child is self._left:
             if not hasattr(self, '_left_unresized'):
                 self._left_unresized = False
-            if self._left is not None and self._right is not None and not self._left_unresized:
+            if self._right is not None and not self._left_unresized:
                 self._proportion = min(self._left.get_width() / int_clamp(self._width - WINDOW_SEP_WIDTH, min_val=1),
                                        self._left.get_height() / int_clamp(self._height - WINDOW_SEP_WIDTH, min_val=1))
+                return True
             elif self._left_unresized:
                 self._left_unresized = False
+        return False
 
     def _resize_handler(self, event):
         if event.width != self._width or event.height != self._height:
@@ -161,26 +154,26 @@ class BreedingTkNode(BaseTkTreeNode):
 
             if self._parent is not None:
                 self._parent.update_proportion(self)
-
-            self._left_unresized = self._left is not None
-            if self._right is not None:
-                self._align_children()
+            self._align_children()
 
 
 class UpdatableTkNode(BaseTkTreeNode):
+    def _update_tk_object(self):
+        self._create_tk_object()
+        if self._left is not None:
+            self._left._update_tk_object()
+            if self._right is not None:
+                self._right._update_tk_object()
+            self.display_children()
+
     def update_tk_object(self, new_parent=None, instead=None):
         if new_parent is not None:
             self._parent = new_parent
-        self._create_tk_object()
+        self._update_tk_object()
         if new_parent is not None:
             self._parent.replace_child(old_child=instead, new_child=self)
-
-        if self._left is not None:
-            self._forget_children()
-            self._left.update_tk_object()
-            if self._right is not None:
-                self._right.update_tk_object()
-            self._display_children()
+        else:
+            self._parent.display_children()
 
     def wrap_into_paned(self, internal_node_class, orient):
         new_parent = internal_node_class(
