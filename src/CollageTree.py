@@ -40,6 +40,7 @@ class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
                 self._right.add_to_collage(im, x_offset + self._left.get_width() + WINDOW_SEP_WIDTH, y_offset)
 
     def __getstate__(self):
+        """Pickles the subtree without tk object"""
         state = self.__dict__.copy()
         state['_root'] = None
         return state
@@ -53,18 +54,23 @@ class CollageRoot(CollageBreedingNode):
         self._corner_creator = corner_creator
 
     def __getstate__(self):
+        """Pickles the tree without tk object"""
         state = self.__dict__.copy()
         state['_root'] = None
         return state
 
     def reload_object(self, tk_master):
+        """Creates tk objects for the root and its children recursively"""
         self._create_tk_object(tk_master=tk_master)
-        self._left.update_tk_object()
+        if self._left is not None:
+            self._left.update_tk_object()
 
     def get_corners(self):
+        """Returns CornerCreator object"""
         return self._corner_creator
 
     def save_collage(self, filename):
+        """Saves the collage as an image"""
         if self._left is not None and filename != "":
             collage_im = Image.new("RGBA", (self._width, self._height))
             self._left.add_to_collage(collage_im, 0, 0)
