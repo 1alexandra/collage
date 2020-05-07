@@ -48,7 +48,6 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.master.geometry('1200x800+0+0')
-        self.master.state('zoomed')
         self.collage = None
         self.collage_width = tk.IntVar(master, 700)
         self.collage_height = tk.IntVar(master, 700)
