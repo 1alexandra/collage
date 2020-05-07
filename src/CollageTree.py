@@ -2,7 +2,7 @@ import tkinter as tk
 from src.utils import ask_open_image, get_orient, is_up_left, int_clamp, is_vertical, mix_image_with_bg
 from src.CollageImage import safe_open_image
 from src.BaseTkTree import BaseTkTreeNode, BreedingTkNode, UpdatableTkNode
-from src.constants import WINDOW_SEP_WIDTH, HIGHLIGHT_BORDER_WIDTH
+from src.constants import HIGHLIGHT_BORDER_WIDTH
 from PIL import Image
 from PIL.ImageTk import PhotoImage
 
@@ -16,28 +16,44 @@ class CollageBreedingNode(BreedingTkNode):
         width, height = self._width, self._height
         leaf_node = ResizableLeaf(
             image=image, corner_creator=corner_creator, parent=self,
-            width=width, height=height, bg=self._bg, bd=0, highlightthickness=0, margin=margin
+            width=width, height=height, bg=self._bg, bd=0, highlightthickness=0, margin=margin,
+            border_width=self._border_width
         )
         self.add_child(leaf_node, begin=is_up_left(where))
 
 
 class InternalTkNode(CollageBreedingNode, UpdatableTkNode):
-    def __init__(self, parent, orient, **init_kwargs):
+    def __init__(self, parent, orient, border_width, **init_kwargs):
         BaseTkTreeNode.__init__(
             self, tk.PanedWindow, parent=parent, orient=orient,
-            sashwidth=WINDOW_SEP_WIDTH, sashpad=0, bd=0, opaqueresize=False,
-            **init_kwargs
+            sashwidth=border_width, sashpad=0, bd=0, opaqueresize=False,
+            border_width=border_width, **init_kwargs
         )
         self._is_vertical = is_vertical(orient)
+
+    def _create_tk_object(self, tk_master=None):
+        self._special_kwargs['sashwidth'] = self._border_width
+        super()._create_tk_object(tk_master=tk_master)
 
     def add_to_collage(self, im, x_offset, y_offset):
         if self._left is not None:
             self._left.add_to_collage(im, x_offset, y_offset)
         if self._right is not None:
             if self._is_vertical:
-                self._right.add_to_collage(im, x_offset, y_offset + self._left.get_height() + WINDOW_SEP_WIDTH)
+                self._right.add_to_collage(im, x_offset, y_offset + self._left.get_height() + self._border_width)
             else:
-                self._right.add_to_collage(im, x_offset + self._left.get_width() + WINDOW_SEP_WIDTH, y_offset)
+                self._right.add_to_collage(im, x_offset + self._left.get_width() + self._border_width, y_offset)
+
+    def update_tree_vars(self, border_width=None, **kwargs):
+        """Updates the margin and corners of the image"""
+        if border_width is not None:
+            self._border_width = border_width
+            self._root.configure(sashwidth=self._border_width)
+            # When we update the border width, only right (or bottom) window is resized
+            # and size of the left widnow remains the same.
+            # That's why we need to align windows manually.
+            self._align_children()
+        super().update_tree_vars(border_width=border_width, **kwargs)
 
     def __getstate__(self):
         """Pickles the subtree without tk object"""
@@ -94,7 +110,8 @@ class CollageRoot(CollageBreedingNode):
             Can be one of ('w', 's', 'n', 'e').
         """
         if self._left is not None:
-            self._left.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))
+            self._left.wrap_into_paned(
+                internal_node_class=InternalTkNode, orient=get_orient(where))
             self._left.add_image_child(
                 image=image, where=where, margin=self._margin,
                 corner_creator=self._corner_creator)
@@ -103,7 +120,7 @@ class CollageRoot(CollageBreedingNode):
                 image=image, where=where, margin=self._margin,
                 corner_creator=self._corner_creator)
 
-    def update_params(self, new_width, new_height, new_margin):
+    def update_params(self, new_width, new_height, new_margin, new_border_width):
         """
         Updates images' corners.
         Also updates some other collage parameters according to the passed arguments.
@@ -113,14 +130,17 @@ class CollageRoot(CollageBreedingNode):
         new_width: int, non-negative
         new_height: int, non-negative
         new_margin: int, non-negative
+        new_border_width: int, non-negative
         """
         assert new_margin >= 0
         assert new_height >= 0
         assert new_width >= 0
+        assert new_border_width >= 0
         if new_width != self._width or new_height != self._height:
             self._root.config(width=new_width, height=new_height)
         self._margin = new_margin
-        self.update_leaf_vars(margin=self._margin)
+        self._border_width = new_border_width
+        self.update_tree_vars(margin=self._margin, border_width=self._border_width)
 
 
 class CollageLeafNode(UpdatableTkNode):
@@ -141,12 +161,14 @@ class CollageLeafNode(UpdatableTkNode):
         """Returns actual height of the image (without margin)"""
         return int_clamp(self._height - 2 * self._margin, min_val=0)
 
-    def update_leaf_vars(self, margin=None, **kwargs):
+    def update_tree_vars(self, margin=None, border_width=None, **kwargs):
         """Updates the margin and corners of the image"""
         if margin is not None:
             diff = margin - self._margin
             self._margin = margin
             self._move_image_on_canvas(dx=diff, dy=diff)
+        if border_width is not None:
+            self._border_width = border_width
         self._set_image()
 
     def destroy(self):

@@ -9,7 +9,7 @@ class Collage(tk.Frame):
     def __init__(
         self,
         margin,
-        padding,
+        border_width,
         corner_width,
         corner_curve,
         scrolled_parent,
@@ -21,12 +21,13 @@ class Collage(tk.Frame):
         else:
             super().__init__(*master_args, **master_kwargs)
         self.margin = margin
-        self.padding = padding
+        self.border_width = border_width
         self.corner_creator = CornerCreator(corner_width, corner_curve)
         self.scrolled_parent = scrolled_parent
 
         self.collage_root = CollageRoot(
-            tk_master=self, corner_creator=self.corner_creator, margin=self.margin, **master_kwargs)
+            tk_master=self, corner_creator=self.corner_creator, margin=self.margin, border_width=self.border_width,
+            **master_kwargs)
         self.collage_root.get_tk_object().grid(row=0, column=0)
 
     def get_collage_root(self):
@@ -47,7 +48,8 @@ class Collage(tk.Frame):
 
     def update_params(self):
         self.collage_root.update_params(
-            new_width=self.winfo_reqwidth(), new_height=self.winfo_reqheight(), new_margin=self.margin)
+            new_width=self.winfo_reqwidth(), new_height=self.winfo_reqheight(),
+            new_margin=self.margin, new_border_width=self.border_width)
 
     def save_collage(self, filename):
         self.collage_root.save_collage(filename)

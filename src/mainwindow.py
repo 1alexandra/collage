@@ -14,7 +14,7 @@ from src.grid import grid_frame
 from src.Collage import Collage
 from src.scroll import ScrolledFrame
 from src.utils import int_clamp
-from src.constants import WINDOW_SEP_WIDTH, CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
+from src.constants import CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
 
 
 if sys.platform.startswith('win'):
@@ -47,12 +47,12 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.master.geometry('1200x800+0+0')
+        self.master.geometry('900x600+0+0')
         self.collage = None
-        self.collage_width = tk.IntVar(master, 700)
-        self.collage_height = tk.IntVar(master, 700)
+        self.collage_width = tk.IntVar(master, 500)
+        self.collage_height = tk.IntVar(master, 500)
         self.collage_margin = tk.IntVar(master, 30)
-        self.collage_padding = tk.IntVar(master, 10)
+        self.collage_border_width = tk.IntVar(master, 4)
         self.corner_width = tk.IntVar(master, 70)
         self.corner_curve = tk.DoubleVar(master, 0.2)
 
@@ -98,7 +98,7 @@ class Application(tk.Frame):
             _('Width in pixels'): self.collage_width,
             _('Height in pixels'): self.collage_height,
             _('Margin in pixels'): self.collage_margin,
-            _('Padding in pixels') + ' (>1)': self.collage_padding,
+            _('Padding in pixels') + ' (>1)': self.collage_border_width,
             _('Corner size in pixels'): self.corner_width,
             _('Corner curvature (0-1)'): self.corner_curve
         }
@@ -139,7 +139,7 @@ class Application(tk.Frame):
             self.add_buttons[key] = button
         self.collage = Collage(
             margin=self.collage_margin.get(),
-            padding=self.collage_padding.get(),
+            border_width=self.collage_border_width.get(),
             corner_width=self.corner_width.get(),
             corner_curve=self.corner_curve.get(),
             scrolled_parent=scrolled_frame,
@@ -169,16 +169,16 @@ class Application(tk.Frame):
             try:
                 with open(filename, "rb") as file:
                     obj = pickle.load(file)
-                    width, height, margin, padding, corner_width, corner_curve, collage_root = obj
+                    width, height, margin, border_width, corner_width, corner_curve, collage_root = obj
                     self.collage_width.set(width)
                     self.collage_height.set(height)
                     self.collage_margin.set(margin)
-                    self.collage_padding.set(padding)
+                    self.collage_border_width.set(border_width)
                     self.corner_width.set(corner_width)
                     self.corner_curve.set(corner_curve)
                     self.change_canvas_parameters()
                     self.collage.load_collage_root(collage_root)
-            except (pickle.UnpicklingError, TypeError):
+            except (pickle.UnpicklingError, TypeError, ValueError):
                 messagebox.showerror("Error", "Can't load collage from file {0}".format(filename))
 
     def dump_command(self):
@@ -187,7 +187,7 @@ class Application(tk.Frame):
         if filename is not None:
             obj = (
                 self.collage_width.get(), self.collage_height.get(), self.collage_margin.get(),
-                self.collage_padding.get(), self.corner_width.get(), self.corner_curve.get(),
+                self.collage_border_width.get(), self.corner_width.get(), self.corner_curve.get(),
                 self.collage.get_collage_root()
             )
             with open(filename.name, "wb") as file:
@@ -211,8 +211,8 @@ class Application(tk.Frame):
             self.collage_height.set(h)
             m = int_clamp(self.collage_margin.get(), 0, CANVAS_MAX_SIZE // 2)
             self.collage_margin.set(m)
-            p = int_clamp(self.collage_padding.get(), 2, CANVAS_MAX_SIZE // 2)
-            self.collage_padding.set(p)
+            p = int_clamp(self.collage_border_width.get(), 2, CANVAS_MAX_SIZE // 2)
+            self.collage_border_width.set(p)
             cw = int_clamp(self.corner_width.get(), 0, CANVAS_MAX_SIZE // 2)
             self.corner_width.set(cw)
             cc = min(1.0, max(0.0, self.corner_curve.get()))
@@ -229,8 +229,8 @@ class Application(tk.Frame):
         w = self.collage_width.get()
         h = self.collage_height.get()
         self.collage.configure(width=w, height=h)
-        self.collage.padding = self.collage_padding.get() - WINDOW_SEP_WIDTH
-        self.collage.margin = self.collage_margin.get() + WINDOW_SEP_WIDTH
+        self.collage.border_width = self.collage_border_width.get()
+        self.collage.margin = self.collage_margin.get()
         self.collage.corner_creator.Width = self.corner_width.get()
         self.collage.corner_creator.Curve = self.corner_curve.get()
         self.collage.update_params()

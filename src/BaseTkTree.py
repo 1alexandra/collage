@@ -1,9 +1,8 @@
 from src.utils import int_clamp
-from src.constants import WINDOW_SEP_WIDTH
 
 
 class BaseTkTreeNode:
-    def __init__(self, obj_class, parent, width, height, tk_master=None, bg='white', **special_kwargs):
+    def __init__(self, obj_class, parent, width, height, tk_master=None, bg='white', border_width=0, **special_kwargs):
         self._root = None
 
         self._obj_class = obj_class
@@ -12,6 +11,7 @@ class BaseTkTreeNode:
         self._bg = bg
         self._width = width
         self._height = height
+        self._border_width = border_width
 
         self._special_kwargs = special_kwargs
 
@@ -36,12 +36,12 @@ class BaseTkTreeNode:
     def get_tk_object(self):
         return self._root
 
-    def update_leaf_vars(self, **kwargs):
+    def update_tree_vars(self, **kwargs):
         """Calls function recursively"""
         if self._left is not None:
-            self._left.update_leaf_vars(**kwargs)
+            self._left.update_tree_vars(**kwargs)
         if self._right is not None:
-            self._right.update_leaf_vars(**kwargs)
+            self._right.update_tree_vars(**kwargs)
 
     def _resize_handler(self, event):
         pass
@@ -56,7 +56,7 @@ class BaseTkTreeNode:
         master = self._parent.get_tk_object() if tk_master is None else tk_master
         self._root = self._obj_class(
             master=master, width=self._width, height=self._height, bg=self._bg, **self._special_kwargs)
-        self._root.bind('<Configure>', self._resize_handler)
+        self._root.bind("<Configure>", self._resize_handler)
 
 
 class BreedingTkNode(BaseTkTreeNode):
@@ -117,8 +117,8 @@ class BreedingTkNode(BaseTkTreeNode):
         if self._right is not None:
             self._left_unresized = self._left is not None
 
-            new_width = int_clamp(self._proportion * (self._width - WINDOW_SEP_WIDTH), min_val=0)
-            new_height = int_clamp(self._proportion * (self._height - WINDOW_SEP_WIDTH), min_val=0)
+            new_width = int_clamp(self._proportion * (self._width - self._border_width), min_val=0)
+            new_height = int_clamp(self._proportion * (self._height - self._border_width), min_val=0)
 
             child_internal = self._get_left_child_internal()
             assert child_internal is not None
@@ -140,8 +140,9 @@ class BreedingTkNode(BaseTkTreeNode):
             if not hasattr(self, '_left_unresized'):
                 self._left_unresized = False
             if self._right is not None and not self._left_unresized:
-                self._proportion = min(self._left.get_width() / int_clamp(self._width - WINDOW_SEP_WIDTH, min_val=1),
-                                       self._left.get_height() / int_clamp(self._height - WINDOW_SEP_WIDTH, min_val=1))
+                self._proportion = min(
+                    self._left.get_width() / int_clamp(self._width - self._border_width, min_val=1),
+                    self._left.get_height() / int_clamp(self._height - self._border_width, min_val=1))
                 return True
             elif self._left_unresized:
                 self._left_unresized = False
@@ -179,7 +180,7 @@ class UpdatableTkNode(BaseTkTreeNode):
         new_parent = internal_node_class(
             parent=self._parent, orient=orient,
             width=self._width, height=self._height,
-            bg=self._bg
+            bg=self._bg, border_width=self._border_width
         )
         self._parent.replace_child(old_child=self, new_child=new_parent)
         self.update_tk_object(new_parent=new_parent)
