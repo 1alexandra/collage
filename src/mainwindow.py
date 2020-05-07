@@ -14,7 +14,7 @@ from src.grid import grid_frame
 from src.Collage import Collage
 from src.scroll import ScrolledFrame
 from src.utils import int_clamp
-from src.constants import WINDOW_SEP_WIDTH, CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
+from src.constants import CANVAS_MIN_SIZE, CANVAS_MAX_SIZE
 
 
 if sys.platform.startswith('win'):
@@ -37,7 +37,7 @@ class Application(tk.Frame):
 
     - ``Load``, ``Save``, ``Save as...``\
     buttons at the top,
-    - ``Width``, ``Height``, ``Margin``, ``Corner width``, ``Corner Curvature`` \
+    - ``Width``, ``Height``, ``Padding``, ``Border Scroller``, ``Corner width``, ``Corner Curvature`` \
     entries in the middle,
     - ``Change parameters`` button below it.
 
@@ -47,11 +47,13 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.master.geometry('900x600+0+0')
         self.collage = None
-        self.collage_width = tk.IntVar(master, 300)
-        self.collage_height = tk.IntVar(master, 300)
-        self.collage_margin = tk.IntVar(master, WINDOW_SEP_WIDTH)
-        self.corner_width = tk.IntVar(master, 30)
+        self.collage_width = tk.IntVar(master, 500)
+        self.collage_height = tk.IntVar(master, 500)
+        self.collage_margin = tk.IntVar(master, 10)
+        self.collage_border_width = tk.IntVar(master, 4)
+        self.corner_width = tk.IntVar(master, 70)
         self.corner_curve = tk.DoubleVar(master, 0.2)
 
         self.create_widgets()
@@ -95,7 +97,8 @@ class Application(tk.Frame):
         variables = {
             _('Width in pixels'): self.collage_width,
             _('Height in pixels'): self.collage_height,
-            _('Margin in pixels'): self.collage_margin,
+            _('Photo padding in pixels'): self.collage_margin,
+            _('Border scroller in pixels (>1)'): self.collage_border_width,
             _('Corner size in pixels'): self.corner_width,
             _('Corner curvature (0-1)'): self.corner_curve
         }
@@ -120,7 +123,7 @@ class Application(tk.Frame):
     def create_canvas_frame(self, frame, row, col):
         """Create, grid and bind workspace units."""
         parent_frame = tk.Frame(frame, bd=10)
-        grid_frame(parent_frame, [0], [0], row, col, 'news')
+        grid_frame(parent_frame, [0], [0], row, col)
         scrolled_frame = ScrolledFrame(parent_frame, True, True)
         compass = {
             'n': (-1, 0),
@@ -136,6 +139,7 @@ class Application(tk.Frame):
             self.add_buttons[key] = button
         self.collage = Collage(
             margin=self.collage_margin.get(),
+            border_width=self.collage_border_width.get(),
             corner_width=self.corner_width.get(),
             corner_curve=self.corner_curve.get(),
             scrolled_parent=scrolled_frame,
@@ -165,16 +169,16 @@ class Application(tk.Frame):
             try:
                 with open(filename, "rb") as file:
                     obj = pickle.load(file)
-                    width, height, margin, corner_width, corner_curve, collage_root = obj
-                    # todo: add validation here
+                    width, height, margin, border_width, corner_width, corner_curve, collage_root = obj
                     self.collage_width.set(width)
                     self.collage_height.set(height)
                     self.collage_margin.set(margin)
+                    self.collage_border_width.set(border_width)
                     self.corner_width.set(corner_width)
                     self.corner_curve.set(corner_curve)
                     self.change_canvas_parameters()
                     self.collage.load_collage_root(collage_root)
-            except (pickle.UnpicklingError, TypeError):
+            except (pickle.UnpicklingError, TypeError, ValueError):
                 messagebox.showerror("Error", "Can't load collage from file {0}".format(filename))
 
     def dump_command(self):
@@ -183,7 +187,7 @@ class Application(tk.Frame):
         if filename is not None:
             obj = (
                 self.collage_width.get(), self.collage_height.get(), self.collage_margin.get(),
-                self.corner_width.get(), self.corner_curve.get(),
+                self.collage_border_width.get(), self.corner_width.get(), self.corner_curve.get(),
                 self.collage.get_collage_root()
             )
             with open(filename.name, "wb") as file:
@@ -198,32 +202,44 @@ class Application(tk.Frame):
     def print_command(self):
         raise NotImplementedError
 
-    def change_canvas_parameters(self):
-        """Validate and apply user input from menu entries."""
+    def validate_parameters(self):
+        """Validate and clamp user input."""
         try:
             w = int_clamp(self.collage_width.get(), CANVAS_MIN_SIZE, CANVAS_MAX_SIZE)
             self.collage_width.set(w)
             h = int_clamp(self.collage_height.get(), CANVAS_MIN_SIZE, CANVAS_MAX_SIZE)
             self.collage_height.set(h)
-            m = int_clamp(self.collage_margin.get(), WINDOW_SEP_WIDTH, CANVAS_MAX_SIZE // 2)
+            m = int_clamp(self.collage_margin.get(), 0, CANVAS_MAX_SIZE // 2)
             self.collage_margin.set(m)
+            p = int_clamp(self.collage_border_width.get(), 2, CANVAS_MAX_SIZE // 2)
+            self.collage_border_width.set(p)
             cw = int_clamp(self.corner_width.get(), 0, CANVAS_MAX_SIZE // 2)
             self.corner_width.set(cw)
             cc = min(1.0, max(0.0, self.corner_curve.get()))
             self.corner_curve.set(cc)
         except tk.TclError:
             tk.messagebox.showerror(title=_("Input error"), message=_("Incorrect input. Try again."))
-            return
+            return False
+        return True
 
+    def change_canvas_parameters(self):
+        """Validate and apply user input from menu entries."""
+        if not self.validate_parameters():
+            return
+        w = self.collage_width.get()
+        h = self.collage_height.get()
         self.collage.configure(width=w, height=h)
-        self.collage.margin = m
-        self.collage.corner_creator.Width = cw
-        self.collage.corner_creator.Curve = cc
+        self.collage.border_width = self.collage_border_width.get()
+        self.collage.margin = self.collage_margin.get()
+        self.collage.corner_creator.Width = self.corner_width.get()
+        self.collage.corner_creator.Curve = self.corner_curve.get()
         self.collage.update_params()
 
         frame_width = w + self.add_buttons['e'].winfo_width() + self.add_buttons['w'].winfo_width()
         frame_height = h + self.add_buttons['s'].winfo_height() + self.add_buttons['n'].winfo_height()
         self.collage.scrolled_parent.resize_handler(width=frame_width, height=frame_height)
+
+        self.master.update()
 
     def open_text_window(self):
         """Open ``TextConfigureApp`` window. Return canvas with result."""

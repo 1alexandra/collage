@@ -13,80 +13,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
-
-#: src\mainwindow.py:52
+#: src\mainwindow.py:65
 msgid "Menu"
 msgstr "Меню"
 
-#: src\mainwindow.py:67
+#: src\mainwindow.py:80
 msgid "Undo"
 msgstr "Отменить"
 
-#: src\mainwindow.py:68
+#: src\mainwindow.py:81
 msgid "Redo"
 msgstr "Вернуть"
 
-#: src\mainwindow.py:69
+#: src\mainwindow.py:82
 msgid "Load project"
 msgstr "Загрузить проект"
 
-#: src\mainwindow.py:70
+#: src\mainwindow.py:83
 msgid "Dump project"
 msgstr "Сохранить проект"
 
-#: src\mainwindow.py:71
+#: src\mainwindow.py:84
 msgid "Save as..."
 msgstr "Сохранить как..."
 
-#: src\mainwindow.py:72
+#: src\mainwindow.py:85
 msgid "Print..."
 msgstr "Печать..."
 
-#: src\mainwindow.py:85
+#: src\mainwindow.py:98
 msgid "Width in pixels"
 msgstr "Ширина в пикселях"
 
-#: src\mainwindow.py:86
+#: src\mainwindow.py:99
 msgid "Height in pixels"
 msgstr "Высота в пикселях"
 
-#: src\mainwindow.py:87
-msgid "Margin in pixels"
-msgstr "Ширина рамки в пикселях"
+#: src\mainwindow.py:100
+msgid "Photo padding in pixels"
+msgstr "Рамки фото в пикселях"
 
-#: src\mainwindow.py:88
+#: src\mainwindow.py:101
+msgid "Border scroller in pixels (>1)"
+msgstr "Скроллер границы в пикселях"
+
+#: src\mainwindow.py:102
 msgid "Corner size in pixels"
-msgstr "Размер уголка в пикселях"
+msgstr "Размер уголков в пикселях"
 
-#: src\mainwindow.py:89
+#: src\mainwindow.py:103
 msgid "Corner curvature (0-1)"
 msgstr "Кривизна уголков (0-1)"
 
-#: src\mainwindow.py:102
+#: src\mainwindow.py:116
 msgid "Change parameters"
 msgstr "Применить параметры"
 
-#: src\mainwindow.py:148
+#: src\mainwindow.py:163
 msgid "Select file"
 msgstr "Выберите файл"
 
-#: src\mainwindow.py:150 src\mainwindow.py:166
+#: src\mainwindow.py:165 src\mainwindow.py:186
 msgid "CLG file"
-msgstr "CLG файлы"
+msgstr "CLG файл"
 
-#: src\mainwindow.py:178
+#: src\mainwindow.py:198
 msgid "All Files"
 msgstr "Все файлы"
 
-#: src\mainwindow.py:178
+#: src\mainwindow.py:198
 msgid "PNG file"
-msgstr "PNG файлы"
+msgstr "PNG файл"
 
-#: src\mainwindow.py:199
+#: src\mainwindow.py:221
 msgid "Incorrect input. Try again."
-msgstr "Введенные параметры не соответствуют требованиям. Попробуйте ввести снова."
+msgstr "Некорректный набор параметров. Попробуйте еще раз."
 
-#: src\mainwindow.py:199
+#: src\mainwindow.py:221
 msgid "Input error"
-msgstr "Ошибка ввода"
+msgstr "Ошибка ввода параметров"
 

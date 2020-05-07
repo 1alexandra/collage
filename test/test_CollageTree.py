@@ -15,7 +15,7 @@ def filename():
 
 @pytest.fixture
 def collage():
-    collage = Collage(0, 1, 1, None, [], {'width': 30, 'height': 30})
+    collage = Collage(0, 1, 1, 1, None, [], {'width': 30, 'height': 30})
     return collage
 
 
