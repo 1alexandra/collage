@@ -143,7 +143,7 @@
 <span id="src-collage-module"></span><h2>src.Collage module<a class="headerlink" href="#module-src.Collage" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="src.Collage.Collage">
-<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span></em>, <em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curve</span></em>, <em class="sig-param"><span class="n">scrolled_parent</span></em>, <em class="sig-param"><span class="n">master_args</span></em>, <em class="sig-param"><span class="n">master_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span></em>, <em class="sig-param"><span class="n">padding</span></em>, <em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curve</span></em>, <em class="sig-param"><span class="n">scrolled_parent</span></em>, <em class="sig-param"><span class="n">master_args</span></em>, <em class="sig-param"><span class="n">master_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
 <dl class="py method">
 <dt id="src.Collage.Collage.add_image">
@@ -409,17 +409,20 @@ Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.get_corners">
 <code class="sig-name descname">get_corners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.get_corners" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns CornerCreator object</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.reload_object">
 <code class="sig-name descname">reload_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tk_master</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.reload_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Creates tk objects for the root and its children recursively</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.save_collage">
 <code class="sig-name descname">save_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.save_collage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Saves the collage as an image</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.update_params">
@@ -582,7 +585,7 @@ are ignored.</p>
 parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Load</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as...</span></code>    buttons at the top,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Margin</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">Curvature</span></code>     entries in the middle,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Margin</span></code>, <code class="docutils literal notranslate"><span class="pre">Padding</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">Curvature</span></code>     entries in the middle,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">parameters</span></code> button below it.</p></li>
 </ul>
 <p>The <strong>workspace</strong> contains <code class="docutils literal notranslate"><span class="pre">Collage</span></code> object in the middle and four buttons
@@ -680,6 +683,12 @@ existing cells are compressed to make room for a new cell.</p>
 <dt id="src.mainwindow.Application.undo_command">
 <code class="sig-name descname">undo_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.undo_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.mainwindow.Application.validate_parameters">
+<code class="sig-name descname">validate_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.mainwindow.Application.validate_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate and clamp user input.</p>
+</dd></dl>
 
 </dd></dl>
 

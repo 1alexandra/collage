@@ -9,6 +9,7 @@ class Collage(tk.Frame):
     def __init__(
         self,
         margin,
+        padding,
         corner_width,
         corner_curve,
         scrolled_parent,
@@ -20,6 +21,7 @@ class Collage(tk.Frame):
         else:
             super().__init__(*master_args, **master_kwargs)
         self.margin = margin
+        self.padding = padding
         self.corner_creator = CornerCreator(corner_width, corner_curve)
         self.scrolled_parent = scrolled_parent
 
