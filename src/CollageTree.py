@@ -97,17 +97,19 @@ class CollageRoot(CollageBreedingNode):
     def add_image(self, image, where):
         """
         Adds the image to the collage.
+
         If there were no images before, just adds it,
         otherwise - creates new PanedWindow that consists of
         old version of collage and new image.
 
         Parameters
-        ----------
-        image : PILCollageImage
 
-        where: str
-            Specifies the place where we should put the image.
-            Can be one of ('w', 's', 'n', 'e').
+            image : PILCollageImage
+
+            where: str
+                Specifies the place where we should put the image.
+                Can be one of ('w', 's', 'n', 'e').
+
         """
         if self._left is not None:
             self._left.wrap_into_paned(
@@ -123,14 +125,16 @@ class CollageRoot(CollageBreedingNode):
     def update_params(self, new_width, new_height, new_margin, new_border_width):
         """
         Updates images' corners.
+
         Also updates some other collage parameters according to the passed arguments.
 
-        Parameters
-        ----------
-        new_width: int, non-negative
-        new_height: int, non-negative
-        new_margin: int, non-negative
-        new_border_width: int, non-negative
+        Parameters:
+
+            new_width: int, non-negative
+            new_height: int, non-negative
+            new_margin: int, non-negative
+            new_border_width: int, non-negative
+
         """
         assert new_margin >= 0
         assert new_height >= 0
@@ -255,11 +259,12 @@ class CollageLeafNode(UpdatableTkNode):
 
         Creates new PanedWindow that consists of this image and the currently loaded image.
 
-        Parameters
-        ----------
-        where: str
-            Specifies the place where we should put the image.
-            Can be one of ('w', 's', 'n', 'e').
+        Parameters:
+
+            where: str
+                Specifies the place where we should put the image.
+                Can be one of ('w', 's', 'n', 'e').
+
         """
         if image:
             self.wrap_into_paned(internal_node_class=InternalTkNode, orient=get_orient(where))

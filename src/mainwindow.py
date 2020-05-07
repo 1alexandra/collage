@@ -37,7 +37,7 @@ class Application(tk.Frame):
 
     - ``Load``, ``Save``, ``Save as...``\
     buttons at the top,
-    - ``Width``, ``Height``, ``Margin``, ``Padding``, ``Corner width``, ``Corner Curvature`` \
+    - ``Width``, ``Height``, ``Padding``, ``Border Scroller``, ``Corner width``, ``Corner Curvature`` \
     entries in the middle,
     - ``Change parameters`` button below it.
 
@@ -51,7 +51,7 @@ class Application(tk.Frame):
         self.collage = None
         self.collage_width = tk.IntVar(master, 500)
         self.collage_height = tk.IntVar(master, 500)
-        self.collage_margin = tk.IntVar(master, 30)
+        self.collage_margin = tk.IntVar(master, 10)
         self.collage_border_width = tk.IntVar(master, 4)
         self.corner_width = tk.IntVar(master, 70)
         self.corner_curve = tk.DoubleVar(master, 0.2)
@@ -97,8 +97,8 @@ class Application(tk.Frame):
         variables = {
             _('Width in pixels'): self.collage_width,
             _('Height in pixels'): self.collage_height,
-            _('Margin in pixels'): self.collage_margin,
-            _('Padding in pixels') + ' (>1)': self.collage_border_width,
+            _('Photo padding in pixels'): self.collage_margin,
+            _('Border scroller in pixels (>1)'): self.collage_border_width,
             _('Corner size in pixels'): self.corner_width,
             _('Corner curvature (0-1)'): self.corner_curve
         }

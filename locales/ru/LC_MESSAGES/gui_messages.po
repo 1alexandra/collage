@@ -50,12 +50,12 @@ msgid "Height in pixels"
 msgstr "Высота в пикселях"
 
 #: src\mainwindow.py:100
-msgid "Margin in pixels"
-msgstr "Поля коллажа в пикселях"
+msgid "Photo padding in pixels"
+msgstr "Рамки фото в пикселях"
 
 #: src\mainwindow.py:101
-msgid "Padding in pixels"
-msgstr "Рамки фото в пикселях"
+msgid "Border scroller in pixels (>1)"
+msgstr "Скроллер границы в пикселях"
 
 #: src\mainwindow.py:102
 msgid "Corner size in pixels"
@@ -87,7 +87,7 @@ msgstr "PNG файл"
 
 #: src\mainwindow.py:221
 msgid "Incorrect input. Try again."
-msgstr "Введенные параметры не соответствуют требованиям. Попробуйте ввести снова."
+msgstr "Некорректный набор параметров. Попробуйте еще раз."
 
 #: src\mainwindow.py:221
 msgid "Input error"

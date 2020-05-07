@@ -49,7 +49,7 @@
 <span id="src-basetktree-module"></span><h2>src.BaseTkTree module<a class="headerlink" href="#module-src.BaseTkTree" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="src.BaseTkTree.BaseTkTreeNode">
-<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BaseTkTreeNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BaseTkTreeNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="src.BaseTkTree.BaseTkTreeNode.get_height">
@@ -77,8 +77,8 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="src.BaseTkTree.BaseTkTreeNode.update_leaf_vars">
-<code class="sig-name descname">update_leaf_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.update_leaf_vars" title="Permalink to this definition">¶</a></dt>
+<dt id="src.BaseTkTree.BaseTkTreeNode.update_tree_vars">
+<code class="sig-name descname">update_tree_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BaseTkTreeNode.update_tree_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls function recursively</p>
 </dd></dl>
 
@@ -86,7 +86,7 @@
 
 <dl class="py class">
 <dt id="src.BaseTkTree.BreedingTkNode">
-<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BreedingTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">BreedingTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.BreedingTkNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BaseTkTreeNode" title="src.BaseTkTree.BaseTkTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BaseTkTreeNode</span></code></a></p>
 <dl class="py method">
 <dt id="src.BaseTkTree.BreedingTkNode.add_child">
@@ -124,7 +124,7 @@
 
 <dl class="py class">
 <dt id="src.BaseTkTree.UpdatableTkNode">
-<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">UpdatableTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.UpdatableTkNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.BaseTkTree.</code><code class="sig-name descname">UpdatableTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.BaseTkTree.UpdatableTkNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BaseTkTreeNode" title="src.BaseTkTree.BaseTkTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BaseTkTreeNode</span></code></a></p>
 <dl class="py method">
 <dt id="src.BaseTkTree.UpdatableTkNode.update_tk_object">
@@ -143,7 +143,7 @@
 <span id="src-collage-module"></span><h2>src.Collage module<a class="headerlink" href="#module-src.Collage" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="src.Collage.Collage">
-<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span></em>, <em class="sig-param"><span class="n">padding</span></em>, <em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curve</span></em>, <em class="sig-param"><span class="n">scrolled_parent</span></em>, <em class="sig-param"><span class="n">master_args</span></em>, <em class="sig-param"><span class="n">master_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.Collage.</code><code class="sig-name descname">Collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span></em>, <em class="sig-param"><span class="n">border_width</span></em>, <em class="sig-param"><span class="n">corner_width</span></em>, <em class="sig-param"><span class="n">corner_curve</span></em>, <em class="sig-param"><span class="n">scrolled_parent</span></em>, <em class="sig-param"><span class="n">master_args</span></em>, <em class="sig-param"><span class="n">master_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.Collage.Collage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
 <dl class="py method">
 <dt id="src.Collage.Collage.add_image">
@@ -330,7 +330,7 @@ Returns cropped PIL Image</p>
 <span id="src-collagetree-module"></span><h2>src.CollageTree module<a class="headerlink" href="#module-src.CollageTree" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="src.CollageTree.CollageBreedingNode">
-<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">CollageBreedingNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageBreedingNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">CollageBreedingNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_class</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">tk_master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bg</span><span class="o">=</span><span class="default_value">'white'</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">special_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageBreedingNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.BaseTkTree.BreedingTkNode" title="src.BaseTkTree.BreedingTkNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.BreedingTkNode</span></code></a></p>
 <dl class="py method">
 <dt id="src.CollageTree.CollageBreedingNode.add_image_child">
@@ -348,11 +348,14 @@ Returns cropped PIL Image</p>
 <code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.add_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds new image to the tree.</p>
 <p>Creates new PanedWindow that consists of this image and the currently loaded image.</p>
-<dl class="simple">
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>where: str</dt><dd><p>Specifies the place where we should put the image.
 Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -380,8 +383,8 @@ by the only child left (so the tree remains to be binary).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.CollageTree.CollageLeafNode.update_leaf_vars">
-<code class="sig-name descname">update_leaf_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.update_leaf_vars" title="Permalink to this definition">¶</a></dt>
+<dt id="src.CollageTree.CollageLeafNode.update_tree_vars">
+<code class="sig-name descname">update_tree_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageLeafNode.update_tree_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the margin and corners of the image</p>
 </dd></dl>
 
@@ -394,16 +397,19 @@ by the only child left (so the tree remains to be binary).</p>
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.add_image">
 <code class="sig-name descname">add_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">where</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.add_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the image to the collage.
-If there were no images before, just adds it,
+<dd><p>Adds the image to the collage.</p>
+<p>If there were no images before, just adds it,
 otherwise - creates new PanedWindow that consists of
 old version of collage and new image.</p>
-<p>image : PILCollageImage</p>
+<p>Parameters</p>
+<blockquote>
+<div><p>image : PILCollageImage</p>
 <dl class="simple">
 <dt>where: str</dt><dd><p>Specifies the place where we should put the image.
 Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -426,24 +432,34 @@ Can be one of (‘w’, ‘s’, ‘n’, ‘e’).</p>
 
 <dl class="py method">
 <dt id="src.CollageTree.CollageRoot.update_params">
-<code class="sig-name descname">update_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_width</span></em>, <em class="sig-param"><span class="n">new_height</span></em>, <em class="sig-param"><span class="n">new_margin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.update_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates images’ corners.
-Also updates some other collage parameters according to the passed arguments.</p>
-<p>new_width: int, non-negative
+<code class="sig-name descname">update_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_width</span></em>, <em class="sig-param"><span class="n">new_height</span></em>, <em class="sig-param"><span class="n">new_margin</span></em>, <em class="sig-param"><span class="n">new_border_width</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.CollageRoot.update_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates images’ corners.</p>
+<p>Also updates some other collage parameters according to the passed arguments.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><p>new_width: int, non-negative
 new_height: int, non-negative
-new_margin: int, non-negative</p>
+new_margin: int, non-negative
+new_border_width: int, non-negative</p>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="src.CollageTree.InternalTkNode">
-<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">InternalTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">orient</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">init_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.CollageTree.</code><code class="sig-name descname">InternalTkNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">orient</span></em>, <em class="sig-param"><span class="n">border_width</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">init_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.CollageTree.CollageBreedingNode" title="src.CollageTree.CollageBreedingNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.CollageTree.CollageBreedingNode</span></code></a>, <a class="reference internal" href="#src.BaseTkTree.UpdatableTkNode" title="src.BaseTkTree.UpdatableTkNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.BaseTkTree.UpdatableTkNode</span></code></a></p>
 <dl class="py method">
 <dt id="src.CollageTree.InternalTkNode.add_to_collage">
 <code class="sig-name descname">add_to_collage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">im</span></em>, <em class="sig-param"><span class="n">x_offset</span></em>, <em class="sig-param"><span class="n">y_offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode.add_to_collage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="src.CollageTree.InternalTkNode.update_tree_vars">
+<code class="sig-name descname">update_tree_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CollageTree.InternalTkNode.update_tree_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the margin and corners of the image</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -585,7 +601,7 @@ are ignored.</p>
 parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Load</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span></code>, <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as...</span></code>    buttons at the top,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Margin</span></code>, <code class="docutils literal notranslate"><span class="pre">Padding</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">Curvature</span></code>     entries in the middle,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Padding</span></code>, <code class="docutils literal notranslate"><span class="pre">Border</span> <span class="pre">Scroller</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">Corner</span> <span class="pre">Curvature</span></code>     entries in the middle,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">parameters</span></code> button below it.</p></li>
 </ul>
 <p>The <strong>workspace</strong> contains <code class="docutils literal notranslate"><span class="pre">Collage</span></code> object in the middle and four buttons
