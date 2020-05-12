@@ -16,8 +16,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/1alexandra/collage",
     packages=setuptools.find_packages(
-        exclude=["*.test", "*.test.*", "test.*", "test"]
+        exclude=["*.test", "*.test.*", "test.*", "test"],
     ),
+    scripts=['run.py'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
